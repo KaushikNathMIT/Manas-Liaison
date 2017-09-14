@@ -19,6 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.OnlineChallengeCommingSoon" />
+        <activity android:name=".Activities.OnlineChallengeOngoing" />
+        <activity android:name=".Activities.OrientationActivity" />
+        <activity
+            android:name=".Activities.InterviewActivity"
+            android:label="@string/title_activity_interview"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
