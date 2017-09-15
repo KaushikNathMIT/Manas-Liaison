@@ -41,5 +41,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.+'
     testCompile 'junit:junit:4.12'
     compile 'pub.devrel:easypermissions:0.2.1'
-
+    compile 'com.backendless:backendless:4.0.+'
 }

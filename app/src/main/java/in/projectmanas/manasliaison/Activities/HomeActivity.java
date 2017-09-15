@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.backendless.Backendless;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Backendless.initApp(this, "2FD5D150-929E-93CC-FF3D-0649CF51C200", "3E613B51-4A9A-9FC3-FFE5-05EDC2085500");
+        Backendless.Messaging.registerDevice("309761236208");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,7 +43,7 @@ public class HomeActivity extends AppCompatActivity
 
         mCredential = FirstRunActivity.mCredential;
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
-        fetchSampleDetails();
+        //fetchSampleDetails();
     }
 
     private void fetchSampleDetails() {
