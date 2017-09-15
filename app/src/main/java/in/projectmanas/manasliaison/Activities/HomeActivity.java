@@ -17,6 +17,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import java.util.ArrayList;
 
 import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
+import in.projectmanas.manasliaison.Constants.ConstantsManas;
 import in.projectmanas.manasliaison.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -29,7 +30,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
-        Backendless.Messaging.registerDevice("309761236208");
+        Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,11 +45,11 @@ public class HomeActivity extends AppCompatActivity
 
         mCredential = FirstRunActivity.mCredential;
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
-        //fetchSampleDetails();
+        fetchSampleDetails();
     }
 
     private void fetchSampleDetails() {
-        String[] params = new String[]{"DashBoard!H3:K"};
+        String[] params = new String[]{"Form Responses 1!B2:C39"};
         ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, this);
         readSpreadSheet.delegate = this;
         readSpreadSheet.execute(params);
@@ -101,6 +102,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void processFinish(ArrayList<ArrayList<String>> output) {
-        Log.d("aaa", output.get(0).get(0));
+        Log.d("aaa", output.size() + "");
     }
 }
