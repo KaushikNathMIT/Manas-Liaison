@@ -57,7 +57,6 @@ public class FirstRunActivity extends AppCompatActivity
             acquireGooglePlayServices();
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
-            //Backendless.Messaging.registerDevice("309761236208");
         } else if (!isDeviceOnline()) {
             //mOutputText.setText("No network connection available.");
         } else {
