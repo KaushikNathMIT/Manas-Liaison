@@ -15,7 +15,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 
 import java.util.ArrayList;
 
-import projectmanas.in.manasliaison.R;
+import in.projectmanas.manasliaison.R;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {

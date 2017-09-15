@@ -3,7 +3,7 @@ package in.projectmanas.manasliaison.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import projectmanas.in.manasliaison.R;
+import in.projectmanas.manasliaison.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

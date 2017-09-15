@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import projectmanas.in.manasliaison.R;
+import in.projectmanas.manasliaison.R;
 
 public class InterviewActivity extends AppCompatActivity {
 
