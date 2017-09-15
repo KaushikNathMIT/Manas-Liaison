@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison;
+package in.projectmanas.manasliaison;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

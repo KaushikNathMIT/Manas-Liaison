@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison;
+package in.projectmanas.manasliaison;
 
 import org.junit.Test;
 

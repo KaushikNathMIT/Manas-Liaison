@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison.Activities;
+package in.projectmanas.manasliaison.Activities;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static projectmanas.in.manasliaison.Activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
+import static in.projectmanas.manasliaison.Activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
 
 /**
  * Created by knnat on 9/14/2017.

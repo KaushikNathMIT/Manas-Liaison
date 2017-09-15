@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.HomeActivity"
+            android:name="in.projectmanas.manasliaison.Activities.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,15 +23,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.OnlineChallengeCommingSoon" />
-        <activity android:name=".Activities.OnlineChallengeOngoing" />
-        <activity android:name=".Activities.OrientationActivity" />
+        <activity android:name="in.projectmanas.manasliaison.Activities.ProfileActivity" />
+        <activity android:name="in.projectmanas.manasliaison.Activities.OnlineChallengeCommingSoon" />
+        <activity android:name="in.projectmanas.manasliaison.Activities.OnlineChallengeOngoing" />
+        <activity android:name="in.projectmanas.manasliaison.Activities.OrientationActivity" />
         <activity
-            android:name=".Activities.InterviewActivity"
+            android:name="in.projectmanas.manasliaison.Activities.InterviewActivity"
             android:label="@string/title_activity_interview"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FirstRunActivity">
+        <activity android:name="in.projectmanas.manasliaison.Activities.FirstRunActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

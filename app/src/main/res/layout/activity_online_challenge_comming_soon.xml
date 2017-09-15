@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFAA00"
-    tools:context="projectmanas.in.manasliaison.Activities.OnlineChallengeCommingSoon">
+    tools:context="projectmanas.in.manasliaison.in.projectmanas.manasliaison.Activities.OnlineChallengeCommingSoon">
 
     <RelativeLayout
         android:layout_width="match_parent"

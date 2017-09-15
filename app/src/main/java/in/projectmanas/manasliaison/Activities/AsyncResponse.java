@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison.Activities;
+package in.projectmanas.manasliaison.Activities;
 
 import java.util.ArrayList;
 

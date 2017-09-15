@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison.Constants;
+package in.projectmanas.manasliaison.Constants;
 
 /**
  * Created by knnat on 9/14/2017.

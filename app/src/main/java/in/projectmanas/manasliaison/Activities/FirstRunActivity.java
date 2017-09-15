@@ -1,4 +1,4 @@
-package projectmanas.in.manasliaison.Activities;
+package in.projectmanas.manasliaison.Activities;
 
 import android.Manifest;
 import android.accounts.AccountManager;
@@ -22,7 +22,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import java.util.Arrays;
 import java.util.List;
 
-import projectmanas.in.manasliaison.Constants.ConstantsManas;
+import in.projectmanas.manasliaison.Constants.ConstantsManas;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
