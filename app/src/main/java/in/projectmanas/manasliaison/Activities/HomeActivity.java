@@ -16,6 +16,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 
 import java.util.ArrayList;
 
+import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.R;
 
 public class HomeActivity extends AppCompatActivity
@@ -27,7 +28,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Backendless.initApp(this, "2FD5D150-929E-93CC-FF3D-0649CF51C200", "3E613B51-4A9A-9FC3-FFE5-05EDC2085500");
+        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         Backendless.Messaging.registerDevice("309761236208");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
