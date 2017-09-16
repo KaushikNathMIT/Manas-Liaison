@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.backendless.Backendless;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -65,8 +64,8 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
 
 
     private ArrayList<ArrayList<String>> getDataFromApi() throws IOException {
-        String spreadsheetId = Backendless.Persistence.of(Sheet.class).findFirst().getSpreadsheetId();
-        Log.d("Id sheet:", spreadsheetId);
+        String spreadsheetId = Sheet.findFirst().getSpreadsheetId();
+        //Log.d("Id sheet:", spreadsheetId);
         ValueRange response = this.mService.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();

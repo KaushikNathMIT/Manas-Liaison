@@ -62,6 +62,8 @@ public class FirstRunActivity extends AppCompatActivity
         } else {
             //new ReadSpreadSheet(mCredential).execute();
             Intent intent = new Intent(FirstRunActivity.this, HomeActivity.class);
+            intent.putExtra("emailID", mCredential.getSelectedAccountName());
+            //Log.d("emailID", mCredential.getSelectedAccountName());
             startActivity(intent);
         }
     }

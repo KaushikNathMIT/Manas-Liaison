@@ -1,5 +1,6 @@
 package in.projectmanas.manasliaison.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +17,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 
 import java.util.ArrayList;
 
+import in.projectmanas.manasliaison.BackendlessClasses.RecruitmentDetails;
 import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.Constants.ConstantsManas;
 import in.projectmanas.manasliaison.R;
@@ -24,13 +26,16 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
 
     public static GoogleAccountCredential mCredential;
+    private int phase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        linkViews();
+
         Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
+        phase = RecruitmentDetails.findFirst().getPhase();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,8 +53,12 @@ public class HomeActivity extends AppCompatActivity
         fetchSampleDetails();
     }
 
+    private void linkViews() {
+        setContentView(R.layout.activity_home);
+    }
+
     private void fetchSampleDetails() {
-        String[] params = new String[]{"Form Responses 1!B2:C39"};
+        String[] params = new String[]{"Interview!P3"};
         ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, this);
         readSpreadSheet.delegate = this;
         readSpreadSheet.execute(params);
@@ -94,10 +103,39 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //TODO:
+        switch (id) {
+            case R.id.nav_home:
+                refresh();
+                break;
+            case R.id.nav_interview:
+                startActivity(new Intent(HomeActivity.this, InterviewActivity.class));
+                break;
+            case R.id.nav_online_challenge:
+                if (phase == 0)
+                    startActivity(new Intent(HomeActivity.this, OnlineChallengeCommingSoon.class));
+                else if (phase == 1)
+                    startActivity(new Intent(HomeActivity.this, OnlineChallengeOngoing.class));
+                else {
+                    //TODO: Have a snackbar saying online challenge is over
+                }
+                break;
+            case R.id.nav_orientation:
+                startActivity(new Intent(HomeActivity.this, OrientationActivity.class));
+                break;
+            case R.id.nav_task_phase:
+                startActivity(new Intent(HomeActivity.this, TaskPhaseActivity.class));
+                break;
+            case R.id.nav_profile:
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void refresh() {
+
     }
 
     @Override
