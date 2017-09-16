@@ -46,11 +46,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
                 .build();
     }
 
-    /**
-     * Background task to call Google Sheets API.
-     *
-     * @param params no parameters needed for this task.
-     */
+
     @Override
     protected ArrayList<ArrayList<ArrayList<String>>> doInBackground(String[] params) {
         try {

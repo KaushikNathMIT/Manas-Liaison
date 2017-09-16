@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity
     public static GoogleAccountCredential mCredential;
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
+    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,10 @@ public class HomeActivity extends AppCompatActivity
     private void linkViews() {
         setContentView(R.layout.activity_home);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_home);
+        tvNumberApplicants = (TextView) findViewById(R.id.tv_stat_appl);
+        tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
+        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
+        tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -85,7 +91,7 @@ public class HomeActivity extends AppCompatActivity
         Sheet.findFirstAsync(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
-                final String[] params = new String[]{response.getEmailID()};
+                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus()};
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
@@ -93,7 +99,7 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -177,6 +183,7 @@ public class HomeActivity extends AppCompatActivity
     public void processFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
         ArrayList<ArrayList<String>> output = outputList.get(0);
         size = output.size();
+        tvNumberApplicants.setText("" + size);
         Log.d("Number of applicants ", size + "   ");
         boolean stateFlagFound = false;
         for (ArrayList<String> row :
@@ -189,5 +196,32 @@ public class HomeActivity extends AppCompatActivity
         }
         if (!stateFlagFound)
             Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
+        ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
+        int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;
+        for (ArrayList<String> arrayList : interviewStatus) {
+            if (arrayList.size() > 0) {
+                if (arrayList.get(0).equals("ACCEPTED")) {
+                    interviewAcceptedCounter++;
+                } else if (arrayList.get(0).equals("REJECTED")) {
+                    rejectedCounter++;
+                } else if (arrayList.get(0).equals("MAYBE")) {
+                    maybeCounter++;
+                }
+            }
+        }
+
+        tvNumberInterviewConducted.setText((interviewAcceptedCounter + rejectedCounter + maybeCounter) + "");
+        tvNumTPShortlisted.setText("" + interviewAcceptedCounter);
+
+        int selectedCounter = 0;
+        ArrayList<ArrayList<String>> tpStatus = outputList.get(3);
+        for (ArrayList<String> arrayList : tpStatus) {
+            if (arrayList.size() > 0) {
+                if (arrayList.get(0).equals("ACCEPTED")) {
+                    selectedCounter++;
+                }
+            }
+        }
+        tvNumSelected.setText("" + selectedCounter);
     }
 }

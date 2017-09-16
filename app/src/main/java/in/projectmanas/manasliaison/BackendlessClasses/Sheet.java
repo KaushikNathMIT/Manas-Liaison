@@ -31,6 +31,7 @@ public class Sheet {
     private String tpPending;
     private String interviewPending2;
     private String interviewStatus2;
+    private String tpStatus;
     private String tpSelected;
     private String emailID;
     private String mobileNumber;
@@ -241,5 +242,13 @@ public class Sheet {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    public String getTpStatus() {
+        return tpStatus;
+    }
+
+    public void setTpStatus(String tpStatus) {
+        this.tpStatus = tpStatus;
     }
 }
