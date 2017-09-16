@@ -32,6 +32,8 @@ public class Sheet {
     private String interviewPending2;
     private String interviewStatus2;
     private String tpSelected;
+    private String emailID;
+    private String mobileNumber;
 
     public static Sheet findById(String id) {
         return Backendless.Data.of(Sheet.class).findById(id);
@@ -223,5 +225,21 @@ public class Sheet {
 
     public void removeAsync(AsyncCallback<Long> callback) {
         Backendless.Data.of(Sheet.class).remove(this, callback);
+    }
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

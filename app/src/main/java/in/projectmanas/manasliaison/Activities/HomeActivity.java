@@ -2,7 +2,9 @@ package in.projectmanas.manasliaison.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,20 +15,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
 import java.util.ArrayList;
 
 import in.projectmanas.manasliaison.BackendlessClasses.RecruitmentDetails;
+import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
 import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.Constants.ConstantsManas;
+import in.projectmanas.manasliaison.Listeners.SheetDataFetchedListener;
 import in.projectmanas.manasliaison.R;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
+        implements NavigationView.OnNavigationItemSelectedListener, SheetDataFetchedListener {
 
     public static GoogleAccountCredential mCredential;
-    private int phase;
+    private int phase, size;
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,32 @@ public class HomeActivity extends AppCompatActivity
 
         Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
-        phase = RecruitmentDetails.findFirst().getPhase();
+        RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
+            @Override
+            public void handleResponse(RecruitmentDetails response) {
+                phase = response.getPhase();
+                setCardStatus(phase);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        mCredential = FirstRunActivity.mCredential;
+        //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
+        getCount();
+    }
+
+    private void setCardStatus(int phase) {
+        Log.d("Phase ", phase + "");
+        //TODO : Make related changes in the view for the corresponding phase.
+    }
+
+    private void linkViews() {
+        setContentView(R.layout.activity_home);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,21 +79,24 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mCredential = FirstRunActivity.mCredential;
-        //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
-        fetchSampleDetails();
     }
 
-    private void linkViews() {
-        setContentView(R.layout.activity_home);
-    }
+    private void getCount() {
+        Sheet.findFirstAsync(new AsyncCallback<Sheet>() {
+            @Override
+            public void handleResponse(Sheet response) {
+                final String[] params = new String[]{response.getEmailID()};
+                ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
+                readSpreadSheet.delegate = HomeActivity.this;
+                readSpreadSheet.execute(params);
+            }
 
-    private void fetchSampleDetails() {
-        String[] params = new String[]{"Interview!P3"};
-        ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, this);
-        readSpreadSheet.delegate = this;
-        readSpreadSheet.execute(params);
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
+
     }
 
     @Override
@@ -139,7 +174,20 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void processFinish(ArrayList<ArrayList<String>> output) {
-        Log.d("aaa", output.size() + "");
+    public void processFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+        ArrayList<ArrayList<String>> output = outputList.get(0);
+        size = output.size();
+        Log.d("Number of applicants ", size + "   ");
+        boolean stateFlagFound = false;
+        for (ArrayList<String> row :
+                output) {
+            if (row.size() > 0 && row.get(0).equals(getIntent().getStringExtra("emailID"))) {
+                Snackbar.make(coordinatorLayout, "Welcome " + row.get(0), Snackbar.LENGTH_LONG).show();
+                stateFlagFound = true;
+                break;
+            }
+        }
+        if (!stateFlagFound)
+            Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
     }
 }

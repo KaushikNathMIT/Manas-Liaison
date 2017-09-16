@@ -13,13 +13,15 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.sheets.v4.model.ValueRange;
+import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
+import in.projectmanas.manasliaison.Listeners.SheetDataFetchedListener;
 
 import static in.projectmanas.manasliaison.Activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
 
@@ -27,11 +29,11 @@ import static in.projectmanas.manasliaison.Activities.FirstRunActivity.REQUEST_G
  * Created by knnat on 9/14/2017.
  */
 
-public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList<String>>> {
-    public AsyncResponse delegate = null;
+public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList<ArrayList<String>>>> {
+    public SheetDataFetchedListener delegate = null;
     private com.google.api.services.sheets.v4.Sheets mService = null;
     private Exception mLastError = null;
-    private String range;
+    private List<String> ranges;
     private Activity context;
 
     ReadSpreadSheet(GoogleAccountCredential credential, Activity context) {
@@ -40,7 +42,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.sheets.v4.Sheets.Builder(
                 transport, jsonFactory, credential)
-                .setApplicationName("Project Manas Hub")
+                .setApplicationName("Project Manas Liaison")
                 .build();
     }
 
@@ -50,9 +52,9 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
      * @param params no parameters needed for this task.
      */
     @Override
-    protected ArrayList<ArrayList<String>> doInBackground(String[] params) {
+    protected ArrayList<ArrayList<ArrayList<String>>> doInBackground(String[] params) {
         try {
-            range = params[0];
+            ranges = Arrays.asList(params);
             return getDataFromApi();
         } catch (Exception e) {
             Log.e("Error", e.toString());
@@ -63,25 +65,33 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
     }
 
 
-    private ArrayList<ArrayList<String>> getDataFromApi() throws IOException {
+    private ArrayList<ArrayList<ArrayList<String>>> getDataFromApi() throws IOException {
         String spreadsheetId = Sheet.findFirst().getSpreadsheetId();
         //Log.d("Id sheet:", spreadsheetId);
-        ValueRange response = this.mService.spreadsheets().values()
-                .get(spreadsheetId, range)
+        BatchGetValuesResponse response = this.mService.spreadsheets().values()
+                .batchGet(spreadsheetId)
+                .setRanges(ranges)
                 .execute();
 
-        List<List<Object>> values = response.getValues();
-        ArrayList<ArrayList<String>> valueStrings = new ArrayList<>();
-        if (values != null) {
+        ArrayList<List<List<Object>>> values = new ArrayList<>();
+        for (int i = 0; i < response.getValueRanges().size(); i++) {
+            values.add(response.getValueRanges().get(i).getValues());
+        }
+        ArrayList<ArrayList<ArrayList<String>>> valueStrings = new ArrayList<>();
+        if (values.size() > 0) {
             //Log.d("size", values.size() + " ");
-            for (List row : values) {
-                //Log.d("adasd", row.get(0) + " " + row.get(1) + " " + row.get(2));
-                ArrayList<String> currentRow = new ArrayList<>();
-                for (Object ob : row) {
-                    //Log.d("Output here", ob.toString());
-                    currentRow.add(ob.toString());
+            for (int i = 0; i < values.size(); i++) {
+                ArrayList<ArrayList<String>> currentTable = new ArrayList<>();
+                for (List row : values.get(i)) {
+                    //Log.d("adasd", row.size()+ "");
+                    ArrayList<String> currentRow = new ArrayList<>();
+                    for (Object ob : row) {
+                        //Log.d("Output here", ob.toString());
+                        currentRow.add(ob.toString());
+                    }
+                    currentTable.add(currentRow);
                 }
-                valueStrings.add(currentRow);
+                valueStrings.add(currentTable);
             }
         }
         //Log.d("Output recieved of size", valueStrings.size() + "");
@@ -90,7 +100,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
 
 
     @Override
-    protected void onPostExecute(ArrayList<ArrayList<String>> output) {
+    protected void onPostExecute(ArrayList<ArrayList<ArrayList<String>>> output) {
         //Log.d("Output recieved of size", output.size() + "");
         delegate.processFinish(output);
     }
