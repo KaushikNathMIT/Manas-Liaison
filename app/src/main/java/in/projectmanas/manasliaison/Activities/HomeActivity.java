@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity
     public static GoogleAccountCredential mCredential;
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
-    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
+    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,13 +86,16 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        tvNavHeaderName = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_name);
+        tvNavHeaderEmailID = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_email_id);
+        tvNavHeaderRegNumber = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_reg_number);
     }
 
     private void getCount() {
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
-                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus()};
+                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber()};
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
@@ -181,15 +184,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void processFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+    public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+        int foundIndex = -1;
         ArrayList<ArrayList<String>> output = outputList.get(0);
         size = output.size();
         tvNumberApplicants.setText("" + size);
         Log.d("Number of applicants ", size + "   ");
         boolean stateFlagFound = false;
-        for (ArrayList<String> row :
-                output) {
+        for (int i = 0; i < output.size(); i++) {
+            ArrayList<String> row = output.get(i);
             if (row.size() > 0 && row.get(0).equals(getIntent().getStringExtra("emailID"))) {
+                foundIndex = i;
                 Snackbar.make(coordinatorLayout, "Welcome " + row.get(0), Snackbar.LENGTH_LONG).show();
                 stateFlagFound = true;
                 break;
@@ -197,6 +202,13 @@ public class HomeActivity extends AppCompatActivity
         }
         if (!stateFlagFound)
             Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
+        else {
+            String userName = outputList.get(4).get(foundIndex).get(0);
+            tvNavHeaderName.setText(userName);
+            String regNumber = outputList.get(5).get(foundIndex).get(0);
+            tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
+            tvNavHeaderRegNumber.setText(regNumber);
+        }
         ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
         int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;
         for (ArrayList<String> arrayList : interviewStatus) {

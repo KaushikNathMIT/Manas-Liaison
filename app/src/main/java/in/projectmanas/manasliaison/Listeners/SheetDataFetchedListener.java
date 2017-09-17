@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 
 public interface SheetDataFetchedListener {
-    void processFinish(ArrayList<ArrayList<ArrayList<String>>> output);
+    void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> output);
 }

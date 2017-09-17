@@ -98,7 +98,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
     @Override
     protected void onPostExecute(ArrayList<ArrayList<ArrayList<String>>> output) {
         //Log.d("Output recieved of size", output.size() + "");
-        delegate.processFinish(output);
+        delegate.onProcessFinish(output);
     }
 
     void showGooglePlayServicesAvailabilityErrorDialog(

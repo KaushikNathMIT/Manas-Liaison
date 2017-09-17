@@ -35,6 +35,8 @@ public class Sheet {
     private String tpSelected;
     private String emailID;
     private String mobileNumber;
+    private String name;
+    private String regNumber;
 
     public static Sheet findById(String id) {
         return Backendless.Data.of(Sheet.class).findById(id);
@@ -250,5 +252,21 @@ public class Sheet {
 
     public void setTpStatus(String tpStatus) {
         this.tpStatus = tpStatus;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRegNumber() {
+        return regNumber;
+    }
+
+    public void setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
     }
 }
