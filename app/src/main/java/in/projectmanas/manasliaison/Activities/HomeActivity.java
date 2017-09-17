@@ -22,6 +22,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 
 import java.util.ArrayList;
 
+import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.BackendlessClasses.RecruitmentDetails;
 import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
 import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
@@ -88,7 +89,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getCount() {
-        Sheet.findFirstAsync(new AsyncCallback<Sheet>() {
+        ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
                 final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus()};

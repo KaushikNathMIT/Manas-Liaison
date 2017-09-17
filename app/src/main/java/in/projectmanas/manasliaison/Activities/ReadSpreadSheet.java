@@ -36,7 +36,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
     private List<String> ranges;
     private Activity context;
 
-    ReadSpreadSheet(GoogleAccountCredential credential, Activity context) {
+    public ReadSpreadSheet(GoogleAccountCredential credential, Activity context) {
         this.context = context;
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();

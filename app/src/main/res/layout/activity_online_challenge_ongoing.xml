@@ -13,6 +13,8 @@
             android:id="@+id/tv_label_ol_ongoing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:text="Online Challenge"
             android:textSize="40sp" />
 
@@ -37,12 +39,11 @@
 
         <Button
             android:id="@+id/button_reg_hacker_rank"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Link to Online Challenge"
-            android:textColor="#0000FF" />
+            android:text="Link to Online Challenge" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
