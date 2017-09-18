@@ -37,6 +37,7 @@ public class Sheet {
     private String mobileNumber;
     private String name;
     private String regNumber;
+    private String div;
 
     public static Sheet findById(String id) {
         return Backendless.Data.of(Sheet.class).findById(id);
@@ -268,5 +269,13 @@ public class Sheet {
 
     public void setRegNumber(String regNumber) {
         this.regNumber = regNumber;
+    }
+
+    public String getDiv() {
+        return div;
+    }
+
+    public void setDiv(String div) {
+        this.div = div;
     }
 }

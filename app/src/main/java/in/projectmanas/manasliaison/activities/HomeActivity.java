@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID;
+    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,9 @@ public class HomeActivity extends AppCompatActivity
         editor
                 .putString("name", userName)
                 .putString("emailID", emailID)
+                .putString("interviewStatus1", interviewStatus1)
+                .putString("interviewStatus2", interviewStatus2)
+                .putString("tpStatus", tpStatus)
                 .putString("regNumber", regNumber)
                 .apply();
     }
@@ -216,7 +219,7 @@ public class HomeActivity extends AppCompatActivity
             ArrayList<String> row = output.get(i);
             if (row.size() > 0 && row.get(0).equals(emailID)) {
                 foundIndex = i;
-                Snackbar.make(coordinatorLayout, "Welcome " + row.get(0), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(coordinatorLayout, "Welcome " + outputList.get(4).get(i).get(0), Snackbar.LENGTH_LONG).show();
                 stateFlagFound = true;
                 break;
             }
@@ -224,6 +227,9 @@ public class HomeActivity extends AppCompatActivity
         if (!stateFlagFound)
             Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
         else {
+            interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
+            interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
+            tpStatus = outputList.get(3).get(foundIndex).get(0);
             userName = outputList.get(4).get(foundIndex).get(0);
             tvNavHeaderName.setText(userName);
             regNumber = outputList.get(5).get(foundIndex).get(0);
