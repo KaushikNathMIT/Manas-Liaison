@@ -1,4 +1,4 @@
-package in.projectmanas.manasliaison.Activities;
+package in.projectmanas.manasliaison.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

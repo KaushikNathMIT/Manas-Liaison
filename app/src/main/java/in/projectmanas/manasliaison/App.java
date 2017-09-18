@@ -6,7 +6,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
-import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
+import in.projectmanas.manasliaison.backendless_classes.Sheet;
 
 /**
  * Created by reuben on 17/9/17.

@@ -22,7 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,15 +31,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.OnlineChallengeCommingSoon" />
-        <activity android:name=".Activities.OnlineChallengeOngoing" />
-        <activity android:name=".Activities.OrientationActivity" />
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.OnlineChallengeCommingSoon" />
+        <activity android:name=".activities.OnlineChallengeOngoing" />
+        <activity android:name=".activities.OrientationActivity" />
         <activity
-            android:name=".Activities.InterviewActivity"
+            android:name=".activities.InterviewActivity"
             android:label="@string/title_activity_interview"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.FirstRunActivity">
+        <activity android:name=".activities.FirstRunActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +60,7 @@
 
         <service android:name="com.backendless.push.BackendlessPushService" />
 
-        <activity android:name=".Activities.TaskPhaseActivity"></activity>
+        <activity android:name=".activities.TaskPhaseActivity"></activity>
     </application>
 
 </manifest>

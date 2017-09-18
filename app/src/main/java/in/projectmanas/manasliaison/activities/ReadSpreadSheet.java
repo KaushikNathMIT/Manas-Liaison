@@ -1,4 +1,4 @@
-package in.projectmanas.manasliaison.Activities;
+package in.projectmanas.manasliaison.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
-import in.projectmanas.manasliaison.Listeners.SheetDataFetchedListener;
+import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 
-import static in.projectmanas.manasliaison.Activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
+import static in.projectmanas.manasliaison.activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
 
 /**
  * Created by knnat on 9/14/2017.

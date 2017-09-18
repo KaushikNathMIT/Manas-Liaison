@@ -1,6 +1,8 @@
-package in.projectmanas.manasliaison.Activities;
+package in.projectmanas.manasliaison.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -23,12 +25,12 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import java.util.ArrayList;
 
 import in.projectmanas.manasliaison.App;
-import in.projectmanas.manasliaison.BackendlessClasses.RecruitmentDetails;
-import in.projectmanas.manasliaison.BackendlessClasses.Sheet;
-import in.projectmanas.manasliaison.Constants.BackendlessCredentials;
-import in.projectmanas.manasliaison.Constants.ConstantsManas;
-import in.projectmanas.manasliaison.Listeners.SheetDataFetchedListener;
 import in.projectmanas.manasliaison.R;
+import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
+import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.constants.BackendlessCredentials;
+import in.projectmanas.manasliaison.constants.ConstantsManas;
+import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SheetDataFetchedListener {
@@ -37,14 +39,32 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
+    private String regNumber, userName, emailID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
+        emailID = getIntent().getStringExtra("emailID");
+        initializeBackendless();
+        getRecruitmentPhase();
 
-        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
-        Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
+        mCredential = FirstRunActivity.mCredential;
+        //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
+        getCount();
+    }
+
+    private void cacheData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor
+                .putString("name", userName)
+                .putString("emailID", emailID)
+                .putString("regNumber", regNumber)
+                .apply();
+    }
+
+    private void getRecruitmentPhase() {
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
@@ -57,10 +77,11 @@ public class HomeActivity extends AppCompatActivity
                 Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+    }
 
-        mCredential = FirstRunActivity.mCredential;
-        //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
-        getCount();
+    private void initializeBackendless() {
+        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
+        Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
     }
 
     private void setCardStatus(int phase) {
@@ -193,7 +214,7 @@ public class HomeActivity extends AppCompatActivity
         boolean stateFlagFound = false;
         for (int i = 0; i < output.size(); i++) {
             ArrayList<String> row = output.get(i);
-            if (row.size() > 0 && row.get(0).equals(getIntent().getStringExtra("emailID"))) {
+            if (row.size() > 0 && row.get(0).equals(emailID)) {
                 foundIndex = i;
                 Snackbar.make(coordinatorLayout, "Welcome " + row.get(0), Snackbar.LENGTH_LONG).show();
                 stateFlagFound = true;
@@ -203,11 +224,12 @@ public class HomeActivity extends AppCompatActivity
         if (!stateFlagFound)
             Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
         else {
-            String userName = outputList.get(4).get(foundIndex).get(0);
+            userName = outputList.get(4).get(foundIndex).get(0);
             tvNavHeaderName.setText(userName);
-            String regNumber = outputList.get(5).get(foundIndex).get(0);
+            regNumber = outputList.get(5).get(foundIndex).get(0);
             tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
             tvNavHeaderRegNumber.setText(regNumber);
+            cacheData();
         }
         ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
         int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;

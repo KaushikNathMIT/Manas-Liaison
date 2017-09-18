@@ -1,4 +1,4 @@
-package in.projectmanas.manasliaison.BackendlessClasses;
+package in.projectmanas.manasliaison.backendless_classes;
 
 /**
  * Created by knnat on 9/16/2017.

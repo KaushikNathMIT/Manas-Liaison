@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.projectmanas.manasliaison.Activities.ProfileActivity">
+    tools:context="in.projectmanas.manasliaison.activities.ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
