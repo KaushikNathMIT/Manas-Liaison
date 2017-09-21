@@ -11,9 +11,86 @@
         android:padding="20dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_label_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_profile"
+            android:paddingTop="10dp"
+            android:text="Name"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_label_name"
+            android:text="name here"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_label_email_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:paddingTop="10dp"
+            android:text="Email ID"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_email_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_label_email_id"
+            android:text="email_id here"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_label_mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_email_id"
+            android:paddingTop="10dp"
+            android:text="Mobile Number"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_label_mobile_number"
+            android:text="mobile_number here"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_label_reg_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mobile_number"
+            android:paddingTop="10dp"
+            android:text="Registration number"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_reg_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_label_reg_number"
+            android:text="reg_number here"
+            android:textSize="20sp" />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Edit Details"
+            android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

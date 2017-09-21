@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus;
+    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
                 .putString("interviewStatus2", interviewStatus2)
                 .putString("tpStatus", tpStatus)
                 .putString("regNumber", regNumber)
+                .putString("mobileNumber", mobileNumber)
                 .apply();
     }
 
@@ -119,7 +120,7 @@ public class HomeActivity extends AppCompatActivity
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
-                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber()};
+                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber()};
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
@@ -231,8 +232,9 @@ public class HomeActivity extends AppCompatActivity
             interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
             tpStatus = outputList.get(3).get(foundIndex).get(0);
             userName = outputList.get(4).get(foundIndex).get(0);
-            tvNavHeaderName.setText(userName);
+            mobileNumber = outputList.get(6).get(foundIndex).get(0);
             regNumber = outputList.get(5).get(foundIndex).get(0);
+            tvNavHeaderName.setText(userName);
             tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
             tvNavHeaderRegNumber.setText(regNumber);
             cacheData();
