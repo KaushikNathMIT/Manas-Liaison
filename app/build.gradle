@@ -41,5 +41,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'pub.devrel:easypermissions:0.2.1'
     compile 'com.backendless:backendless:4.0.+'
+    compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     testCompile 'junit:junit:4.12'
 }

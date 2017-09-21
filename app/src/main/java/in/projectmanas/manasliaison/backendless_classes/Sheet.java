@@ -38,6 +38,8 @@ public class Sheet {
     private String name;
     private String regNumber;
     private String div;
+    private String prefDiv1;
+    private String prefDiv2;
 
     public static Sheet findById(String id) {
         return Backendless.Data.of(Sheet.class).findById(id);
@@ -277,5 +279,21 @@ public class Sheet {
 
     public void setDiv(String div) {
         this.div = div;
+    }
+
+    public String getPrefDiv1() {
+        return prefDiv1;
+    }
+
+    public void setPrefDiv1(String prefDiv1) {
+        this.prefDiv1 = prefDiv1;
+    }
+
+    public String getPrefDiv2() {
+        return prefDiv2;
+    }
+
+    public void setPrefDiv2(String prefDiv2) {
+        this.prefDiv2 = prefDiv2;
     }
 }

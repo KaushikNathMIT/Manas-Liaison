@@ -32,7 +32,7 @@
                         android:layout_height="wrap_content"
                         android:text="AI List" />
 
-                    <ListView
+                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
                         android:id="@+id/lv_ai_tp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:text="SNA List" />
 
-                    <ListView
+                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
                         android:id="@+id/lv_sna_tp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:text="Mech List" />
 
-                    <ListView
+                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
                         android:id="@+id/lv_mech_tp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
