@@ -42,5 +42,6 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.2.1'
     compile 'com.backendless:backendless:4.0.+'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
+    compile 'com.android.support:support-v4:26.+'
     testCompile 'junit:junit:4.12'
 }

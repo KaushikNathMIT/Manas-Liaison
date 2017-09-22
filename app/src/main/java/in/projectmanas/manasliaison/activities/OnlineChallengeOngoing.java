@@ -30,7 +30,6 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
                     public void handleResponse(Links response) {
                         Intent httpIntent = new Intent(Intent.ACTION_VIEW);
                         httpIntent.setData(Uri.parse(response.getOnlineChallenge()));
-
                         startActivity(httpIntent);
                     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.projectmanas.manasliaison.activities.ProfileActivity">
@@ -15,7 +16,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/pm_logo_100x100" />
 
         <TextView
             android:id="@+id/tv_label_name"
@@ -86,6 +87,7 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/button_edit_details"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

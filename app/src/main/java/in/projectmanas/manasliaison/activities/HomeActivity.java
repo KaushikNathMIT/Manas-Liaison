@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
@@ -42,7 +43,7 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber;
+    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2;
     private String deviceToken;
 
     @Override
@@ -70,6 +71,8 @@ public class HomeActivity extends AppCompatActivity
                 .putString("regNumber", regNumber)
                 .putString("mobileNumber", mobileNumber)
                 .putString("deviceToken", deviceToken)
+                .putString("prefDiv1", prefDiv1)
+                .putString("prefDiv2", prefDiv2)
                 .apply();
         //TODO: add to APP
         UserTable userTable = new UserTable();
@@ -145,13 +148,19 @@ public class HomeActivity extends AppCompatActivity
         tvNavHeaderName = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_email_id);
         tvNavHeaderRegNumber = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_reg_number);
+        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
     }
 
     private void getCount() {
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
-                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber()};
+                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2()};
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
@@ -228,6 +237,9 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.nav_profile:
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                break;
+            case R.id.nav_about:
+                startActivity(new Intent(HomeActivity.this, AboutActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -236,7 +248,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void refresh() {
-
+        finish();
+        startActivity(getIntent());
     }
 
     @Override
@@ -263,8 +276,10 @@ public class HomeActivity extends AppCompatActivity
             interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
             tpStatus = outputList.get(3).get(foundIndex).get(0);
             userName = outputList.get(4).get(foundIndex).get(0);
-            mobileNumber = outputList.get(6).get(foundIndex).get(0);
             regNumber = outputList.get(5).get(foundIndex).get(0);
+            mobileNumber = outputList.get(6).get(foundIndex).get(0);
+            prefDiv1 = outputList.get(7).get(foundIndex).get(0);
+            prefDiv2 = outputList.get(8).get(foundIndex).get(0);
             tvNavHeaderName.setText(userName);
             tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
             tvNavHeaderRegNumber.setText(regNumber);
