@@ -17,6 +17,7 @@ public class UserTable {
     private String objectId;
     private java.util.Date created;
     private String ownerId;
+    private String deviceToken;
 
     public static UserTable findById(String id) {
         return Backendless.Data.of(UserTable.class).findById(id);
@@ -96,5 +97,13 @@ public class UserTable {
 
     public void removeAsync(AsyncCallback<Long> callback) {
         Backendless.Data.of(UserTable.class).remove(this, callback);
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 }

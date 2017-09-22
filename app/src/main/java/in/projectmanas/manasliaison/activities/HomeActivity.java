@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
+import com.backendless.DeviceRegistration;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
@@ -28,6 +29,7 @@ import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
     private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber;
+    private String deviceToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,23 @@ public class HomeActivity extends AppCompatActivity
                 .putString("tpStatus", tpStatus)
                 .putString("regNumber", regNumber)
                 .putString("mobileNumber", mobileNumber)
+                .putString("deviceToken", deviceToken)
                 .apply();
+        //TODO: add to APP
+        UserTable userTable = new UserTable();
+        userTable.setRegistrationNumber(regNumber);
+        userTable.setDeviceToken(deviceToken);
+        userTable.saveAsync(new AsyncCallback<UserTable>() {
+            @Override
+            public void handleResponse(UserTable response) {
+                Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
     private void getRecruitmentPhase() {
@@ -87,6 +106,17 @@ public class HomeActivity extends AppCompatActivity
     private void initializeBackendless() {
         Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
+        Backendless.Messaging.getDeviceRegistration(new AsyncCallback<DeviceRegistration>() {
+            @Override
+            public void handleResponse(DeviceRegistration response) {
+                deviceToken = response.getDeviceToken();
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
     }
 
     private void setCardStatus(int phase) {
