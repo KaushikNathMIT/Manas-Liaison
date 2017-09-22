@@ -7,6 +7,4 @@
 /build
 /captures
 .externalNativeBuild
-/app/src/main/java/in/projectmanas/manasliaison/Constants
-*/Constants
-*/BackendlessCredentials.java
+/app/src/main/java/in/projectmanas/manasliaison/constants
