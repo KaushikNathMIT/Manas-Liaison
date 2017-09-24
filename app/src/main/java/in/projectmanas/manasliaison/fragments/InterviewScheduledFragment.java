@@ -8,16 +8,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import in.projectmanas.manasliaison.R;
+import in.projectmanas.manasliaison.activities.UploadCVActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class InterviewScheduledFragment extends Fragment {
 
-    private TextView labelNav;
+    private ImageButton directionButton;
+    private Button confirmSchedule, reSchedule;
+    private TextView uploadCV;
+    private TextView compCodeProfileLink;
+    private TextView githubID;
+
 
     public InterviewScheduledFragment() {
         // Required empty public constructor
@@ -35,7 +43,7 @@ public class InterviewScheduledFragment extends Fragment {
     }
 
     private void setListeners() {
-        labelNav.setOnClickListener(new View.OnClickListener() {
+        directionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = "https://www.google.com/maps/search/?api=1&query=ProjectManasManipal";
@@ -44,11 +52,21 @@ public class InterviewScheduledFragment extends Fragment {
                 startActivity(httpIntent);
             }
         });
+        uploadCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), UploadCVActivity.class));
+            }
+        });
     }
 
     private void linkViews(View view) {
-        labelNav = view.findViewById(R.id.tv_label_nav_workshop);
-
+        directionButton = view.findViewById(R.id.ib_direction);
+        confirmSchedule = view.findViewById(R.id.button_confirm_schedule);
+        reSchedule = view.findViewById(R.id.button_request_reschedule);
+        uploadCV = view.findViewById(R.id.tv_upload_cv);
+        compCodeProfileLink = view.findViewById(R.id.tv_competitive_coding_profile_link);
+        githubID = view.findViewById(R.id.tv_github_id);
     }
 
 }
