@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.projectmanas.manasliaison.fragments.InterviewFragment2">
+    tools:context="in.projectmanas.manasliaison.fragments.InterviewRejectedFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,19 +16,19 @@
             android:layout_centerVertical="true">
 
             <TextView
-                android:id="@+id/tv_iv2_status"
+                android:id="@+id/tv_iv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="status" />
+                android:text="Rejected" />
 
             <TextView
-                android:id="@+id/tv_iv2_status_desc"
+                android:id="@+id/tv_iv_status_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_iv2_status"
+                android:layout_below="@+id/tv_iv_status"
                 android:gravity="center"
-                android:text="status_desc" />
+                android:text="We regret to inform you that you have not been selected for the task phase round." />
         </RelativeLayout>
     </RelativeLayout>
 
