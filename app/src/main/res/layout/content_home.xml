@@ -106,7 +106,7 @@
                         android:id="@+id/tv_label_appl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Applicants : " />
+                        android:text="Applicants" />
 
                     <TextView
                         android:id="@+id/tv_stat_appl"
@@ -123,7 +123,7 @@
                         android:id="@+id/tv_label_interview_conducted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Interview Conducted : " />
+                        android:text="Interview Conducted" />
 
                     <TextView
                         android:id="@+id/tv_stat_interview_conducted"
@@ -140,7 +140,7 @@
                         android:id="@+id/tv_label_tp_sl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Task Phase Shortlist : " />
+                        android:text="Task Phase Shortlist" />
 
                     <TextView
                         android:id="@+id/tv_stat_tp_sl"
@@ -157,7 +157,7 @@
                         android:id="@+id/tv_label_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Selected : " />
+                        android:text="Selected" />
 
                     <TextView
                         android:id="@+id/tv_stat_selected"

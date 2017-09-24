@@ -65,34 +65,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:padding="15dp">
 
             <ImageButton
                 android:id="@+id/ib_fb"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/fb_logo" />
+                android:background="@drawable/fb_logo"
+                android:padding="10dp" />
 
             <ImageButton
                 android:id="@+id/ib_gplus"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_toRightOf="@+id/ib_fb"
-                android:background="@drawable/gplus_logo" />
+                android:background="@drawable/gplus_logo"
+                android:padding="10dp" />
 
             <ImageButton
                 android:id="@+id/ib_yt"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_toRightOf="@+id/ib_gplus"
-                android:background="@drawable/yt_logo" />
+                android:background="@drawable/yt_logo"
+                android:padding="10dp" />
 
             <ImageButton
                 android:id="@+id/ib_twitter"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_toRightOf="@+id/ib_yt"
-                android:background="@drawable/twitter_logo" />
+                android:background="@drawable/twitter_logo"
+                android:padding="10dp" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

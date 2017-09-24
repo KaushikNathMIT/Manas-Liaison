@@ -65,6 +65,7 @@ public class FirstRunActivity extends AppCompatActivity
             intent.putExtra("emailID", mCredential.getSelectedAccountName());
             //Log.d("emailID", mCredential.getSelectedAccountName());
             startActivity(intent);
+            finish();
         }
     }
 
