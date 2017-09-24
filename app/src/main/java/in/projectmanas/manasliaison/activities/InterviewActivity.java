@@ -75,12 +75,18 @@ public class InterviewActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
         tvInterviewStatus1 = (TextView) findViewById(R.id.tv_interview_stat1);
         tvInterviewStatus2 = (TextView) findViewById(R.id.tv_interview_stat2);
+        addFragmentsToTabs();
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+    }
+
+    private void addFragmentsToTabs() {
         final ArrayList<Fragment> fragments = new ArrayList<>();
         switch (interviewStatus1) {
             case "ACCEPTED":
                 //textViewStatusDesc.setText("Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer.");
                 InterviewSelectedFragment interviewSelectedFragment = new InterviewSelectedFragment();
-                interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, prefDiv1);
+                interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, 1);
                 fragments.add(interviewSelectedFragment);
                 break;
             case "REJECTED":
@@ -103,7 +109,7 @@ public class InterviewActivity extends AppCompatActivity {
             case "ACCEPTED":
                 //textViewStatusDesc.setText("Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer.");
                 InterviewSelectedFragment interviewSelectedFragment = new InterviewSelectedFragment();
-                interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, prefDiv2);
+                interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, 2);
                 fragments.add(interviewSelectedFragment);
                 break;
             case "REJECTED":
@@ -122,7 +128,6 @@ public class InterviewActivity extends AppCompatActivity {
                 //textViewStatusDesc.setText("Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human");
                 break;
         }
-
         final String[] titles = {prefDiv1, prefDiv2};
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -140,7 +145,5 @@ public class InterviewActivity extends AppCompatActivity {
                 return titles[position];
             }
         });
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
     }
 }

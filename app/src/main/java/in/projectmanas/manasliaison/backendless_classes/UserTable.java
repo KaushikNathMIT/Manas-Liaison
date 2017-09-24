@@ -18,7 +18,11 @@ public class UserTable {
     private java.util.Date created;
     private String ownerId;
     private String deviceToken;
-    private String taskPhaseDiv;
+    private String div1;
+    private String div2;
+
+    public UserTable() {
+    }
 
     public static UserTable findById(String id) {
         return Backendless.Data.of(UserTable.class).findById(id);
@@ -108,11 +112,20 @@ public class UserTable {
         this.deviceToken = deviceToken;
     }
 
-    public String getTaskPhaseDiv() {
-        return taskPhaseDiv;
+
+    public String getDiv2() {
+        return div2;
     }
 
-    public void setTaskPhaseDiv(String taskPhaseDiv) {
-        this.taskPhaseDiv = taskPhaseDiv;
+    public void setDiv2(String div2) {
+        this.div2 = div2;
+    }
+
+    public String getDiv1() {
+        return div1;
+    }
+
+    public void setDiv1(String div1) {
+        this.div1 = div1;
     }
 }
