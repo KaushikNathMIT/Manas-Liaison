@@ -226,7 +226,7 @@ public class HomeActivity extends AppCompatActivity
                 else if (phase == 1)
                     startActivity(new Intent(HomeActivity.this, OnlineChallengeOngoing.class));
                 else {
-                    //TODO: Have a snackbar saying online challenge is over
+                    Snackbar.make(coordinatorLayout, "Online Challenge is over", Snackbar.LENGTH_LONG);
                 }
                 break;
             case R.id.nav_orientation:
@@ -240,6 +240,8 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+            case R.id.nav_support:
+                startActivity(new Intent(HomeActivity.this, SupportActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -270,7 +272,7 @@ public class HomeActivity extends AppCompatActivity
             }
         }
         if (!stateFlagFound)
-            Snackbar.make(coordinatorLayout, "No entry found for the following email address: " + getIntent().getStringExtra("emailID"), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_LONG).show();
         else {
             interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
             interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
