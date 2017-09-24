@@ -4,10 +4,31 @@
     android:layout_height="match_parent"
     tools:context="in.projectmanas.manasliaison.fragments.InterviewPendingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/tv_iv_status_pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Pending" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_iv_status_pending"
+                android:gravity="center"
+                android:text="Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </FrameLayout>

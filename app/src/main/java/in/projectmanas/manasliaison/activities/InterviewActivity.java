@@ -19,6 +19,7 @@ import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.fragments.InterviewPendingFragment;
 import in.projectmanas.manasliaison.fragments.InterviewRejectedFragment;
 import in.projectmanas.manasliaison.fragments.InterviewResultPendingFragment;
+import in.projectmanas.manasliaison.fragments.InterviewScheduledFragment;
 import in.projectmanas.manasliaison.fragments.InterviewSelectedFragment;
 
 public class InterviewActivity extends AppCompatActivity {
@@ -104,6 +105,9 @@ public class InterviewActivity extends AppCompatActivity {
                 fragments.add(interviewPendingFragment);
                 //textViewStatusDesc.setText("Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human");
                 break;
+            case "SCHEDULED":
+                InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                fragments.add(interviewScheduledFragment);
         }
         switch (interviewStatus2) {
             case "ACCEPTED":
@@ -127,6 +131,9 @@ public class InterviewActivity extends AppCompatActivity {
                 fragments.add(interviewPendingFragment);
                 //textViewStatusDesc.setText("Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human");
                 break;
+            case "SCHEDULED":
+                InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                fragments.add(interviewScheduledFragment);
         }
         final String[] titles = {prefDiv1, prefDiv2};
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

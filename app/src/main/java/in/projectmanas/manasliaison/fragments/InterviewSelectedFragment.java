@@ -78,7 +78,7 @@ public class InterviewSelectedFragment extends Fragment {
                     reject.setVisibility(View.VISIBLE);
                     tvLabelInterviewSelected.setVisibility(View.VISIBLE);
                 } else {
-                    tvLabelInterviewSelected.setText("We have already recorder your response");
+                    tvLabelInterviewSelected.setText("We have already recorded your response");
                     tvLabelInterviewSelected.setVisibility(View.VISIBLE);
                 }
             }
@@ -136,7 +136,7 @@ public class InterviewSelectedFragment extends Fragment {
                     @Override
                     public void handleResponse(UserTable response) {
                         Toast.makeText(context.getApplicationContext(), "Your response has been saved", Toast.LENGTH_LONG).show();
-                        tvLabelInterviewSelected.setText("We have already recorder your response");
+                        tvLabelInterviewSelected.setText("We have already recorded your response");
                         accept.setVisibility(View.INVISIBLE);
                         reject.setVisibility(View.INVISIBLE);
                     }
