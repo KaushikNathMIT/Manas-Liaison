@@ -140,7 +140,7 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                     }
                     Log.d("File name  ", fileName);
                     final String finalFileName = fileName;
-                    Backendless.Files.upload(file, "/CVs/" + getRegistrationNumber(), new UploadCallback() {
+                    Backendless.Files.upload(file, "/CVs/" + getRegistrationNumber(), true, new UploadCallback() {
                         @Override
                         public void onProgressUpdate(Integer progress) {
                             //progress
@@ -157,7 +157,7 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                                 public void handleResponse(String response) {
                                     Log.d("File renamed", response);
                                     intent.putExtra("urlCV", response);
-                                    setResult(006, intent);
+                                    setResult(1, intent);
                                     finish();
                                 }
 
@@ -165,7 +165,7 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                                 public void handleFault(BackendlessFault fault) {
                                     Log.d("Fault", fault.toString());
                                     intent.putExtra("urlCV", fileUrl);
-                                    setResult(006, intent);
+                                    setResult(2, intent);
                                     finish();
                                 }
                             });
@@ -179,7 +179,7 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                             } else {
                                 final Intent intent = new Intent();
                                 intent.putExtra("statusCV", fault.getMessage());
-                                setResult(006, intent);
+                                setResult(3, intent);
                                 finish();
                             }
                         }

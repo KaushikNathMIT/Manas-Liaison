@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
@@ -111,7 +112,7 @@ public class InterviewScheduledFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 006) {
-            if (data.getStringExtra("statusCV").equals("CV uploaded successfully")) {
+            if (resultCode != 3) {
                 tickUCV.setVisibility(View.VISIBLE);
                 final String cvURl = data.getStringExtra("urlCV");
                 userTable.setCV(cvURl);
@@ -126,7 +127,23 @@ public class InterviewScheduledFragment extends Fragment {
 
                     }
                 });
+            } else {
+                Toast.makeText(getContext(), data.getStringExtra("statusCV"), Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == 005) {
+            userTable.setHackerRankID(data.getStringExtra("ccpl"));
+            userTable.saveAsync(new AsyncCallback<UserTable>() {
+                @Override
+                public void handleResponse(UserTable response) {
+                    Log.d("status", "Hackerrank ID uploaded successfully");
+                    tickCCPL.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void handleFault(BackendlessFault fault) {
+
+                }
+            });
         }
     }
 
