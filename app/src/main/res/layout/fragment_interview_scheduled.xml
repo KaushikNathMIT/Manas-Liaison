@@ -223,17 +223,7 @@
 
                     </LinearLayout>
                     <!--
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/til_competitive_coding_profile_link"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/button_upload_cv"
-                        android:hint="Competitive Profile Link">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/til_github_id"

@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -110,6 +111,8 @@ public class InterviewActivity extends AppCompatActivity {
                 fragments.add(interviewScheduledFragment);
         }
         if (!prefDiv1.equals(prefDiv2)) {
+            tvInterviewStatus2.setVisibility(View.VISIBLE);
+
             switch (interviewStatus2) {
                 case "ACCEPTED":
                     //textViewStatusDesc.setText("Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer.");
@@ -136,6 +139,8 @@ public class InterviewActivity extends AppCompatActivity {
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
                     fragments.add(interviewScheduledFragment);
             }
+        } else {
+            tvInterviewStatus2.setVisibility(View.GONE);
         }
         final String[] titles = {prefDiv1, prefDiv2};
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

@@ -20,6 +20,9 @@ public class UserTable {
     private String deviceToken;
     private String div1;
     private String div2;
+    private String githubID;
+    private String hackerRankID;
+
 
     public UserTable() {
     }
@@ -127,5 +130,21 @@ public class UserTable {
 
     public void setDiv1(String div1) {
         this.div1 = div1;
+    }
+
+    public String getGithubID() {
+        return githubID;
+    }
+
+    public void setGithubID(String githubID) {
+        this.githubID = githubID;
+    }
+
+    public String getHackerRankID() {
+        return hackerRankID;
+    }
+
+    public void setHackerRankID(String hackerRankID) {
+        this.hackerRankID = hackerRankID;
     }
 }

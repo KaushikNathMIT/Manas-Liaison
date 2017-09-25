@@ -3,6 +3,7 @@ package in.projectmanas.manasliaison.activities;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,10 +20,14 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.files.BackendlessFile;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
 
 import in.projectmanas.manasliaison.R;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class UploadCVActivity extends AppCompatActivity {
+public class UploadCVActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     public static File getFileForUri(final Context context, final Uri uri) {
         String path = null;
         // DocumentProvider
@@ -121,9 +126,21 @@ public class UploadCVActivity extends AppCompatActivity {
         switch (requestCode) {
             case 007:
                 if (resultCode == RESULT_OK) {
-                    File file = getFileForUri(this, data.getData());
-                    //Log.d("", "Chosen path = " + filePath);
-                    Backendless.Files.upload(file, "/CVs", new UploadCallback() {
+                    final File file = getFileForUri(this, data.getData());
+                    String fileName = null;
+                    try {
+                        if (file != null) {
+                            fileName = URLEncoder.encode(file.getName(), "UTF-8");
+                        } else {
+                            Log.e("error", "Couldn't fetch file");
+                            finish();
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("File name  ", fileName);
+                    final String finalFileName = fileName;
+                    Backendless.Files.upload(file, "/CVs/" + getRegistrationNumber(), new UploadCallback() {
                         @Override
                         public void onProgressUpdate(Integer progress) {
                             //progress
@@ -131,17 +148,50 @@ public class UploadCVActivity extends AppCompatActivity {
                     }, new AsyncCallback<BackendlessFile>() {
                         @Override
                         public void handleResponse(BackendlessFile response) {
+                            final Intent intent = new Intent();
+                            intent.putExtra("statusCV", "CV uploaded successfully");
+                            final String fileUrl = response.getFileURL();
                             Log.d("File uploaded", response.getFileURL());
+                            Backendless.Files.renameFile("/CVs/" + getRegistrationNumber() + "/" + finalFileName, getRegistrationNumber() + ".pdf", new AsyncCallback<String>() {
+                                @Override
+                                public void handleResponse(String response) {
+                                    Log.d("File renamed", response);
+                                    intent.putExtra("urlCV", response);
+                                    setResult(006, intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void handleFault(BackendlessFault fault) {
+                                    Log.d("Fault", fault.toString());
+                                    intent.putExtra("urlCV", fileUrl);
+                                    setResult(006, intent);
+                                    finish();
+                                }
+                            });
                         }
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
-                            Log.d("fault", fault.toString());
+                            if (fault.getCode().equals("IllegalArgumentException")) {
+                                final Intent intent = new Intent();
+                                intent.putExtra("statusCV", "CV Already Present");
+                            } else {
+                                final Intent intent = new Intent();
+                                intent.putExtra("statusCV", fault.getMessage());
+                                setResult(006, intent);
+                                finish();
+                            }
                         }
                     });
                 }
                 break;
         }
+    }
+
+    private String getRegistrationNumber() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("regNumber", "regNumber");
     }
 
 
@@ -153,5 +203,15 @@ public class UploadCVActivity extends AppCompatActivity {
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), 007);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
     }
 }
