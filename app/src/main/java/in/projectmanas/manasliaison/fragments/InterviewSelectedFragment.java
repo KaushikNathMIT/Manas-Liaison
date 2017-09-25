@@ -103,7 +103,7 @@ public class InterviewSelectedFragment extends Fragment {
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            saveAcceptance();
+                            saveAcceptance(true);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -115,13 +115,19 @@ public class InterviewSelectedFragment extends Fragment {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 } else {
-                    saveAcceptance();
+                    saveAcceptance(true);
                 }
+            }
+        });
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveAcceptance(false);
             }
         });
     }
 
-    private void saveAcceptance() {
+    private void saveAcceptance(final boolean option) {
         String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
@@ -129,9 +135,8 @@ public class InterviewSelectedFragment extends Fragment {
             @Override
             public void handleResponse(List<UserTable> response) {
                 Log.d("received", response.get(0).getRegistrationNumber());
-                if (divIndex == 1)
-                    response.get(0).setDiv1("TRUE");
-                else response.get(0).setDiv2("TRUE");
+                if (divIndex == 1) response.get(0).setDiv1(option ? "TRUE" : "FALSE");
+                else response.get(0).setDiv2(option ? "TRUE" : "FALSE");
                 response.get(0).saveAsync(new AsyncCallback<UserTable>() {
                     @Override
                     public void handleResponse(UserTable response) {

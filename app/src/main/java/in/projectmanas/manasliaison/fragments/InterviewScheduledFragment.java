@@ -28,6 +28,7 @@ import in.projectmanas.manasliaison.activities.CCPLActivity;
 import in.projectmanas.manasliaison.activities.GithubActivity;
 import in.projectmanas.manasliaison.activities.UploadCVActivity;
 import in.projectmanas.manasliaison.backendless_classes.UserTable;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +54,12 @@ public class InterviewScheduledFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_interview_scheduled, container, false);
+        if (!EasyPermissions.hasPermissions(getContext(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this,
+                    "This app needs to access your storage account for fetching your cv",
+                    1004,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
@@ -75,7 +82,7 @@ public class InterviewScheduledFragment extends Fragment {
     }
 
     private void checkData() {
-        if (userTable.getCV().contains("api.backendless.com")) {
+        if (userTable.getCV() != null && userTable.getCV().contains("api.backendless.com")) {
             tickUCV.setVisibility(View.VISIBLE);
         }
         if (userTable.getHackerRankID() != null && userTable.getHackerRankID().length() > 1) {
