@@ -25,6 +25,7 @@ import java.util.List;
 
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.activities.CCPLActivity;
+import in.projectmanas.manasliaison.activities.GithubActivity;
 import in.projectmanas.manasliaison.activities.UploadCVActivity;
 import in.projectmanas.manasliaison.backendless_classes.UserTable;
 
@@ -107,6 +108,12 @@ public class InterviewScheduledFragment extends Fragment {
                 startActivityForResult(new Intent(getContext(), CCPLActivity.class), 005);
             }
         });
+        githubID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(getContext(), GithubActivity.class), 004);
+            }
+        });
     }
 
     @Override
@@ -137,6 +144,20 @@ public class InterviewScheduledFragment extends Fragment {
                 public void handleResponse(UserTable response) {
                     Log.d("status", "Hackerrank ID uploaded successfully");
                     tickCCPL.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void handleFault(BackendlessFault fault) {
+
+                }
+            });
+        } else if (requestCode == 004) {
+            userTable.setGithubID(data.getStringExtra("gid"));
+            userTable.saveAsync(new AsyncCallback<UserTable>() {
+                @Override
+                public void handleResponse(UserTable response) {
+                    Log.d("status", "Github ID uploaded successfully");
+                    tickGID.setVisibility(View.VISIBLE);
                 }
 
                 @Override

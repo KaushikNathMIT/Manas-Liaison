@@ -66,7 +66,8 @@
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.SupportActivity" />
         <activity android:name=".activities.UploadCVActivity" />
-        <activity android:name=".activities.CCPLActivity"></activity>
+        <activity android:name=".activities.CCPLActivity" />
+        <activity android:name=".activities.GithubActivity"></activity>
     </application>
 
 </manifest>
