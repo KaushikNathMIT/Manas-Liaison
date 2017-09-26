@@ -184,8 +184,12 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                             }
                         }
                     });
-                }
+                } else
+                    finish();
                 break;
+            default:
+                finish();
+
         }
     }
 

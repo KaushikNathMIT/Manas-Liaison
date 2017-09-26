@@ -126,7 +126,7 @@ public class InterviewScheduledFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 006) {
-            if (resultCode != 3) {
+            if (resultCode == 1 || resultCode == 2) {
                 tickUCV.setVisibility(View.VISIBLE);
                 final String cvURl = data.getStringExtra("urlCV");
                 userTable.setCV(cvURl);
@@ -141,37 +141,41 @@ public class InterviewScheduledFragment extends Fragment {
 
                     }
                 });
-            } else {
+            } else if (resultCode == 3) {
                 Toast.makeText(getContext(), data.getStringExtra("statusCV"), Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == 005) {
-            userTable.setHackerRankID(data.getStringExtra("ccpl"));
-            userTable.saveAsync(new AsyncCallback<UserTable>() {
-                @Override
-                public void handleResponse(UserTable response) {
-                    Log.d("status", "Hackerrank ID uploaded successfully");
-                    tickCCPL.setVisibility(View.VISIBLE);
-                }
+            if (resultCode == 1) {
+                userTable.setHackerRankID(data.getStringExtra("ccpl"));
+                userTable.saveAsync(new AsyncCallback<UserTable>() {
+                    @Override
+                    public void handleResponse(UserTable response) {
+                        Log.d("status", "Hackerrank ID uploaded successfully");
+                        tickCCPL.setVisibility(View.VISIBLE);
+                    }
 
-                @Override
-                public void handleFault(BackendlessFault fault) {
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
 
-                }
-            });
+                    }
+                });
+            }
         } else if (requestCode == 004) {
-            userTable.setGithubID(data.getStringExtra("gid"));
-            userTable.saveAsync(new AsyncCallback<UserTable>() {
-                @Override
-                public void handleResponse(UserTable response) {
-                    Log.d("status", "Github ID uploaded successfully");
-                    tickGID.setVisibility(View.VISIBLE);
-                }
+            if (resultCode == 1) {
+                userTable.setGithubID(data.getStringExtra("gid"));
+                userTable.saveAsync(new AsyncCallback<UserTable>() {
+                    @Override
+                    public void handleResponse(UserTable response) {
+                        Log.d("status", "Github ID uploaded successfully");
+                        tickGID.setVisibility(View.VISIBLE);
+                    }
 
-                @Override
-                public void handleFault(BackendlessFault fault) {
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
 
-                }
-            });
+                    }
+                });
+            }
         }
     }
 

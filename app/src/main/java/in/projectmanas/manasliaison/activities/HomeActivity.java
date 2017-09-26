@@ -240,8 +240,10 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+                break;
             case R.id.nav_support:
                 startActivity(new Intent(HomeActivity.this, SupportActivity.class));
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
