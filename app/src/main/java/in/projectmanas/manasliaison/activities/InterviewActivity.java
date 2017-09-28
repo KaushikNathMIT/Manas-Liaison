@@ -108,6 +108,7 @@ public class InterviewActivity extends AppCompatActivity {
                 break;
             case "SCHEDULED":
                 InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                interviewScheduledFragment.setIndex(1);
                 fragments.add(interviewScheduledFragment);
         }
         if (!prefDiv1.equals(prefDiv2)) {
@@ -137,6 +138,7 @@ public class InterviewActivity extends AppCompatActivity {
                     break;
                 case "SCHEDULED":
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                    interviewScheduledFragment.setIndex(2);
                     fragments.add(interviewScheduledFragment);
             }
         } else {

@@ -12,6 +12,8 @@ import com.backendless.persistence.DataQueryBuilder;
 import java.util.List;
 
 public class Sheet {
+    private String pref1Schedule;
+    private String pref2Schedule;
     private String interviewPending1;
     private String interviewSelected2;
     private String interviewScheduled1;
@@ -295,5 +297,21 @@ public class Sheet {
 
     public void setPrefDiv2(String prefDiv2) {
         this.prefDiv2 = prefDiv2;
+    }
+
+    public String getPref1Schedule() {
+        return pref1Schedule;
+    }
+
+    public void setPref1Schedule(String pref1Schedule) {
+        this.pref1Schedule = pref1Schedule;
+    }
+
+    public String getPref2Schedule() {
+        return pref2Schedule;
+    }
+
+    public void setPref2Schedule(String pref2Schedule) {
+        this.pref2Schedule = pref2Schedule;
     }
 }

@@ -11,6 +11,8 @@ import com.backendless.persistence.DataQueryBuilder;
 import java.util.List;
 
 public class UserTable {
+    private String pref1Confirm;
+    private String pref2Confirm;
     private String CV;
     private java.util.Date updated;
     private String registrationNumber;
@@ -146,5 +148,21 @@ public class UserTable {
 
     public void setHackerRankID(String hackerRankID) {
         this.hackerRankID = hackerRankID;
+    }
+
+    public String getPref1Confirm() {
+        return pref1Confirm;
+    }
+
+    public void setPref1Confirm(String pref1Confirm) {
+        this.pref1Confirm = pref1Confirm;
+    }
+
+    public String getPref2Confirm() {
+        return pref2Confirm;
+    }
+
+    public void setPref2Confirm(String pref2Confirm) {
+        this.pref2Confirm = pref2Confirm;
     }
 }

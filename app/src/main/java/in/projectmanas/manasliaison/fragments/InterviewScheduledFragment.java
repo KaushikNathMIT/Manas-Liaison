@@ -40,12 +40,19 @@ public class InterviewScheduledFragment extends Fragment {
     private TextView uploadCV;
     private TextView compCodeProfileLink;
     private TextView githubID;
+    private TextView tvSchedule;
     private ImageView tickUCV, tickCCPL, tickGID;
     private UserTable userTable;
-
+    private String schedule;
+    private int index;
+    private TextView tvLabelSchedule;
 
     public InterviewScheduledFragment() {
         // Required empty public constructor
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 
@@ -62,6 +69,10 @@ public class InterviewScheduledFragment extends Fragment {
         }
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        if (index == 1) {
+            schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
+        } else if (index == 2)
+            schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
         queryBuilder.setWhereClause(whereClause);
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
@@ -69,6 +80,7 @@ public class InterviewScheduledFragment extends Fragment {
             public void handleResponse(List<UserTable> response) {
                 userTable = response.get(0);
                 linkViews(view);
+                tvSchedule.setText(schedule);
                 setListeners();
                 checkData();
             }
@@ -91,6 +103,12 @@ public class InterviewScheduledFragment extends Fragment {
         if (userTable.getGithubID() != null && userTable.getGithubID().length() > 1) {
             tickGID.setVisibility(View.VISIBLE);
         }
+        if ((userTable.getPref1Confirm().equals("UNSET") && index == 1) || (userTable.getPref2Confirm().equals("UNSET") && index == 2)) {
+            confirmSchedule.setVisibility(View.VISIBLE);
+        } else {
+            confirmSchedule.setVisibility(View.GONE);
+            tvLabelSchedule.setText("Your interview is successfully scheduled");
+        }
     }
 
     private void setListeners() {
@@ -101,6 +119,25 @@ public class InterviewScheduledFragment extends Fragment {
                 Intent httpIntent = new Intent(Intent.ACTION_VIEW);
                 httpIntent.setData(Uri.parse(url));
                 startActivity(httpIntent);
+            }
+        });
+        confirmSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (index == 1)
+                    userTable.setPref1Confirm("TRUE");
+                else userTable.setPref2Confirm("TRUE");
+                userTable.saveAsync(new AsyncCallback<UserTable>() {
+                    @Override
+                    public void handleResponse(UserTable response) {
+                        confirmSchedule.setVisibility(View.GONE);
+                        tvLabelSchedule.setText("Your interview is successfully scheduled");
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                    }
+                });
             }
         });
         uploadCV.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +217,8 @@ public class InterviewScheduledFragment extends Fragment {
     }
 
     private void linkViews(View view) {
+        tvLabelSchedule = view.findViewById(R.id.tv_label_schedule_conf);
+        tvSchedule = view.findViewById(R.id.tv_schedule);
         directionButton = view.findViewById(R.id.ib_direction);
         confirmSchedule = view.findViewById(R.id.button_confirm_schedule);
         reSchedule = view.findViewById(R.id.button_request_reschedule);
@@ -192,6 +231,7 @@ public class InterviewScheduledFragment extends Fragment {
         tickUCV.setVisibility(View.INVISIBLE);
         tickCCPL.setVisibility(View.INVISIBLE);
         tickGID.setVisibility(View.INVISIBLE);
+        confirmSchedule.setVisibility(View.INVISIBLE);
     }
 
 }

@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2;
+    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule;
     private String deviceToken;
 
     @Override
@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
 
         mCredential = FirstRunActivity.mCredential;
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
-        getCount();
+        getData();
     }
 
     private void cacheData() {
@@ -73,6 +73,8 @@ public class HomeActivity extends AppCompatActivity
                 .putString("deviceToken", deviceToken)
                 .putString("prefDiv1", prefDiv1)
                 .putString("prefDiv2", prefDiv2)
+                .putString("pref1Schedule", pref1Schedule)
+                .putString("pref2Schedule", pref2Schedule)
                 .apply();
         //TODO: add to APP
         UserTable userTable = new UserTable();
@@ -156,11 +158,11 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-    private void getCount() {
+    private void getData() {
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
-                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2()};
+                final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2(), response.getPref1Schedule(), response.getPref2Schedule()};
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
@@ -258,63 +260,77 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
-        int foundIndex = -1;
-        ArrayList<ArrayList<String>> output = outputList.get(0);
-        size = output.size();
-        tvNumberApplicants.setText("" + size);
-        Log.d("Number of applicants ", size + "   ");
-        boolean stateFlagFound = false;
-        for (int i = 0; i < output.size(); i++) {
-            ArrayList<String> row = output.get(i);
-            if (row.size() > 0 && row.get(0).equals(emailID)) {
-                foundIndex = i;
-                Snackbar.make(coordinatorLayout, "Welcome " + outputList.get(4).get(i).get(0), Snackbar.LENGTH_LONG).show();
-                stateFlagFound = true;
-                break;
-            }
-        }
-        if (!stateFlagFound)
-            Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_LONG).show();
-        else {
-            interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
-            interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
-            tpStatus = outputList.get(3).get(foundIndex).get(0);
-            userName = outputList.get(4).get(foundIndex).get(0);
-            regNumber = outputList.get(5).get(foundIndex).get(0);
-            mobileNumber = outputList.get(6).get(foundIndex).get(0);
-            prefDiv1 = outputList.get(7).get(foundIndex).get(0);
-            prefDiv2 = outputList.get(8).get(foundIndex).get(0);
-            tvNavHeaderName.setText(userName);
-            tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
-            tvNavHeaderRegNumber.setText(regNumber);
-            cacheData();
-        }
-        ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
-        int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;
-        for (ArrayList<String> arrayList : interviewStatus) {
-            if (arrayList.size() > 0) {
-                if (arrayList.get(0).equals("ACCEPTED")) {
-                    interviewAcceptedCounter++;
-                } else if (arrayList.get(0).equals("REJECTED")) {
-                    rejectedCounter++;
-                } else if (arrayList.get(0).equals("MAYBE")) {
-                    maybeCounter++;
+        try {
+            int foundIndex = -1;
+            ArrayList<ArrayList<String>> output = outputList.get(0);
+            size = output.size();
+            tvNumberApplicants.setText("" + size);
+            Log.d("Number of applicants ", size + "   ");
+            boolean stateFlagFound = false;
+            for (int i = 0; i < output.size(); i++) {
+                ArrayList<String> row = output.get(i);
+                if (row.size() > 0 && row.get(0).equals(emailID)) {
+                    foundIndex = i;
+                    Snackbar.make(coordinatorLayout, "Welcome " + outputList.get(4).get(i).get(0), Snackbar.LENGTH_LONG).show();
+                    stateFlagFound = true;
+                    break;
                 }
             }
-        }
-
-        tvNumberInterviewConducted.setText((interviewAcceptedCounter + rejectedCounter + maybeCounter) + "");
-        tvNumTPShortlisted.setText("" + interviewAcceptedCounter);
-
-        int selectedCounter = 0;
-        ArrayList<ArrayList<String>> tpStatus = outputList.get(3);
-        for (ArrayList<String> arrayList : tpStatus) {
-            if (arrayList.size() > 0) {
-                if (arrayList.get(0).equals("ACCEPTED")) {
-                    selectedCounter++;
+            if (!stateFlagFound)
+                Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_LONG).show();
+            else {
+                interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
+                interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
+                tpStatus = outputList.get(3).get(foundIndex).get(0);
+                userName = outputList.get(4).get(foundIndex).get(0);
+                regNumber = outputList.get(5).get(foundIndex).get(0);
+                mobileNumber = outputList.get(6).get(foundIndex).get(0);
+                prefDiv1 = outputList.get(7).get(foundIndex).get(0);
+                prefDiv2 = outputList.get(8).get(foundIndex).get(0);
+                if (interviewStatus1.equals("SCHEDULED")) {
+                    pref1Schedule = outputList.get(9).get(foundIndex).get(0);
+                } else {
+                    pref1Schedule = "NOT SCHEDULED";
+                }
+                if (interviewStatus2.equals("SCHEDULED")) {
+                    pref2Schedule = outputList.get(10).get(foundIndex).get(0);
+                } else {
+                    pref2Schedule = "NOT SCHEDULED";
+                }
+                tvNavHeaderName.setText(userName);
+                tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
+                tvNavHeaderRegNumber.setText(regNumber);
+                cacheData();
+            }
+            ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
+            int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;
+            for (ArrayList<String> arrayList : interviewStatus) {
+                if (arrayList.size() > 0) {
+                    if (arrayList.get(0).equals("ACCEPTED")) {
+                        interviewAcceptedCounter++;
+                    } else if (arrayList.get(0).equals("REJECTED")) {
+                        rejectedCounter++;
+                    } else if (arrayList.get(0).equals("MAYBE")) {
+                        maybeCounter++;
+                    }
                 }
             }
+
+            tvNumberInterviewConducted.setText((interviewAcceptedCounter + rejectedCounter + maybeCounter) + "");
+            tvNumTPShortlisted.setText("" + interviewAcceptedCounter);
+
+            int selectedCounter = 0;
+            ArrayList<ArrayList<String>> tpStatus = outputList.get(3);
+            for (ArrayList<String> arrayList : tpStatus) {
+                if (arrayList.size() > 0) {
+                    if (arrayList.get(0).equals("ACCEPTED")) {
+                        selectedCounter++;
+                    }
+                }
+            }
+            tvNumSelected.setText("" + selectedCounter);
+        } catch (Exception e) {
+            Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_INDEFINITE);
         }
-        tvNumSelected.setText("" + selectedCounter);
     }
 }
