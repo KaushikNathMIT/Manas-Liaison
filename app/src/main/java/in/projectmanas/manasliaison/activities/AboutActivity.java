@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         gplus = (ImageButton) findViewById(R.id.ib_gplus);
         youtube = (ImageButton) findViewById(R.id.ib_yt);
         twitter = (ImageButton) findViewById(R.id.ib_twitter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -60,5 +62,18 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
     private void openWebView(String url) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

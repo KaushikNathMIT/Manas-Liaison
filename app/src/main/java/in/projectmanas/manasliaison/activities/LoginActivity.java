@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -77,6 +76,18 @@ public class LoginActivity extends AppCompatActivity
                 getResultsFromApi();
             }
         });
+        try {
+            if (getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null) != null) {
+                mCredential.setSelectedAccountName(getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            } else {
+                getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+                mCredential.setSelectedAccountName(null);
+            }
+        } catch (Exception e) {
+            getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+            mCredential.setSelectedAccountName(null);
+        }
     }
 
     private void getResultsFromApi() {
@@ -87,7 +98,7 @@ public class LoginActivity extends AppCompatActivity
         } else if (!isDeviceOnline()) {
             Toast.makeText(getApplicationContext(), "No network connection available.", Toast.LENGTH_LONG).show();
         } else {
-            //new ReadSpreadSheet(mCredential).execute();
+
             checkEmailID();
         }
     }
@@ -156,11 +167,6 @@ public class LoginActivity extends AppCompatActivity
                     String accountName =
                             data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
                     if (accountName != null) {
-                        SharedPreferences settings =
-                                getPreferences(Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString(ConstantsManas.PREF_ACCOUNT_NAME, accountName);
-                        editor.apply();
                         mCredential.setSelectedAccountName(accountName);
                         getResultsFromApi();
                     }
@@ -250,9 +256,15 @@ public class LoginActivity extends AppCompatActivity
             mCredential.setSelectedAccount(null);
             Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
         } else {
+            SharedPreferences settings =
+                    getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(ConstantsManas.PREF_ACCOUNT_NAME, mCredential.getSelectedAccountName());
+            editor.apply();
+            Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             intent.putExtra("emailID", mCredential.getSelectedAccountName());
-            Log.d("emailID", mCredential.getSelectedAccountName());
+            //Log.d("emailID", mCredential.getSelectedAccountName());
             startActivity(intent);
         }
     }

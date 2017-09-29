@@ -46,8 +46,8 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
-        emailID = getIntent().getStringExtra("emailID");
-        initializeBackendless();
+        emailID = LoginActivity.mCredential.getSelectedAccountName();
+        getBackendlessDeviceToken();
         getRecruitmentPhase();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
@@ -102,13 +102,13 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-    private void initializeBackendless() {
-        //Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
+    private void getBackendlessDeviceToken() {
         Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
         Backendless.Messaging.getDeviceRegistration(new AsyncCallback<DeviceRegistration>() {
             @Override
             public void handleResponse(DeviceRegistration response) {
                 deviceToken = response.getDeviceToken();
+                Log.d("token", deviceToken);
             }
 
             @Override
@@ -142,6 +142,8 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+        navigationView.setCheckedItem(R.id.nav_home);
         tvNavHeaderName = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_email_id);
         tvNavHeaderRegNumber = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_reg_number);
@@ -180,7 +182,6 @@ public class HomeActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -268,17 +269,40 @@ public class HomeActivity extends AppCompatActivity
             }
             if (!stateFlagFound) {
                 Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
-                finish();
-            }
-            else {
-                interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
-                interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
-                tpStatus = outputList.get(3).get(foundIndex).get(0);
-                userName = outputList.get(4).get(foundIndex).get(0);
-                regNumber = outputList.get(5).get(foundIndex).get(0);
-                mobileNumber = outputList.get(6).get(foundIndex).get(0);
-                prefDiv1 = outputList.get(7).get(foundIndex).get(0);
-                prefDiv2 = outputList.get(8).get(foundIndex).get(0);
+                //finish();
+            } else {
+                try {
+                    interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    tpStatus = outputList.get(3).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    userName = outputList.get(4).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    regNumber = outputList.get(5).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    mobileNumber = outputList.get(6).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    prefDiv1 = outputList.get(7).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
+                try {
+                    prefDiv2 = outputList.get(8).get(foundIndex).get(0);
+                } catch (Exception e) {
+                }
                 if (interviewStatus1.equals("SCHEDULED")) {
                     pref1Schedule = outputList.get(9).get(foundIndex).get(0);
                 } else {
@@ -290,8 +314,14 @@ public class HomeActivity extends AppCompatActivity
                     pref2Schedule = "NOT SCHEDULED";
                 }
                 tvNavHeaderName.setText(userName);
-                tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
-                tvNavHeaderRegNumber.setText(regNumber);
+                try {
+                    tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
+                } catch (Exception e) {
+                }
+                try {
+                    tvNavHeaderRegNumber.setText(regNumber);
+                } catch (Exception e) {
+                }
                 cacheData();
             }
             ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);

@@ -12,6 +12,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -217,5 +218,18 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, InterviewActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
