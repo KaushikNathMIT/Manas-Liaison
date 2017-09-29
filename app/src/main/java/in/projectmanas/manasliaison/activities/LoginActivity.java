@@ -11,31 +11,49 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import in.projectmanas.manasliaison.App;
+import in.projectmanas.manasliaison.MyCredential;
+import in.projectmanas.manasliaison.R;
+import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
+import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
+import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class FirstRunActivity extends AppCompatActivity
-        implements EasyPermissions.PermissionCallbacks {
+public class LoginActivity extends AppCompatActivity
+        implements EasyPermissions.PermissionCallbacks, SheetDataFetchedListener {
     public static final int REQUEST_AUTHORIZATION = 1001;
     public static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
-    private static final String BUTTON_TEXT = "Call Google Sheets API";
     private static final String[] SCOPES = {SheetsScopes.SPREADSHEETS_READONLY};
     public static GoogleAccountCredential mCredential;
+    public static MyCredential myCredential;
     ProgressDialog mProgress;
+    private CoordinatorLayout coordinatorLayout;
 
     /**
      * Create the main activity.
@@ -45,11 +63,20 @@ public class FirstRunActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
+        setContentView(R.layout.activity_login);
+        myCredential = new MyCredential();
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
-
-        getResultsFromApi();
+        Button login = (Button) findViewById(R.id.button_login);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getResultsFromApi();
+            }
+        });
     }
 
     private void getResultsFromApi() {
@@ -58,15 +85,29 @@ public class FirstRunActivity extends AppCompatActivity
         } else if (mCredential.getSelectedAccountName() == null) {
             chooseAccount();
         } else if (!isDeviceOnline()) {
-            //mOutputText.setText("No network connection available.");
+            Toast.makeText(getApplicationContext(), "No network connection available.", Toast.LENGTH_LONG).show();
         } else {
             //new ReadSpreadSheet(mCredential).execute();
-            Intent intent = new Intent(FirstRunActivity.this, HomeActivity.class);
-            intent.putExtra("emailID", mCredential.getSelectedAccountName());
-            //Log.d("emailID", mCredential.getSelectedAccountName());
-            startActivity(intent);
-            finish();
+            checkEmailID();
         }
+    }
+
+    private void checkEmailID() {
+        Snackbar.make(coordinatorLayout, "Authenticating.. Please wait.", Snackbar.LENGTH_INDEFINITE).show();
+        ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
+            @Override
+            public void handleResponse(Sheet response) {
+                final String[] params = new String[]{response.getEmailID()};
+                ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, LoginActivity.this);
+                readSpreadSheet.delegate = LoginActivity.this;
+                readSpreadSheet.execute(params);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
@@ -186,10 +227,33 @@ public class FirstRunActivity extends AppCompatActivity
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                FirstRunActivity.this,
+                LoginActivity.this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
     }
 
+    @Override
+    public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+        boolean stateFlagFound = false;
+        ArrayList<ArrayList<String>> output = outputList.get(0);
+        for (int i = 0; i < output.size(); i++) {
+            ArrayList<String> row = output.get(i);
+            if (row.size() > 0 && row.get(0).equals(mCredential.getSelectedAccountName())) {
+                //Snackbar.make(coordinatorLayout, "Welcome " + outputList.get(4).get(i).get(0), Snackbar.LENGTH_LONG).show();
+                stateFlagFound = true;
+                break;
+            }
+        }
+        if (!stateFlagFound) {
+            getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+            mCredential.setSelectedAccount(null);
+            Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
+        } else {
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("emailID", mCredential.getSelectedAccountName());
+            Log.d("emailID", mCredential.getSelectedAccountName());
+            startActivity(intent);
+        }
+    }
 }

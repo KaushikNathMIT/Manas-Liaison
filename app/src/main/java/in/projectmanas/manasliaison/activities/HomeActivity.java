@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import com.backendless.Backendless;
 import com.backendless.DeviceRegistration;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,6 @@ import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.backendless_classes.UserTable;
-import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
@@ -39,7 +36,6 @@ import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SheetDataFetchedListener {
 
-    public static GoogleAccountCredential mCredential;
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
@@ -53,8 +49,6 @@ public class HomeActivity extends AppCompatActivity
         emailID = getIntent().getStringExtra("emailID");
         initializeBackendless();
         getRecruitmentPhase();
-
-        mCredential = FirstRunActivity.mCredential;
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
     }
@@ -109,7 +103,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initializeBackendless() {
-        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
+        //Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
         Backendless.Messaging.getDeviceRegistration(new AsyncCallback<DeviceRegistration>() {
             @Override
@@ -127,6 +121,7 @@ public class HomeActivity extends AppCompatActivity
     private void setCardStatus(int phase) {
         Log.d("Phase ", phase + "");
         //TODO : Make related changes in the view for the corresponding phase.
+        Snackbar.make(coordinatorLayout, "Phase " + phase, Snackbar.LENGTH_LONG).show();
     }
 
     private void linkViews() {
@@ -163,7 +158,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void handleResponse(Sheet response) {
                 final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2(), response.getPref1Schedule(), response.getPref2Schedule()};
-                ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(mCredential, HomeActivity.this);
+                ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(LoginActivity.mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
             }
@@ -186,12 +181,7 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -276,8 +266,10 @@ public class HomeActivity extends AppCompatActivity
                     break;
                 }
             }
-            if (!stateFlagFound)
-                Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_LONG).show();
+            if (!stateFlagFound) {
+                Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
+                finish();
+            }
             else {
                 interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
                 interviewStatus2 = outputList.get(2).get(foundIndex).get(0);

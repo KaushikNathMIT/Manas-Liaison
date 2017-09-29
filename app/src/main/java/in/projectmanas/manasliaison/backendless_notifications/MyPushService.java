@@ -13,10 +13,11 @@ import com.backendless.push.BackendlessPushService;
 
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.activities.AboutActivity;
-import in.projectmanas.manasliaison.activities.FirstRunActivity;
 import in.projectmanas.manasliaison.activities.HomeActivity;
 import in.projectmanas.manasliaison.activities.InterviewActivity;
+import in.projectmanas.manasliaison.activities.LoginActivity;
 import in.projectmanas.manasliaison.activities.OrientationActivity;
+import in.projectmanas.manasliaison.activities.ProfileActivity;
 import in.projectmanas.manasliaison.activities.SupportActivity;
 import in.projectmanas.manasliaison.activities.TaskPhaseActivity;
 
@@ -29,9 +30,7 @@ public class MyPushService extends BackendlessPushService {
 
     @Override
     public void onRegistered(Context context, String registrationId) {
-        Toast.makeText(context,
-                "device registered" + registrationId,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "device registered" + registrationId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -72,7 +71,9 @@ public class MyPushService extends BackendlessPushService {
             notificationIntent = new Intent(context, SupportActivity.class);
         else if (TaskPhaseActivity.class.getName().contains(activityName))
             notificationIntent = new Intent(context, TaskPhaseActivity.class);
-        else notificationIntent = new Intent(context, FirstRunActivity.class);
+        else if (ProfileActivity.class.getName().contains(activityName))
+            notificationIntent = new Intent(context, ProfileActivity.class);
+        else notificationIntent = new Intent(context, LoginActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 //Custom notification

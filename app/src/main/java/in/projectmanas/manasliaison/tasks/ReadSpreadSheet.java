@@ -2,8 +2,11 @@ package in.projectmanas.manasliaison.tasks;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -20,11 +23,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import in.projectmanas.manasliaison.activities.FirstRunActivity;
+import in.projectmanas.manasliaison.activities.LoginActivity;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 
-import static in.projectmanas.manasliaison.activities.FirstRunActivity.REQUEST_GOOGLE_PLAY_SERVICES;
+import static in.projectmanas.manasliaison.activities.LoginActivity.REQUEST_GOOGLE_PLAY_SERVICES;
+import static in.projectmanas.manasliaison.activities.LoginActivity.mCredential;
 
 /**
  * Created by knnat on 9/14/2017.
@@ -42,8 +46,8 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.sheets.v4.Sheets.Builder(
-                transport, jsonFactory, credential)
-                .setApplicationName("Project Manas Liaison")
+                transport, jsonFactory, LoginActivity.myCredential)
+                .setApplicationName("Manas-Liaison")
                 .build();
     }
 
@@ -123,8 +127,12 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
             } else if (mLastError instanceof UserRecoverableAuthIOException) {
                 context.startActivityForResult(
                         ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                        FirstRunActivity.REQUEST_AUTHORIZATION);
+                        LoginActivity.REQUEST_AUTHORIZATION);
             } else {
+                Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
+                context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+                mCredential.setSelectedAccount(null);
+                context.startActivity(new Intent(context, LoginActivity.class));
                 Log.e("Error", "The following error occurred:\n"
                         + mLastError.getMessage());
             }
