@@ -84,33 +84,35 @@ public class InterviewActivity extends AppCompatActivity {
 
     private void addFragmentsToTabs() {
         final ArrayList<Fragment> fragments = new ArrayList<>();
-        switch (interviewStatus1) {
-            case "ACCEPTED":
-                //textViewStatusDesc.setText("Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer.");
-                InterviewSelectedFragment interviewSelectedFragment = new InterviewSelectedFragment();
-                interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, 1);
-                fragments.add(interviewSelectedFragment);
-                break;
-            case "REJECTED":
-                //textViewStatusDesc.setText("We regret to inform you that you have not been selected for the task phase round.");
-                InterviewRejectedFragment interviewRejectedFragment = InterviewRejectedFragment.getInstance();
-                fragments.add(interviewRejectedFragment);
-                break;
-            case "RESULT PENDING":
-                InterviewResultPendingFragment interviewResultPendingFragment = new InterviewResultPendingFragment();
-                fragments.add(interviewResultPendingFragment);
-                //textViewStatusDesc.setText("We’ve completed your interview. The result of your interview will be announced, once all interviews have been completed.");
-                break;
-            case "PENDING":
-                InterviewPendingFragment interviewPendingFragment = new InterviewPendingFragment();
-                fragments.add(interviewPendingFragment);
-                //textViewStatusDesc.setText("Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human");
-                break;
-            case "SCHEDULED":
-                InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
-                fragments.add(interviewScheduledFragment);
+        if (!prefDiv1.equals("")) {
+            switch (interviewStatus1) {
+                case "ACCEPTED":
+                    //textViewStatusDesc.setText("Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer.");
+                    InterviewSelectedFragment interviewSelectedFragment = new InterviewSelectedFragment();
+                    interviewSelectedFragment.setDetails(this, interviewStatus1, interviewStatus2, 1);
+                    fragments.add(interviewSelectedFragment);
+                    break;
+                case "REJECTED":
+                    //textViewStatusDesc.setText("We regret to inform you that you have not been selected for the task phase round.");
+                    InterviewRejectedFragment interviewRejectedFragment = InterviewRejectedFragment.getInstance();
+                    fragments.add(interviewRejectedFragment);
+                    break;
+                case "RESULT PENDING":
+                    InterviewResultPendingFragment interviewResultPendingFragment = new InterviewResultPendingFragment();
+                    fragments.add(interviewResultPendingFragment);
+                    //textViewStatusDesc.setText("We’ve completed your interview. The result of your interview will be announced, once all interviews have been completed.");
+                    break;
+                case "PENDING":
+                    InterviewPendingFragment interviewPendingFragment = new InterviewPendingFragment();
+                    fragments.add(interviewPendingFragment);
+                    //textViewStatusDesc.setText("Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human");
+                    break;
+                case "SCHEDULED":
+                    InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                    fragments.add(interviewScheduledFragment);
+            }
         }
-        if (!prefDiv1.equals(prefDiv2)) {
+        if (!prefDiv1.equals(prefDiv2) && !prefDiv2.equals("")) {
             tvInterviewStatus2.setVisibility(View.VISIBLE);
 
             switch (interviewStatus2) {

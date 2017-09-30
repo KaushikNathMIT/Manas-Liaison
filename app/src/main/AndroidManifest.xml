@@ -25,6 +25,7 @@
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,15 +33,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ProfileActivity" />
-        <activity android:name=".activities.OnlineChallengeCommingSoon" />
-        <activity android:name=".activities.OnlineChallengeOngoing" />
-        <activity android:name=".activities.OrientationActivity" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.OnlineChallengeCommingSoon"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.OnlineChallengeOngoing"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.OrientationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.InterviewActivity"
             android:label="@string/title_activity_interview"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.LoginActivity">
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,12 +73,24 @@
 
         <service android:name=".backendless_notifications.MyPushService" />
 
-        <activity android:name=".activities.TaskPhaseActivity" />
-        <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".activities.SupportActivity" />
-        <activity android:name=".activities.UploadCVActivity" />
-        <activity android:name=".activities.CCPLActivity" />
-        <activity android:name=".activities.GithubActivity"></activity>
+        <activity
+            android:name=".activities.TaskPhaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SupportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.UploadCVActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CCPLActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.GithubActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

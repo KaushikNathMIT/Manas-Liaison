@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -34,6 +35,7 @@ import java.util.List;
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.MyCredential;
 import in.projectmanas.manasliaison.R;
+import in.projectmanas.manasliaison.backendless_classes.Links;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
@@ -254,7 +256,22 @@ public class LoginActivity extends AppCompatActivity
         if (!stateFlagFound) {
             getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
             mCredential.setSelectedAccount(null);
-            Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
+            Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).setAction("Fill Form", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Links.findFirstAsync(new AsyncCallback<Links>() {
+                        @Override
+                        public void handleResponse(Links response) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(response.getRegistrationForm())));
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_INDEFINITE);
+                        }
+                    });
+                }
+            }).show();
         } else {
             SharedPreferences settings =
                     getPreferences(Context.MODE_PRIVATE);

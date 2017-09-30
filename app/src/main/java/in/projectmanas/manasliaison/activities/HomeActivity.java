@@ -274,34 +274,42 @@ public class HomeActivity extends AppCompatActivity
                 try {
                     interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    interviewStatus1 = "";
                 }
                 try {
                     interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    interviewStatus2 = "";
                 }
                 try {
                     tpStatus = outputList.get(3).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    tpStatus = "";
                 }
                 try {
                     userName = outputList.get(4).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    userName = "";
                 }
                 try {
                     regNumber = outputList.get(5).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    regNumber = "";
                 }
                 try {
                     mobileNumber = outputList.get(6).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    mobileNumber = "";
                 }
                 try {
                     prefDiv1 = outputList.get(7).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    prefDiv1 = "";
                 }
                 try {
                     prefDiv2 = outputList.get(8).get(foundIndex).get(0);
                 } catch (Exception e) {
+                    prefDiv2 = "";
                 }
                 if (interviewStatus1.equals("SCHEDULED")) {
                     pref1Schedule = outputList.get(9).get(foundIndex).get(0);
