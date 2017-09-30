@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -135,11 +136,15 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
                         } else {
                             Log.e("error", "Couldn't fetch file");
                             finish();
+                            break;
                         }
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    Log.d("File name  ", fileName);
+                    if (fileName == null) {
+                        Toast.makeText(getApplicationContext(), "Couldn't fetch cv from this source", Toast.LENGTH_LONG).show();
+                        break;
+                    }
                     final String finalFileName = fileName;
                     Backendless.Files.upload(file, "/CVs/" + getRegistrationNumber(), true, new UploadCallback() {
                         @Override
@@ -205,7 +210,7 @@ public class UploadCVActivity extends AppCompatActivity implements EasyPermissio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_cv);
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("*/*");
+        intent.setType("application/pdf");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), 007);
     }

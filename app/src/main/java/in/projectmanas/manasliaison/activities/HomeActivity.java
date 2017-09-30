@@ -59,10 +59,10 @@ public class HomeActivity extends AppCompatActivity
                 getData();
             }
         });
+        swipeRefreshLayout.setRefreshing(true);
         if (getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("regNumber", null) == null) {
             linearLayout.setVisibility(View.INVISIBLE);
-            swipeRefreshLayout.setRefreshing(true);
-        } else onDetailsUpdated();
+        } else onNewDetailsFetched();
         getBackendlessDeviceToken();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
@@ -265,11 +265,15 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onDetailsUpdated() {
+        onNewDetailsFetched();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void onNewDetailsFetched() {
         getAllCacheData();
         if (deviceToken != null && regNumber != null) fillUserTable();
         setDataToViews();
         linearLayout.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void setDataToViews() {

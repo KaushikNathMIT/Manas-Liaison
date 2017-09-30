@@ -80,6 +80,8 @@ public class InterviewSelectedFragment extends Fragment {
                 } else {
                     tvLabelInterviewSelected.setText("We have already recorded your response");
                     tvLabelInterviewSelected.setVisibility(View.VISIBLE);
+                    accept.setVisibility(View.GONE);
+                    reject.setVisibility(View.GONE);
                 }
             }
 
@@ -96,6 +98,8 @@ public class InterviewSelectedFragment extends Fragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                accept.setClickable(false);
+                reject.setClickable(false);
                 if (status1.equals("ACCEPTED") && status2.equals("ACCEPTED")) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Warning");
@@ -122,6 +126,8 @@ public class InterviewSelectedFragment extends Fragment {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                accept.setClickable(false);
+                reject.setClickable(false);
                 saveAcceptance(false);
             }
         });
@@ -148,14 +154,16 @@ public class InterviewSelectedFragment extends Fragment {
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-
+                        accept.setClickable(true);
+                        reject.setClickable(true);
                     }
                 });
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                accept.setClickable(true);
+                reject.setClickable(true);
             }
         });
     }

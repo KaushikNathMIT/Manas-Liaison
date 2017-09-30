@@ -17,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
@@ -55,6 +56,8 @@ public class LoginActivity extends AppCompatActivity
     public static MyCredential myCredential;
     ProgressDialog mProgress;
     private CoordinatorLayout coordinatorLayout;
+    private ProgressBar progressBar;
+    private Button login;
 
     /**
      * Create the main activity.
@@ -65,13 +68,12 @@ public class LoginActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
-        setContentView(R.layout.activity_login);
+        linkViews();
         myCredential = new MyCredential();
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
-        Button login = (Button) findViewById(R.id.button_login);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_login);
+        progressBar.setVisibility(View.INVISIBLE);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +84,7 @@ public class LoginActivity extends AppCompatActivity
             if (getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null) != null) {
                 mCredential.setSelectedAccountName(getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null));
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
             } else {
                 getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
                 mCredential.setSelectedAccountName(null);
@@ -90,6 +93,13 @@ public class LoginActivity extends AppCompatActivity
             getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
             mCredential.setSelectedAccountName(null);
         }
+    }
+
+    private void linkViews() {
+        setContentView(R.layout.activity_login);
+        progressBar = (ProgressBar) findViewById(R.id.pb_circular_login);
+        login = (Button) findViewById(R.id.button_login);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_login);
     }
 
     private void getResultsFromApi() {
@@ -106,7 +116,9 @@ public class LoginActivity extends AppCompatActivity
     }
 
     private void checkEmailID() {
-        Snackbar.make(coordinatorLayout, "Authenticating.. Please wait.", Snackbar.LENGTH_INDEFINITE).show();
+        //Snackbar.make(coordinatorLayout, "Authenticating.. Please wait.", Snackbar.LENGTH_INDEFINITE).show();
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
@@ -253,6 +265,7 @@ public class LoginActivity extends AppCompatActivity
                 break;
             }
         }
+        progressBar.setVisibility(View.INVISIBLE);
         if (!stateFlagFound) {
             getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
             mCredential.setSelectedAccount(null);

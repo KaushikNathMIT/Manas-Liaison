@@ -189,7 +189,8 @@ public class InterviewScheduledFragment extends Fragment {
                 });
             } else if (resultCode == 3) {
                 Toast.makeText(getContext(), data.getStringExtra("statusCV"), Toast.LENGTH_LONG).show();
-            }
+            } else
+                Toast.makeText(getContext(), "Couldn't fetch cv from this source", Toast.LENGTH_LONG).show();
         } else if (requestCode == 005) {
             if (resultCode == 1) {
                 userTable.setHackerRankID(data.getStringExtra("ccpl"));
