@@ -140,6 +140,15 @@ public class InterviewScheduledFragment extends Fragment {
                 });
             }
         });
+        reSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+                String phone = sharedPreferences.getString("reScheduleCall", "9743608725");
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                startActivity(intent);
+            }
+        });
         uploadCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

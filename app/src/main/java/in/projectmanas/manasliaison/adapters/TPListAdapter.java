@@ -1,4 +1,4 @@
-package in.projectmanas.manasliaison.activities;
+package in.projectmanas.manasliaison.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

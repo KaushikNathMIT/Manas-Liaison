@@ -41,14 +41,17 @@ public class HomeActivity extends AppCompatActivity
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
     private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule;
     private String deviceToken;
+    private String reScheduleCall;
+    private String onlineChallengeDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
         emailID = LoginActivity.mCredential.getSelectedAccountName();
+        Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
         getBackendlessDeviceToken();
-        getRecruitmentPhase();
+        getRecruitmentDetails();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
     }
@@ -69,6 +72,8 @@ public class HomeActivity extends AppCompatActivity
                 .putString("prefDiv2", prefDiv2)
                 .putString("pref1Schedule", pref1Schedule)
                 .putString("pref2Schedule", pref2Schedule)
+                .putString("onlineChallengeDate", onlineChallengeDate)
+                .putString("reScheduleCall", reScheduleCall)
                 .apply();
         //TODO: add to APP
         UserTable userTable = new UserTable();
@@ -87,17 +92,19 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-    private void getRecruitmentPhase() {
+    private void getRecruitmentDetails() {
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
                 phase = response.getPhase();
+                reScheduleCall = response.getReScheduleCall();
+                onlineChallengeDate = response.getOnlineChallengeDate().toString();
                 setCardStatus(phase);
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_INDEFINITE).show();
             }
         });
     }
@@ -121,7 +128,7 @@ public class HomeActivity extends AppCompatActivity
     private void setCardStatus(int phase) {
         Log.d("Phase ", phase + "");
         //TODO : Make related changes in the view for the corresponding phase.
-        Snackbar.make(coordinatorLayout, "Phase " + phase, Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(coordinatorLayout, "Phase " + phase, Snackbar.LENGTH_LONG).show();
     }
 
     private void linkViews() {
@@ -268,7 +275,13 @@ public class HomeActivity extends AppCompatActivity
                 }
             }
             if (!stateFlagFound) {
-                Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(coordinatorLayout, "Please ReAuthenticate to use the app", Snackbar.LENGTH_INDEFINITE).setAction("ReAuthenticate", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                }).show();
                 //finish();
             } else {
                 try {

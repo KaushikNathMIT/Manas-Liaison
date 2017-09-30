@@ -8,10 +8,13 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.persistence.DataQueryBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 public class RecruitmentDetails {
     private Integer phase;
+    private Date onlineChallengeDate;
+    private String reScheduleCall;
     private java.util.Date updated;
     private String objectId;
     private String ownerId;
@@ -87,5 +90,21 @@ public class RecruitmentDetails {
 
     public void removeAsync(AsyncCallback<Long> callback) {
         Backendless.Data.of(RecruitmentDetails.class).remove(this, callback);
+    }
+
+    public Date getOnlineChallengeDate() {
+        return onlineChallengeDate;
+    }
+
+    public void setOnlineChallengeDate(Date onlineChallengeDate) {
+        this.onlineChallengeDate = onlineChallengeDate;
+    }
+
+    public String getReScheduleCall() {
+        return reScheduleCall;
+    }
+
+    public void setReScheduleCall(String reScheduleCall) {
+        this.reScheduleCall = reScheduleCall;
     }
 }
