@@ -22,24 +22,22 @@ import com.backendless.DeviceRegistration;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
-import java.util.ArrayList;
-
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
-import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
-import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
+import in.projectmanas.manasliaison.listeners.DetailsUpdatedListener;
+import in.projectmanas.manasliaison.tasks.UpdateAllDetails;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SheetDataFetchedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DetailsUpdatedListener {
 
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule;
+    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -51,31 +49,11 @@ public class HomeActivity extends AppCompatActivity
         emailID = LoginActivity.mCredential.getSelectedAccountName();
         Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
         getBackendlessDeviceToken();
-        getRecruitmentDetails();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
     }
 
-    private void cacheData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor
-                .putString("name", userName)
-                .putString("emailID", emailID)
-                .putString("interviewStatus1", interviewStatus1)
-                .putString("interviewStatus2", interviewStatus2)
-                .putString("tpStatus", tpStatus)
-                .putString("regNumber", regNumber)
-                .putString("mobileNumber", mobileNumber)
-                .putString("deviceToken", deviceToken)
-                .putString("prefDiv1", prefDiv1)
-                .putString("prefDiv2", prefDiv2)
-                .putString("pref1Schedule", pref1Schedule)
-                .putString("pref2Schedule", pref2Schedule)
-                .putString("onlineChallengeDate", onlineChallengeDate)
-                .putString("reScheduleCall", reScheduleCall)
-                .apply();
-        //TODO: add to APP
+    private void fillUserTable() {
         UserTable userTable = new UserTable();
         userTable.setRegistrationNumber(regNumber);
         userTable.setDeviceToken(deviceToken);
@@ -92,13 +70,18 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-    private void getRecruitmentDetails() {
+    private void getAndCacheRecruitmentDetails() {
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
                 phase = response.getPhase();
                 reScheduleCall = response.getReScheduleCall();
                 onlineChallengeDate = response.getOnlineChallengeDate().toString();
+                SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+                sharedPreferences.edit()
+                        .putString("reScheduleCall", reScheduleCall)
+                        .putString("onlineChallengeDate", onlineChallengeDate)
+                        .apply();
                 setCardStatus(phase);
             }
 
@@ -167,9 +150,14 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void handleResponse(Sheet response) {
                 final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2(), response.getPref1Schedule(), response.getPref2Schedule()};
+                /*
                 ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(LoginActivity.mCredential, HomeActivity.this);
                 readSpreadSheet.delegate = HomeActivity.this;
                 readSpreadSheet.execute(params);
+                */
+                UpdateAllDetails updateAllDetails = new UpdateAllDetails(HomeActivity.this);
+                updateAllDetails.delegate = HomeActivity.this;
+                updateAllDetails.execute(params);
             }
 
             @Override
@@ -256,124 +244,42 @@ public class HomeActivity extends AppCompatActivity
         startActivity(getIntent());
     }
 
+
     @Override
-    public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
-        try {
-            int foundIndex = -1;
-            ArrayList<ArrayList<String>> output = outputList.get(0);
-            size = output.size();
-            tvNumberApplicants.setText("" + size);
-            Log.d("Number of applicants ", size + "   ");
-            boolean stateFlagFound = false;
-            for (int i = 0; i < output.size(); i++) {
-                ArrayList<String> row = output.get(i);
-                if (row.size() > 0 && row.get(0).equals(emailID)) {
-                    foundIndex = i;
-                    Snackbar.make(coordinatorLayout, "Welcome " + outputList.get(4).get(i).get(0), Snackbar.LENGTH_LONG).show();
-                    stateFlagFound = true;
-                    break;
-                }
-            }
-            if (!stateFlagFound) {
-                Snackbar.make(coordinatorLayout, "Please ReAuthenticate to use the app", Snackbar.LENGTH_INDEFINITE).setAction("ReAuthenticate", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).show();
-                //finish();
-            } else {
-                try {
-                    interviewStatus1 = outputList.get(1).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    interviewStatus1 = "";
-                }
-                try {
-                    interviewStatus2 = outputList.get(2).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    interviewStatus2 = "";
-                }
-                try {
-                    tpStatus = outputList.get(3).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    tpStatus = "";
-                }
-                try {
-                    userName = outputList.get(4).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    userName = "";
-                }
-                try {
-                    regNumber = outputList.get(5).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    regNumber = "";
-                }
-                try {
-                    mobileNumber = outputList.get(6).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    mobileNumber = "";
-                }
-                try {
-                    prefDiv1 = outputList.get(7).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    prefDiv1 = "";
-                }
-                try {
-                    prefDiv2 = outputList.get(8).get(foundIndex).get(0);
-                } catch (Exception e) {
-                    prefDiv2 = "";
-                }
-                if (interviewStatus1.equals("SCHEDULED")) {
-                    pref1Schedule = outputList.get(9).get(foundIndex).get(0);
-                } else {
-                    pref1Schedule = "NOT SCHEDULED";
-                }
-                if (interviewStatus2.equals("SCHEDULED")) {
-                    pref2Schedule = outputList.get(10).get(foundIndex).get(0);
-                } else {
-                    pref2Schedule = "NOT SCHEDULED";
-                }
-                tvNavHeaderName.setText(userName);
-                try {
-                    tvNavHeaderEmailID.setText(outputList.get(0).get(foundIndex).get(0));
-                } catch (Exception e) {
-                }
-                try {
-                    tvNavHeaderRegNumber.setText(regNumber);
-                } catch (Exception e) {
-                }
-                cacheData();
-            }
-            ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
-            int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0;
-            for (ArrayList<String> arrayList : interviewStatus) {
-                if (arrayList.size() > 0) {
-                    if (arrayList.get(0).equals("ACCEPTED")) {
-                        interviewAcceptedCounter++;
-                    } else if (arrayList.get(0).equals("REJECTED")) {
-                        rejectedCounter++;
-                    } else if (arrayList.get(0).equals("MAYBE")) {
-                        maybeCounter++;
-                    }
-                }
-            }
-
-            tvNumberInterviewConducted.setText((interviewAcceptedCounter + rejectedCounter + maybeCounter) + "");
-            tvNumTPShortlisted.setText("" + interviewAcceptedCounter);
-
-            int selectedCounter = 0;
-            ArrayList<ArrayList<String>> tpStatus = outputList.get(3);
-            for (ArrayList<String> arrayList : tpStatus) {
-                if (arrayList.size() > 0) {
-                    if (arrayList.get(0).equals("ACCEPTED")) {
-                        selectedCounter++;
-                    }
-                }
-            }
-            tvNumSelected.setText("" + selectedCounter);
-        } catch (Exception e) {
-            Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_INDEFINITE);
-        }
+    public void onDetailsUpdated() {
+        getAllCacheData();
+        setDataToViews();
     }
+
+    private void setDataToViews() {
+        tvNumberApplicants.setText(numApplicants);
+        tvNumberInterviewConducted.setText(numInterviewConducted);
+        tvNumTPShortlisted.setText(numTPShortlisted);
+        tvNumSelected.setText(numSelected);
+        tvNavHeaderEmailID.setText(emailID);
+        tvNavHeaderName.setText(userName);
+        tvNavHeaderRegNumber.setText(regNumber);
+    }
+
+    private void getAllCacheData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        userName = sharedPreferences.getString("name", "name");
+        emailID = sharedPreferences.getString("emailID", "emailID");
+        interviewStatus1 = sharedPreferences.getString("interviewStatus1", "interviewStatus1");
+        interviewStatus2 = sharedPreferences.getString("interviewStatus2", "interviewStatus2");
+        tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
+        regNumber = sharedPreferences.getString("regNumber", "regNumber");
+        mobileNumber = sharedPreferences.getString("mobileNumber", "mobileNumber");
+        prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1");
+        prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
+        pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
+        pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
+        numApplicants = sharedPreferences.getString("numApplicants", "numApplicants");
+        numInterviewConducted = sharedPreferences.getString("numInterviewConducted", "numInterviewConducted");
+        numTPShortlisted = sharedPreferences.getString("numTPShortlisted", "numTPShortlisted");
+        numSelected = sharedPreferences.getString("numSelected", "numSelected");
+        getAndCacheRecruitmentDetails();
+    }
+
+
 }
