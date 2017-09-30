@@ -9,12 +9,14 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
@@ -37,17 +39,30 @@ public class HomeActivity extends AppCompatActivity
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
-    private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
+    private String regNumber, userName, emailID, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
         emailID = LoginActivity.mCredential.getSelectedAccountName();
-        Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
+        //Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getData();
+            }
+        });
+        if (getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("regNumber", null) == null) {
+            linearLayout.setVisibility(View.INVISIBLE);
+            swipeRefreshLayout.setRefreshing(true);
+        } else onDetailsUpdated();
         getBackendlessDeviceToken();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
@@ -99,6 +114,7 @@ public class HomeActivity extends AppCompatActivity
             public void handleResponse(DeviceRegistration response) {
                 deviceToken = response.getDeviceToken();
                 Log.d("token", deviceToken);
+                if (deviceToken != null && regNumber != null) fillUserTable();
             }
 
             @Override
@@ -116,6 +132,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void linkViews() {
         setContentView(R.layout.activity_home);
+        linearLayout = (LinearLayout) findViewById(R.id.ll_home);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_home);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_home);
         tvNumberApplicants = (TextView) findViewById(R.id.tv_stat_appl);
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
@@ -248,7 +266,10 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onDetailsUpdated() {
         getAllCacheData();
+        if (deviceToken != null && regNumber != null) fillUserTable();
         setDataToViews();
+        linearLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void setDataToViews() {
@@ -265,15 +286,17 @@ public class HomeActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
+        regNumber = sharedPreferences.getString("regNumber", "regNumber");
+        /*
         interviewStatus1 = sharedPreferences.getString("interviewStatus1", "interviewStatus1");
         interviewStatus2 = sharedPreferences.getString("interviewStatus2", "interviewStatus2");
         tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
-        regNumber = sharedPreferences.getString("regNumber", "regNumber");
         mobileNumber = sharedPreferences.getString("mobileNumber", "mobileNumber");
         prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1");
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
+        */
         numApplicants = sharedPreferences.getString("numApplicants", "numApplicants");
         numInterviewConducted = sharedPreferences.getString("numInterviewConducted", "numInterviewConducted");
         numTPShortlisted = sharedPreferences.getString("numTPShortlisted", "numTPShortlisted");

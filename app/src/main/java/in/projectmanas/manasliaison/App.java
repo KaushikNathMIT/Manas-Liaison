@@ -1,6 +1,7 @@
 package in.projectmanas.manasliaison;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
@@ -18,6 +19,7 @@ public class App extends Application {
     //  TODO Use this here instead of in FirstRun
 //    public static GoogleAccountCredential mCredential;
     private Sheet cachedResponse = null;
+    private Bundle googleSheetsCache;
 
     @Override
     public void onCreate() {
@@ -45,4 +47,11 @@ public class App extends Application {
                 }
             });
     }
+
+
+    public void setGoogleSheetsCache(Bundle googleSheetsCache) {
+        this.googleSheetsCache = googleSheetsCache;
+    }
+
+
 }
