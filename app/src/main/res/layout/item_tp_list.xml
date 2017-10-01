@@ -28,12 +28,13 @@
             android:gravity="right"
             android:text="status" />
     </LinearLayout>
+    <!--
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_item_tp"
+            android:background="@color/cardview_dark_background">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/ll_item_tp"
-        android:background="@color/cardview_dark_background">
-
-    </FrameLayout>
+        </FrameLayout>
+    -->
 </RelativeLayout>

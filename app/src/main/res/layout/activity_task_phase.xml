@@ -7,88 +7,134 @@
     android:layout_height="match_parent"
     tools:context="in.projectmanas.manasliaison.activities.TaskPhaseActivity">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_task_phase"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="10dp">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_ai_tp_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="10dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="AI List" />
+                        android:orientation="vertical">
 
-                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-                        android:id="@+id/lv_ai_tp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_sna_tp_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="10dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="AI" />
 
-                <LinearLayout
+                            <ImageButton
+                                android:id="@+id/ib_expand_ai"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@android:drawable/arrow_down_float" />
+                        </RelativeLayout>
+
+                        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+                            android:id="@+id/lv_ai_tp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_sna_tp_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="10dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="SNA List" />
+                        android:orientation="vertical">
 
-                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-                        android:id="@+id/lv_sna_tp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_mech_tp_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="10dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="SNA" />
 
-                <LinearLayout
+                            <ImageButton
+                                android:id="@+id/ib_expand_sna"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@android:drawable/arrow_down_float" />
+                        </RelativeLayout>
+
+                        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+                            android:id="@+id/lv_sna_tp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_mech_tp_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="10dp">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mech List" />
+                        android:orientation="vertical">
 
-                    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-                        android:id="@+id/lv_mech_tp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Mech" />
+
+                            <ImageButton
+                                android:id="@+id/ib_expand_mech"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@android:drawable/arrow_down_float" />
+                        </RelativeLayout>
+
+                        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+                            android:id="@+id/lv_mech_tp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

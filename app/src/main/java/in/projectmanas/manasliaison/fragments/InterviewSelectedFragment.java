@@ -156,6 +156,7 @@ public class InterviewSelectedFragment extends Fragment {
                     public void handleFault(BackendlessFault fault) {
                         accept.setClickable(true);
                         reject.setClickable(true);
+                        Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG);
                     }
                 });
             }
@@ -164,6 +165,7 @@ public class InterviewSelectedFragment extends Fragment {
             public void handleFault(BackendlessFault fault) {
                 accept.setClickable(true);
                 reject.setClickable(true);
+                Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG);
             }
         });
     }

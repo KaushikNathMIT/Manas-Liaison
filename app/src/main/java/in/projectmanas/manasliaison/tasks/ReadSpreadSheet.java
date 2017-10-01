@@ -2,8 +2,6 @@ package in.projectmanas.manasliaison.tasks;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,7 +26,6 @@ import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 
 import static in.projectmanas.manasliaison.activities.LoginActivity.REQUEST_GOOGLE_PLAY_SERVICES;
-import static in.projectmanas.manasliaison.activities.LoginActivity.mCredential;
 
 /**
  * Created by knnat on 9/14/2017.
@@ -130,9 +127,9 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
                         LoginActivity.REQUEST_AUTHORIZATION);
             } else {
                 Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
-                context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
-                mCredential.setSelectedAccount(null);
-                context.startActivity(new Intent(context, LoginActivity.class));
+                //context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+                //mCredential.setSelectedAccount(null);
+                //context.startActivity(new Intent(context, LoginActivity.class));
                 Log.e("Error", "The following error occurred:\n"
                         + mLastError.getMessage());
             }

@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity
         //Snackbar.make(coordinatorLayout, "Authenticating.. Please wait.", Snackbar.LENGTH_INDEFINITE).show();
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
+        login.setClickable(false);
         ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
             @Override
             public void handleResponse(Sheet response) {
@@ -267,6 +268,7 @@ public class LoginActivity extends AppCompatActivity
         }
         progressBar.setVisibility(View.INVISIBLE);
         if (!stateFlagFound) {
+            login.setClickable(true);
             getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
             mCredential.setSelectedAccount(null);
             Snackbar.make(coordinatorLayout, "Please use the same email address you used to fill the form.  ", Snackbar.LENGTH_INDEFINITE).setAction("Fill Form", new View.OnClickListener() {

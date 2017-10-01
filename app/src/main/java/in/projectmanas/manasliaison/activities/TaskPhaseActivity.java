@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
@@ -28,13 +32,66 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
     private CoordinatorLayout coordinatorLayout;
     private ArrayList<String[]> aiList, snaList, mechList;
     private ExpandableHeightListView aiListView, snaListView, mechListView;
+    private ImageButton imageButtonAIExpand, imageButtonSnAExpand, imageButtonMechExpand;
+    private CardView aiCardView, snaCardView, mechCardView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
+        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+        imageButtonAIExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setAIListView();
+                aiListView.setExpanded(true);
+                snaCardView.setVisibility(View.GONE);
+                mechCardView.setVisibility(View.GONE);
+            }
+        });
+        imageButtonSnAExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setSnAListView();
+                snaListView.setExpanded(true);
+                aiCardView.setVisibility(View.GONE);
+                mechCardView.setVisibility(View.GONE);
+            }
+        });
+        imageButtonMechExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setMechListView();
+                mechListView.setExpanded(true);
+                aiCardView.setVisibility(View.GONE);
+                snaCardView.setVisibility(View.GONE);
+            }
+        });
         initializeArrayLists();
         getDetails();
+    }
+
+    private void setAIListView() {
+        TPListAdapter tpListAdapterAI = new TPListAdapter(this, R.layout.item_tp_list, aiList);
+        aiListView.setAdapter(tpListAdapterAI);
+    }
+
+    private void setSnAListView() {
+        TPListAdapter tpListAdapterSnA = new TPListAdapter(this, R.layout.item_tp_list, snaList);
+        snaListView.setAdapter(tpListAdapterSnA);
+    }
+
+    private void setMechListView() {
+        TPListAdapter tpListAdapterMech = new TPListAdapter(this, R.layout.item_tp_list, mechList);
+        mechListView.setAdapter(tpListAdapterMech);
     }
 
     private void initializeArrayLists() {
@@ -45,6 +102,13 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
 
     private void linkViews() {
         setContentView(R.layout.activity_task_phase);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_task_phase);
+        aiCardView = (CardView) findViewById(R.id.card_ai_tp_list);
+        snaCardView = (CardView) findViewById(R.id.card_sna_tp_list);
+        mechCardView = (CardView) findViewById(R.id.card_mech_tp_list);
+        imageButtonAIExpand = (ImageButton) findViewById(R.id.ib_expand_ai);
+        imageButtonSnAExpand = (ImageButton) findViewById(R.id.ib_expand_sna);
+        imageButtonMechExpand = (ImageButton) findViewById(R.id.ib_expand_mech);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_task_phase);
         aiListView = (ExpandableHeightListView) findViewById(R.id.lv_ai_tp);
         snaListView = (ExpandableHeightListView) findViewById(R.id.lv_sna_tp);
@@ -97,7 +161,8 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                 Log.e("Exception : ", e.getMessage());
             }
         }
-        setListViews();
+        swipeRefreshLayout.setRefreshing(false);
+        //setListViews();
     }
 
     private void setListViews() {
@@ -112,7 +177,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         aiListView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, aiList.toArray()));
         snaListView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, snaList.toArray()));
         mechListView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mechList.toArray()));
-  */
+*/
         aiListView.setExpanded(true);
         snaListView.setExpanded(true);
         mechListView.setExpanded(true);
