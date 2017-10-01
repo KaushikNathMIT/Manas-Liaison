@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class HomeActivity extends AppCompatActivity
     private CoordinatorLayout coordinatorLayout;
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected, tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
     private String regNumber, userName, emailID, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
+    private ImageButton imageButtonEditNavHeader;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -152,6 +154,13 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
         navigationView.setCheckedItem(R.id.nav_home);
+        imageButtonEditNavHeader = navigationView.getHeaderView(0).findViewById(R.id.ib_edit_profile);
+        imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
         tvNavHeaderName = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_email_id);
         tvNavHeaderRegNumber = navigationView.getHeaderView(0).findViewById(R.id.tv_nav_header_reg_number);

@@ -61,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp">
+
                     <TextView
                         android:id="@+id/tv_schedule"
                         android:layout_width="match_parent"
@@ -86,22 +87,22 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button_confirm_schedule"
-                            style="@style/Widget.AppCompat.Button.Borderless"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Confirm schedule"
-                            android:textColor="#00ff00" />
-
-                        <Button
                             android:id="@+id/button_request_reschedule"
-                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:backgroundTint="#000000"
                             android:text="Request Reschedule"
                             android:textColor="#ff5555" />
+
+                        <Button
+                            android:id="@+id/button_confirm_schedule"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#000000"
+                            android:text="Confirm schedule"
+                            android:textColor="#00ff00" />
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>

@@ -80,8 +80,8 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
     private void setStatusTextAndColor() {
         tvInterviewStatus1.setText(interviewStatus1);
         tvInterviewStatus2.setText(interviewStatus2);
-        tvInterviewStatus1.setBackgroundColor(getColor(interviewStatus1));
-        tvInterviewStatus2.setBackgroundColor(getColor(interviewStatus2));
+        tvInterviewStatus1.setBackgroundColor(Color.parseColor(getColor(interviewStatus1)));
+        tvInterviewStatus2.setBackgroundColor(Color.parseColor(getColor(interviewStatus2)));
     }
 
     private void getCachedData() {
@@ -93,20 +93,20 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
     }
 
-    private int getColor(String interviewStatus) {
+    private String getColor(String interviewStatus) {
         switch (interviewStatus) {
             case "ACCEPTED":
-                return Color.GREEN;
+                return "#d6ffee";
             case "REJECTED":
-                return Color.RED;
+                return "#ffe1f3";
             case "PENDING":
-                return Color.YELLOW;
+                return "#fffbbe";
             case "SCHEDULED":
-                return Color.BLUE;
+                return "#d4eeff";
             case "RESULT PENDING":
-                return Color.GRAY;
+                return "#e9e8ff";
         }
-        return Color.BLACK;
+        return "#000000";
     }
 
     private void linkViews() {

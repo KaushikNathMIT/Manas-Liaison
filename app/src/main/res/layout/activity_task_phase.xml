@@ -42,7 +42,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="AI" />
+                                android:text="AI"
+                                android:textColor="@color/colorPrimary" />
 
                             <ImageButton
                                 android:id="@+id/ib_expand_ai"
@@ -80,7 +81,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="SNA" />
+                                android:text="SNA"
+                                android:textColor="@color/colorPrimary" />
 
                             <ImageButton
                                 android:id="@+id/ib_expand_sna"
@@ -118,7 +120,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Mech" />
+                                android:text="Mech"
+                                android:textColor="@color/colorPrimary" />
 
                             <ImageButton
                                 android:id="@+id/ib_expand_mech"

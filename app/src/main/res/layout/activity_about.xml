@@ -30,15 +30,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_profile"
+                    android:gravity="center"
                     android:paddingTop="10dp"
                     android:text="Vision"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:id="@+id/line_vision"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/tv_label_vision"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/tv_vision"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_label_vision"
+                    android:layout_below="@+id/line_vision"
                     android:gravity="center"
                     android:text="We envision India employing and making the best of automated systems in the near future with a drastic reduction in road accidents, relief from traffic problems, speedy emergency services, lesser military casualties and an overall improvement in the quality of lives."
                     android:textSize="15sp" />
@@ -48,15 +59,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_vision"
-                    android:paddingTop="10dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
                     android:text="Mission"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+                <FrameLayout
+                    android:id="@+id/line_mission"
+                    android:layout_width="100dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/tv_label_mission"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/tv_mission"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_label_mission"
+                    android:layout_below="@+id/line_mission"
                     android:gravity="center"
                     android:text="Our greatest aspiration is to not only transform the face of Indian Automobile Industry by developing an autonomous drive system for vehicles optimized for Indian road and traffic conditions but inspire advanced research in Artificial Intelligence and lead the way in its implementation enabling automated systems to be made available to the general population."
                     android:textSize="15sp" />
