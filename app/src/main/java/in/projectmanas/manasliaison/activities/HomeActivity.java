@@ -241,9 +241,11 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_task_phase:
                 startActivity(new Intent(HomeActivity.this, TaskPhaseActivity.class));
                 break;
+            /*
             case R.id.nav_profile:
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
+                */
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
                 break;
