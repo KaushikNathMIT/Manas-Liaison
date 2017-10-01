@@ -44,35 +44,46 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                finish();
-                startActivity(getIntent());
+                aiListView.setVisibility(View.GONE);
+                mechListView.setVisibility(View.GONE);
+                snaListView.setVisibility(View.GONE);
+                getDetails();
             }
         });
         imageButtonAIExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setAIListView();
-                aiListView.setExpanded(true);
-                snaCardView.setVisibility(View.GONE);
-                mechCardView.setVisibility(View.GONE);
+                //setAIListView();
+                //aiListView.setExpanded(true);
+                if (aiListView.getVisibility() == View.VISIBLE)
+                    aiListView.setVisibility(View.GONE);
+                else aiListView.setVisibility(View.VISIBLE);
+                snaListView.setVisibility(View.GONE);
+                mechListView.setVisibility(View.GONE);
             }
         });
         imageButtonSnAExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setSnAListView();
-                snaListView.setExpanded(true);
-                aiCardView.setVisibility(View.GONE);
-                mechCardView.setVisibility(View.GONE);
+                //setSnAListView();
+                //snaListView.setExpanded(true);
+                if (snaListView.getVisibility() == View.VISIBLE)
+                    snaListView.setVisibility(View.GONE);
+                else snaListView.setVisibility(View.VISIBLE);
+                aiListView.setVisibility(View.GONE);
+                mechListView.setVisibility(View.GONE);
             }
         });
         imageButtonMechExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setMechListView();
-                mechListView.setExpanded(true);
-                aiCardView.setVisibility(View.GONE);
-                snaCardView.setVisibility(View.GONE);
+                //setMechListView();
+                //mechListView.setExpanded(true);
+                if (mechListView.getVisibility() == View.VISIBLE)
+                    mechListView.setVisibility(View.GONE);
+                else mechListView.setVisibility(View.VISIBLE);
+                aiListView.setVisibility(View.GONE);
+                snaListView.setVisibility(View.GONE);
             }
         });
         initializeArrayLists();
@@ -162,7 +173,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
             }
         }
         swipeRefreshLayout.setRefreshing(false);
-        //setListViews();
+        setListViews();
     }
 
     private void setListViews() {
@@ -181,5 +192,8 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         aiListView.setExpanded(true);
         snaListView.setExpanded(true);
         mechListView.setExpanded(true);
+        aiListView.setVisibility(View.GONE);
+        snaListView.setVisibility(View.GONE);
+        mechListView.setVisibility(View.GONE);
     }
 }
