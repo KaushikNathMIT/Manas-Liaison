@@ -49,10 +49,28 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCachedData();
         linkViews();
-        //Log.d("Received Details ", interviewStatus1 + "\t" + interviewStatus2 + "\t" + tpStatus);
-        setStatusTextAndColor();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        if (!sharedPreferences.getString("prefDiv1", "prefDiv1").equals("prefDiv1"))
+            getCachedData();
+        else {
+            swipeRefreshLayout.setRefreshing(true);
+            ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
+                @Override
+                public void handleResponse(Sheet response) {
+                    final String[] params = new String[]{response.getEmailID(), response.getInterviewStatus1(), response.getInterviewStatus2(), response.getTpStatus(), response.getName(), response.getRegNumber(), response.getMobileNumber(), response.getPrefDiv1(), response.getPrefDiv2(), response.getPref1Schedule(), response.getPref2Schedule()};
+                    UpdateAllDetails updateAllDetails = new UpdateAllDetails(InterviewActivity.this);
+                    updateAllDetails.delegate = InterviewActivity.this;
+                    updateAllDetails.execute(params);
+                }
+
+                @Override
+                public void handleFault(BackendlessFault fault) {
+                    Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
+                }
+            });
+
+        }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -91,6 +109,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         //tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
         prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1");
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
+        addFragmentsToTabs();
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+        //Log.d("Received Details ", interviewStatus1 + "\t" + interviewStatus2 + "\t" + tpStatus);
+        setStatusTextAndColor();
     }
 
     private String getColor(String interviewStatus) {
@@ -125,9 +148,6 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
         tvInterviewStatus1 = (TextView) findViewById(R.id.tv_interview_stat1);
         tvInterviewStatus2 = (TextView) findViewById(R.id.tv_interview_stat2);
-        addFragmentsToTabs();
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
     }
 
     @Override

@@ -3,11 +3,13 @@ package in.projectmanas.manasliaison;
 import android.app.Application;
 import android.os.Bundle;
 
+import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 
 /**
  * Created by reuben on 17/9/17.
@@ -23,6 +25,7 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
+        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         super.onCreate();
         //TODO Use this here instead of in FirstRun
 //        mCredential = GoogleAccountCredential.usingOAuth2(

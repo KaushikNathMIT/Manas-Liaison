@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import in.projectmanas.manasliaison.MyCredential;
 import in.projectmanas.manasliaison.activities.LoginActivity;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.listeners.DetailsUpdatedListener;
 
 import static in.projectmanas.manasliaison.activities.LoginActivity.REQUEST_GOOGLE_PLAY_SERVICES;
-import static in.projectmanas.manasliaison.activities.LoginActivity.mCredential;
 
 /**
  * Created by knnat on 9/30/2017.
@@ -43,11 +43,17 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
     private String regNumber, userName, emailID, interviewStatus1, interviewStatus2, tpStatus, mobileNumber, prefDiv1, prefDiv2, pref1Schedule, pref2Schedule, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
 
     public UpdateAllDetails(Activity context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        emailID = sharedPreferences.getString("emailID", "emailID");
+        if (emailID.equals("emailID")) {
+            context.startActivity(new Intent(context, LoginActivity.class));
+            context.finish();
+        }
         this.context = context;
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.sheets.v4.Sheets.Builder(
-                transport, jsonFactory, LoginActivity.myCredential)
+                transport, jsonFactory, new MyCredential())
                 .setApplicationName("Manas-Liaison")
                 .build();
     }
@@ -104,7 +110,12 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
     @Override
     protected void onPostExecute(ArrayList<ArrayList<ArrayList<String>>> outputList) {
         int interviewAcceptedCounter = 0, rejectedCounter = 0, maybeCounter = 0, selectedCounter = 0;
-        emailID = LoginActivity.mCredential.getSelectedAccountName();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        emailID = sharedPreferences.getString("emailID", "emailID");
+        if (emailID.equals("emailID")) {
+            context.startActivity(new Intent(context, LoginActivity.class));
+            context.finish();
+        }
         try {
             int foundIndex = -1;
             ArrayList<ArrayList<String>> output = outputList.get(0);
@@ -245,12 +256,12 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
                         ((UserRecoverableAuthIOException) mLastError).getIntent(),
                         LoginActivity.REQUEST_AUTHORIZATION);
             } else {
-                Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
-                context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
-                mCredential.setSelectedAccount(null);
-                context.startActivity(new Intent(context, LoginActivity.class));
                 Log.e("Error", "The following error occurred:\n"
                         + mLastError.getMessage());
+                Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
+                context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+                context.startActivity(new Intent(context, LoginActivity.class));
+
             }
         } else {
             Log.e("Error", "Request cancelled.");

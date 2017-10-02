@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import in.projectmanas.manasliaison.MyCredential;
 import in.projectmanas.manasliaison.activities.LoginActivity;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
@@ -43,7 +44,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
         HttpTransport transport = AndroidHttp.newCompatibleTransport();
         JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
         mService = new com.google.api.services.sheets.v4.Sheets.Builder(
-                transport, jsonFactory, LoginActivity.myCredential)
+                transport, jsonFactory, new MyCredential())
                 .setApplicationName("Manas-Liaison")
                 .build();
     }

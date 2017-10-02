@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="in.projectmanas.manasliaison.C2D_MESSAGE" />
+
     <permission
         android:name="in.projectmanas.manasliaison.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -48,7 +49,14 @@
             android:name=".activities.InterviewActivity"
             android:label="@string/title_activity_interview"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait">

@@ -38,7 +38,6 @@ import in.projectmanas.manasliaison.MyCredential;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.Links;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
-import in.projectmanas.manasliaison.constants.BackendlessCredentials;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
@@ -67,7 +66,6 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Backendless.initApp(this, BackendlessCredentials.appId, BackendlessCredentials.secretKey);
         linkViews();
         myCredential = new MyCredential();
         mCredential = GoogleAccountCredential.usingOAuth2(
@@ -293,10 +291,10 @@ public class LoginActivity extends AppCompatActivity
             SharedPreferences.Editor editor = settings.edit();
             editor.putString(ConstantsManas.PREF_ACCOUNT_NAME, mCredential.getSelectedAccountName());
             editor.apply();
+            SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+            sharedPreferences.edit().putString("emailID", mCredential.getSelectedAccountName()).apply();
             Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.putExtra("emailID", mCredential.getSelectedAccountName());
-            //Log.d("emailID", mCredential.getSelectedAccountName());
             startActivity(intent);
             finish();
         }

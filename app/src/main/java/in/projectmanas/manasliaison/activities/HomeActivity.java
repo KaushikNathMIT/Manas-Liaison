@@ -52,7 +52,9 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
-        emailID = LoginActivity.mCredential.getSelectedAccountName();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        userName = sharedPreferences.getString("name", "name");
+        emailID = sharedPreferences.getString("emailID", "emailID");
         //Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -79,10 +81,8 @@ public class HomeActivity extends AppCompatActivity
             public void handleResponse(UserTable response) {
                 Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
             }
-
             @Override
             public void handleFault(BackendlessFault fault) {
-
             }
         });
     }
@@ -114,7 +114,7 @@ public class HomeActivity extends AppCompatActivity
         Backendless.Messaging.getDeviceRegistration(new AsyncCallback<DeviceRegistration>() {
             @Override
             public void handleResponse(DeviceRegistration response) {
-                deviceToken = response.getDeviceToken();
+                deviceToken = response.getDeviceId();
                 Log.d("token", deviceToken);
                 if (deviceToken != null && regNumber != null) fillUserTable();
             }
