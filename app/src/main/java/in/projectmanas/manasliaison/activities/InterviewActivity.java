@@ -96,7 +96,9 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
 
 
     private void setStatusTextAndColor() {
+        if (interviewStatus1.equals("")) interviewStatus1 = "PENDING";
         tvInterviewStatus1.setText(interviewStatus1);
+        if (interviewStatus2.equals("")) interviewStatus2 = "PENDING";
         tvInterviewStatus2.setText(interviewStatus2);
         tvInterviewStatus1.setBackgroundColor(Color.parseColor(getColor(interviewStatus1)));
         tvInterviewStatus2.setBackgroundColor(Color.parseColor(getColor(interviewStatus2)));
@@ -190,7 +192,12 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                     break;
                 case "SCHEDULED":
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
+                    interviewScheduledFragment.setIndex(2);
                     fragments.add(interviewScheduledFragment);
+                    break;
+                default:
+                    InterviewPendingFragment interviewPendingFragment2 = new InterviewPendingFragment();
+                    fragments.add(interviewPendingFragment2);
             }
         }
         if (!prefDiv1.equals(prefDiv2) && !prefDiv2.equals("")) {
@@ -222,6 +229,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
                     interviewScheduledFragment.setIndex(2);
                     fragments.add(interviewScheduledFragment);
+                    break;
+                default:
+                    InterviewPendingFragment interviewPendingFragment2 = new InterviewPendingFragment();
+                    fragments.add(interviewPendingFragment2);
+
             }
         } else {
             tvInterviewStatus2.setVisibility(View.GONE);
