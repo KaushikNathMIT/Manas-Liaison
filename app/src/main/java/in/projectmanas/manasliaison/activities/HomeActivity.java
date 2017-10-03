@@ -55,6 +55,10 @@ public class HomeActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
+        if (emailID.equals("emailID")) {
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+        }
         //Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

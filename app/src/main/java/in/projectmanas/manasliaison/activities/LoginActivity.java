@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity
             }
         });
         try {
-            if (getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null) != null) {
-                mCredential.setSelectedAccountName(getPreferences(Context.MODE_PRIVATE).getString(ConstantsManas.PREF_ACCOUNT_NAME, null));
+            if (!getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("emailID", "emailID").equals("emailID")) {
+                mCredential.setSelectedAccountName(getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("emailID", "emailID"));
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             } else {
@@ -286,11 +286,6 @@ public class LoginActivity extends AppCompatActivity
                 }
             }).show();
         } else {
-            SharedPreferences settings =
-                    getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString(ConstantsManas.PREF_ACCOUNT_NAME, mCredential.getSelectedAccountName());
-            editor.apply();
             SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
             sharedPreferences.edit().putString("emailID", mCredential.getSelectedAccountName()).apply();
             Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
