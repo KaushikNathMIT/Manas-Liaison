@@ -81,16 +81,20 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
             //Log.d("size", values.size() + " ");
             for (int i = 0; i < values.size(); i++) {
                 ArrayList<ArrayList<String>> currentTable = new ArrayList<>();
-                for (List row : values.get(i)) {
-                    //Log.d("adasd", row.size()+ "");
-                    ArrayList<String> currentRow = new ArrayList<>();
-                    for (Object ob : row) {
-                        //Log.d("Output here", ob.toString());
-                        currentRow.add(ob.toString());
+                if (values.get(i) == null)
+                    valueStrings.add(currentTable);
+                else {
+                    for (List row : values.get(i)) {
+                        //Log.d("adasd", row.size()+ "");
+                        ArrayList<String> currentRow = new ArrayList<>();
+                        for (Object ob : row) {
+                            //Log.d("Output here", ob.toString());
+                            currentRow.add(ob.toString());
+                        }
+                        currentTable.add(currentRow);
                     }
-                    currentTable.add(currentRow);
+                    valueStrings.add(currentTable);
                 }
-                valueStrings.add(currentTable);
             }
         }
         //Log.d("Output recieved of size", valueStrings.size() + "");
