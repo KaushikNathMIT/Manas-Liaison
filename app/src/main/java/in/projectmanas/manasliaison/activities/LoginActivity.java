@@ -84,11 +84,9 @@ public class LoginActivity extends AppCompatActivity
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             } else {
-                getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
                 mCredential.setSelectedAccountName(null);
             }
         } catch (Exception e) {
-            getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
             mCredential.setSelectedAccountName(null);
         }
     }

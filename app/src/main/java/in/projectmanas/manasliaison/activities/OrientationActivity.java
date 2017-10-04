@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.backendless.async.callback.AsyncCallback;
@@ -31,6 +32,7 @@ public class OrientationActivity extends AppCompatActivity {
         final WebView myWebView = (WebView) findViewById(R.id.wv_orientation);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        myWebView.setWebViewClient(new WebViewClient());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Links.findFirstAsync(new AsyncCallback<Links>() {
             @Override
