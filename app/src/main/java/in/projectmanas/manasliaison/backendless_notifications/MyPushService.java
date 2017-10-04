@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -80,7 +81,10 @@ public class MyPushService extends BackendlessPushService {
 
         NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
 
-                .setContentTitle(intent.getStringExtra("android-content-title")).setContentText(message).setSmallIcon(R.drawable.pm_logo_50x50);
+                .setContentTitle(intent.getStringExtra("android-content-title"))
+                .setContentText(message)
+                .setSmallIcon(R.drawable.pm_logo_50x50)
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
 
         notification.setContentIntent(contentIntent);
 

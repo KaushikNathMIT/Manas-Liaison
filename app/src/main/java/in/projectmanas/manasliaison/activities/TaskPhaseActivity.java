@@ -30,9 +30,9 @@ import static in.projectmanas.manasliaison.activities.LoginActivity.mCredential;
 public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFetchedListener {
 
     private CoordinatorLayout coordinatorLayout;
-    private ArrayList<String[]> aiList, snaList, mechList;
-    private ExpandableHeightListView aiListView, snaListView, mechListView;
-    private ImageButton imageButtonAIExpand, imageButtonSnAExpand, imageButtonMechExpand;
+    private ArrayList<String[]> aiList, snaList, mechList, mgmtList;
+    private ExpandableHeightListView aiListView, snaListView, mechListView, mgmtListView;
+    private ImageButton imageButtonAIExpand, imageButtonSnAExpand, imageButtonMechExpand, imageButtonMgmtExpand;
     private CardView aiCardView, snaCardView, mechCardView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -47,6 +47,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                 aiListView.setVisibility(View.GONE);
                 mechListView.setVisibility(View.GONE);
                 snaListView.setVisibility(View.GONE);
+                mgmtListView.setVisibility(View.GONE);
                 getDetails();
             }
         });
@@ -60,6 +61,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                 else aiListView.setVisibility(View.VISIBLE);
                 snaListView.setVisibility(View.GONE);
                 mechListView.setVisibility(View.GONE);
+                mgmtListView.setVisibility(View.GONE);
             }
         });
         imageButtonSnAExpand.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +74,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                 else snaListView.setVisibility(View.VISIBLE);
                 aiListView.setVisibility(View.GONE);
                 mechListView.setVisibility(View.GONE);
+                mgmtListView.setVisibility(View.GONE);
             }
         });
         imageButtonMechExpand.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +87,20 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                 else mechListView.setVisibility(View.VISIBLE);
                 aiListView.setVisibility(View.GONE);
                 snaListView.setVisibility(View.GONE);
+                mgmtListView.setVisibility(View.GONE);
+            }
+        });
+        imageButtonMgmtExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //setMechListView();
+                //mechListView.setExpanded(true);
+                if (mgmtListView.getVisibility() == View.VISIBLE)
+                    mgmtListView.setVisibility(View.GONE);
+                else mgmtListView.setVisibility(View.VISIBLE);
+                aiListView.setVisibility(View.GONE);
+                snaListView.setVisibility(View.GONE);
+                mechListView.setVisibility(View.GONE);
             }
         });
         initializeArrayLists();
@@ -109,6 +126,7 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         aiList = new ArrayList<>();
         snaList = new ArrayList<>();
         mechList = new ArrayList<>();
+        mgmtList = new ArrayList<>();
     }
 
     private void linkViews() {
@@ -120,10 +138,12 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         imageButtonAIExpand = (ImageButton) findViewById(R.id.ib_expand_ai);
         imageButtonSnAExpand = (ImageButton) findViewById(R.id.ib_expand_sna);
         imageButtonMechExpand = (ImageButton) findViewById(R.id.ib_expand_mech);
+        imageButtonMgmtExpand = (ImageButton) findViewById(R.id.ib_expand_mgmt);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_task_phase);
         aiListView = (ExpandableHeightListView) findViewById(R.id.lv_ai_tp);
         snaListView = (ExpandableHeightListView) findViewById(R.id.lv_sna_tp);
         mechListView = (ExpandableHeightListView) findViewById(R.id.lv_mech_tp);
+        mgmtListView = (ExpandableHeightListView) findViewById(R.id.lv_mgmt_tp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -167,6 +187,8 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
                     snaList.add(new String[]{outputList.get(0).get(i).get(0), outputList.get(1).get(i).get(0).trim()});
                 } else if (outputList.get(2).get(i).get(0).trim().equals("Mechanical")) {
                     mechList.add(new String[]{outputList.get(0).get(i).get(0), outputList.get(1).get(i).get(0).trim()});
+                } else if (outputList.get(2).get(i).get(0).trim().equals("Management")) {
+                    mgmtList.add(new String[]{outputList.get(0).get(i).get(0), outputList.get(1).get(i).get(0).trim()});
                 }
             } catch (Exception e) {
                 Log.e("Exception : ", e.getMessage());
@@ -183,6 +205,8 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         snaListView.setAdapter(tpListAdapterSnA);
         TPListAdapter tpListAdapterMech = new TPListAdapter(this, R.layout.item_tp_list, mechList);
         mechListView.setAdapter(tpListAdapterMech);
+        TPListAdapter tpListAdapterMgmt = new TPListAdapter(this, R.layout.item_tp_list, mgmtList);
+        mgmtListView.setAdapter(tpListAdapterMgmt);
 
 /*
         aiListView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, aiList.toArray()));
@@ -192,8 +216,10 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         aiListView.setExpanded(true);
         snaListView.setExpanded(true);
         mechListView.setExpanded(true);
+        mgmtListView.setExpanded(true);
         aiListView.setVisibility(View.GONE);
         snaListView.setVisibility(View.GONE);
         mechListView.setVisibility(View.GONE);
+        mgmtListView.setVisibility(View.GONE);
     }
 }
