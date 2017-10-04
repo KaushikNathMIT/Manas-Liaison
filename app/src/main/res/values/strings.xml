@@ -9,4 +9,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="online_challenge">Online Challenge</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="easter_teaser">Tap and Hold for direct entry into Task Phase</string>
+    <string name="too_slow">Too Slow\n\n ¯\\_(ツ)_/¯</string>
+    <string name="orientation">Orientation</string>
 </resources>

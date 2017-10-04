@@ -16,6 +16,14 @@ import in.projectmanas.manasliaison.backendless_classes.Links;
 
 public class OrientationActivity extends AppCompatActivity {
 
+    private boolean cancel;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancel = true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +36,8 @@ public class OrientationActivity extends AppCompatActivity {
             @Override
             public void handleResponse(Links response) {
                 Log.d("here", response.getPosterURI());
-                myWebView.loadUrl(response.getPosterURI());
+                if (!cancel)
+                    myWebView.loadUrl(response.getPosterURI());
             }
 
             @Override

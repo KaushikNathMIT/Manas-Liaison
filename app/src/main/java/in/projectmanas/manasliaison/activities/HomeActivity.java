@@ -47,6 +47,14 @@ public class HomeActivity extends AppCompatActivity
     private String onlineChallengeDate;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout linearLayout;
+    private NavigationView navigationView;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.setCheckedItem(R.id.nav_home);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +93,7 @@ public class HomeActivity extends AppCompatActivity
             public void handleResponse(UserTable response) {
                 Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
             }
+
             @Override
             public void handleFault(BackendlessFault fault) {
             }
@@ -154,7 +163,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
         navigationView.setCheckedItem(R.id.nav_home);

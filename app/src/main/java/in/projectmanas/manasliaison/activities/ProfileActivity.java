@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.backendless.async.callback.AsyncCallback;
@@ -25,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvUserName, tvEmailID, tvRegNumber, tvMobileNumber;
     private Button editDetailsButton;
     private CoordinatorLayout coordinatorLayout;
+    private ImageView ivProfile;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -45,6 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
         linkViews();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        ivProfile.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent i = new Intent(ProfileActivity.this, EasterEggActivity.class);
+                startActivity(i);
+                return true;
+            }
+        });
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
         regNumber = sharedPreferences.getString("regNumber", "regNumber");
@@ -78,6 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void linkViews() {
         setContentView(R.layout.activity_profile);
+        ivProfile = (ImageView) findViewById(R.id.iv_profile);
         tvUserName = (TextView) findViewById(R.id.tv_name);
         tvEmailID = (TextView) findViewById(R.id.tv_email_id);
         tvRegNumber = (TextView) findViewById(R.id.tv_reg_number);

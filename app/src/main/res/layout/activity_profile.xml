@@ -18,10 +18,11 @@
 
             <ImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginBottom="32dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/pm_logo_100x100" />
+                android:src="@drawable/logo2" />
 
             <TextView
                 android:id="@+id/tv_label_name"

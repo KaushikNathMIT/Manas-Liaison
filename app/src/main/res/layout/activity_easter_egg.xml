@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/easter_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <TextView
+        android:id="@+id/too_late"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/too_slow"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/easter_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="@string/easter_teaser"
+        android:textColor="@android:color/white" />
+</RelativeLayout>
