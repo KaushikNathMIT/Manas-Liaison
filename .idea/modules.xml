@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Manas-Liaison.iml" filepath="$PROJECT_DIR$/Manas-Liaison.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Manas-Liason.iml" filepath="$PROJECT_DIR$/Manas-Liason.iml" />
       <module fileurl="file://$PROJECT_DIR$/ManasLiaison.iml" filepath="$PROJECT_DIR$/ManasLiaison.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
