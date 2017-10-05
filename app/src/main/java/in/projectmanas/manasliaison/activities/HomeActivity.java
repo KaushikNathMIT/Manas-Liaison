@@ -242,7 +242,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void setDataToViews() {
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(2);
+        animator.setDuration(1000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -284,10 +284,10 @@ public class HomeActivity extends AppCompatActivity
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         */
-        nApplicants = getStat(sharedPreferences.getString("nApplicants", "nApplicants"));
-        nInterviewConducted = getStat(sharedPreferences.getString("nInterviewConducted", "nInterviewConducted"));
-        nTPShortlisted = getStat(sharedPreferences.getString("nTPShortlisted", "nTPShortlisted"));
-        nSelected = getStat(sharedPreferences.getString("nSelected", "nSelected"));
+        nApplicants = getStat(sharedPreferences.getString("numApplicants", "numApplicants"));
+        nInterviewConducted = getStat(sharedPreferences.getString("numInterviewConducted", "numInterviewConducted"));
+        nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
+        nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
 
         getAndCacheRecruitmentDetails();
     }
