@@ -13,167 +13,547 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_home"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
+                android:id="@+id/ll_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="10dp">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <include layout="@layout/nav_header_main" />
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Recruitment Phase"
-                        android:textSize="20sp" />
+                    android:layout_margin="0dp"
+                    android:background="@android:color/holo_red_light"
+                    android:gravity="center">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingBottom="15dp"
-                        android:paddingTop="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:text="Online Challenge->"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:text="Orientation->"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:text="Interview->"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:text="Task Phase->"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:text="Completed"
-                            android:textSize="11sp" />
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Statistics"
-                        android:textSize="20sp" />
+                        android:orientation="horizontal">
 
-                    <RelativeLayout
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="2dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:background="@drawable/recruitment_phase_date_separator" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="@android:color/holo_red_light"
+                                    android:text="September 22"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="@android:color/holo_red_light"
+                                    android:text="October 19"
+                                    android:textColor="@android:color/white" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="Online Challenge"
+                            android:textColor="@android:color/white" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:background="@android:color/holo_green_light"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="2dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@drawable/recruitment_phase_date_separator" />
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@android:color/holo_green_light"
+                                android:text="October 19"
+                                android:textColor="@android:color/white" />
+
+                        </FrameLayout>
 
                         <TextView
-                            android:id="@+id/tv_label_appl"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Applicants" />
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="Orientation"
+                            android:textColor="@android:color/white" />
 
-                        <TextView
-                            android:id="@+id/tv_stat_appl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="2dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:background="@drawable/recruitment_phase_date_separator" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="@android:color/holo_blue_light"
+                                    android:text="October 20"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="@android:color/holo_blue_light"
+                                    android:text="October 22"
+                                    android:textColor="@android:color/white" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tv_label_interview_conducted"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Interview Conducted" />
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="Interview"
+                            android:textColor="@android:color/white" />
 
-                        <TextView
-                            android:id="@+id/tv_stat_interview_conducted"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:background="#97E"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:background="#97E"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="2dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:background="@drawable/recruitment_phase_date_separator" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="#97E"
+                                    android:text="October 25"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:background="#97E"
+                                    android:text="February 1"
+                                    android:textColor="@android:color/white" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tv_label_tp_sl"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Task Phase Shortlist" />
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="Task Phase"
+                            android:textColor="@android:color/white" />
 
-                        <TextView
-                            android:id="@+id/tv_stat_tp_sl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:background="@android:color/holo_orange_light"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/about" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tv_label_selected"
-                            android:layout_width="wrap_content"
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Selected" />
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="About"
+                            android:textColor="@android:color/primary_text_light" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:background="@android:color/black"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="0dp">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="128dp"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:src="@drawable/support"
+                                    android:tint="@android:color/white" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tv_stat_selected"
+                            style="@style/TextAppearance.AppCompat.Large.Inverse"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="Support" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Recruitment Phase"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" />
-                    </RelativeLayout>
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingBottom="15dp"
+                            android:paddingTop="10dp">
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:text="Online Challenge->"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:text="Orientation->"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:text="Interview->"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:text="Task Phase->"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:text="Completed"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Statistics"
+                            android:textSize="20sp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_label_appl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Applicants" />
+
+                            <TextView
+                                android:id="@+id/tv_stat_appl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_label_interview_conducted"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Interview Conducted" />
+
+                            <TextView
+                                android:id="@+id/tv_stat_interview_conducted"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_label_tp_sl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Task Phase Shortlist" />
+
+                            <TextView
+                                android:id="@+id/tv_stat_tp_sl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_label_selected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Selected" />
+
+                            <TextView
+                                android:id="@+id/tv_stat_selected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+        </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>
 

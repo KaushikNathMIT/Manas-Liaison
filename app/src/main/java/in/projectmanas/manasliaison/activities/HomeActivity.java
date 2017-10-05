@@ -162,14 +162,8 @@ public class HomeActivity extends AppCompatActivity
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
         tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
