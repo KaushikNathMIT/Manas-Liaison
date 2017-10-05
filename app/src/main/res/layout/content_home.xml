@@ -26,11 +26,13 @@
                 <include layout="@layout/nav_header_main" />
 
                 <FrameLayout
+                    android:id="@+id/nav_online_challenge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="@android:color/holo_red_light"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -96,11 +98,13 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nav_orientation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="@android:color/holo_green_light"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -149,11 +153,13 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nav_interview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="@android:color/holo_blue_light"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -220,11 +226,13 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nav_task_phase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="#97E"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -292,11 +300,13 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nav_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="@android:color/holo_orange_light"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -344,11 +354,13 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nav_support"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:background="@android:color/black"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:onClick="onHomeItemSelected">
 
                     <LinearLayout
                         android:layout_width="match_parent"
