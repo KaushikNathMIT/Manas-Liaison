@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -21,6 +20,8 @@ import in.projectmanas.manasliaison.activities.OrientationActivity;
 import in.projectmanas.manasliaison.activities.ProfileActivity;
 import in.projectmanas.manasliaison.activities.SupportActivity;
 import in.projectmanas.manasliaison.activities.TaskPhaseActivity;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 /**
  * Created by knnat on 9/28/2017.
@@ -44,6 +45,7 @@ public class MyPushService extends BackendlessPushService {
     @Override
     public boolean onMessage(Context context, Intent intent) {
         String message = intent.getStringExtra("message");
+        /*
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             for (String key : bundle.keySet()) {
@@ -51,7 +53,7 @@ public class MyPushService extends BackendlessPushService {
                 Log.d("Intent Keys", String.format("%s %s (%s)", key,
                         value.toString(), value.getClass().getName()));
             }
-        }
+        }*/
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 //Here you put the Activity that you want to open when you click the Notification
@@ -60,6 +62,7 @@ public class MyPushService extends BackendlessPushService {
 
         Intent notificationIntent;
         String activityName = intent.getStringExtra("android-content-sound");
+        String ticker = intent.getStringExtra("android-ticker-text");
         if (AboutActivity.class.getName().contains(activityName))
             notificationIntent = new Intent(context, AboutActivity.class);
         else if (HomeActivity.class.getName().contains(activityName))
@@ -75,7 +78,10 @@ public class MyPushService extends BackendlessPushService {
         else if (ProfileActivity.class.getName().contains(activityName))
             notificationIntent = new Intent(context, ProfileActivity.class);
         else notificationIntent = new Intent(context, LoginActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        notificationIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+        notificationIntent.putExtra("notifySection", ticker);
+        Log.d("ticker", ticker);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 //Custom notification
 

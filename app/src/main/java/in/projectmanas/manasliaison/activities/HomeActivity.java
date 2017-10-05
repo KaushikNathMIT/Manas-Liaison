@@ -33,6 +33,7 @@ import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
 import in.projectmanas.manasliaison.listeners.DetailsUpdatedListener;
 import in.projectmanas.manasliaison.tasks.UpdateAllDetails;
+import in.projectmanas.manasliaison.tasks.UpdateSchedule;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DetailsUpdatedListener {
@@ -59,6 +60,13 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            if (getIntent().getStringExtra("notifySection") != null) {
+                new UpdateSchedule(this, getIntent().getStringExtra("notifySection")).execute();
+                getIntent().removeExtra("notifySection");
+            }
+        } catch (Exception e) {
+        }
         linkViews();
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("name", "name");
