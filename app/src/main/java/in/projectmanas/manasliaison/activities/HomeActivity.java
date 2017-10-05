@@ -1,5 +1,6 @@
 package in.projectmanas.manasliaison.activities;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,8 +38,9 @@ public class HomeActivity extends AppCompatActivity
 
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
-    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
-    private String regNumber, userName, emailID, numInterviewConducted, numTPShortlisted, numApplicants, numSelected;
+    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted/*, tvNumSelected*/;
+    private String regNumber, userName, emailID;
+    private int nInterviewConducted, nTPShortlisted, nApplicants, nSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -150,7 +152,7 @@ public class HomeActivity extends AppCompatActivity
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_home);
         tvNumberApplicants = (TextView) findViewById(R.id.tv_stat_appl);
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
-        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
+//        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
         imageButtonEditNavHeader = (ImageView) findViewById(R.id.ib_edit_profile);
         imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
@@ -239,13 +241,32 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setDataToViews() {
-        tvNumberApplicants.setText(numApplicants);
-        tvNumberInterviewConducted.setText(numInterviewConducted);
-        tvNumTPShortlisted.setText(numTPShortlisted);
-        tvNumSelected.setText(numSelected);
+        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
+        animator.setDuration(2);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float fraction = valueAnimator.getAnimatedFraction();
+                tvNumberApplicants.setText(String.valueOf((int) (fraction * nApplicants)));
+                tvNumberInterviewConducted.setText(String.valueOf((int) (fraction * nInterviewConducted)));
+                tvNumTPShortlisted.setText(String.valueOf((int) (fraction * nTPShortlisted)));
+//                tvNumSelected.setText((int) (fraction * nSelected));
+            }
+        });
+        animator.start();
         tvNavHeaderEmailID.setText(emailID);
         tvNavHeaderName.setText(userName);
         tvNavHeaderRegNumber.setText(regNumber);
+    }
+
+
+    int getStat(String prefData) {
+        try {
+            return Integer.parseInt(prefData);
+        } catch (NumberFormatException | NullPointerException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     private void getAllCacheData() {
@@ -263,10 +284,11 @@ public class HomeActivity extends AppCompatActivity
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         */
-        numApplicants = sharedPreferences.getString("numApplicants", "numApplicants");
-        numInterviewConducted = sharedPreferences.getString("numInterviewConducted", "numInterviewConducted");
-        numTPShortlisted = sharedPreferences.getString("numTPShortlisted", "numTPShortlisted");
-        numSelected = sharedPreferences.getString("numSelected", "numSelected");
+        nApplicants = getStat(sharedPreferences.getString("nApplicants", "nApplicants"));
+        nInterviewConducted = getStat(sharedPreferences.getString("nInterviewConducted", "nInterviewConducted"));
+        nTPShortlisted = getStat(sharedPreferences.getString("nTPShortlisted", "nTPShortlisted"));
+        nSelected = getStat(sharedPreferences.getString("nSelected", "nSelected"));
+
         getAndCacheRecruitmentDetails();
     }
 
