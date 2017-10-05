@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +44,8 @@ public class HomeActivity extends AppCompatActivity
     private String onlineChallengeDate;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout linearLayout;
+    private ImageView imageButtonEditNavHeader;
+    private TextView tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +152,22 @@ public class HomeActivity extends AppCompatActivity
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
         tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
+        imageButtonEditNavHeader = (ImageView) findViewById(R.id.ib_edit_profile);
+        imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
+        tvNavHeaderName = (TextView) findViewById(R.id.tv_nav_header_name);
+        tvNavHeaderEmailID = (TextView) findViewById(R.id.tv_nav_header_email_id);
+        tvNavHeaderRegNumber = (TextView) findViewById(R.id.tv_nav_header_reg_number);
+        imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
     }
 
     private void getData() {
@@ -225,6 +243,9 @@ public class HomeActivity extends AppCompatActivity
         tvNumberInterviewConducted.setText(numInterviewConducted);
         tvNumTPShortlisted.setText(numTPShortlisted);
         tvNumSelected.setText(numSelected);
+        tvNavHeaderEmailID.setText(emailID);
+        tvNavHeaderName.setText(userName);
+        tvNavHeaderRegNumber.setText(regNumber);
     }
 
     private void getAllCacheData() {
