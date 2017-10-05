@@ -96,7 +96,7 @@ public class InterviewScheduledFragment extends Fragment {
         if (userTable.getGithubID() != null && userTable.getGithubID().length() > 1) {
             tickGID.setVisibility(View.VISIBLE);
         }
-        if ((userTable.getPref1Confirm().equals("UNSET") && index == 1) || (userTable.getPref2Confirm().equals("UNSET") && index == 2)) {
+        if ((!userTable.getPref1Confirm().equals("TRUE") && index == 1) || (!userTable.getPref2Confirm().equals("TRUE") && index == 2)) {
             confirmSchedule.setVisibility(View.VISIBLE);
         } else {
             confirmSchedule.setVisibility(View.GONE);

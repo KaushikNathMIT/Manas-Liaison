@@ -200,7 +200,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                     break;
                 case "SCHEDULED":
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
-                    interviewScheduledFragment.setIndex(2);
+                    interviewScheduledFragment.setIndex(1);
                     fragments.add(interviewScheduledFragment);
                     break;
                 default:
