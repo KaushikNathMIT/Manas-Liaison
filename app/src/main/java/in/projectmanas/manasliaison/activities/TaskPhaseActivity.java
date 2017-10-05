@@ -24,6 +24,7 @@ import in.projectmanas.manasliaison.adapters.TPListAdapter;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
 import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
+import in.projectmanas.manasliaison.tasks.UpdateSchedule;
 
 import static in.projectmanas.manasliaison.activities.LoginActivity.mCredential;
 
@@ -39,6 +40,14 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            if (getIntent().getStringExtra("notifySection") != null) {
+                new UpdateSchedule(this, getIntent().getStringExtra("notifySection")).execute();
+                getIntent().removeExtra("notifySection");
+            }
+        } catch (Exception e) {
+        }
+
         linkViews();
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -35,6 +35,7 @@ import in.projectmanas.manasliaison.fragments.InterviewScheduledFragment;
 import in.projectmanas.manasliaison.fragments.InterviewSelectedFragment;
 import in.projectmanas.manasliaison.listeners.DetailsUpdatedListener;
 import in.projectmanas.manasliaison.tasks.UpdateAllDetails;
+import in.projectmanas.manasliaison.tasks.UpdateSchedule;
 
 public class InterviewActivity extends AppCompatActivity implements DetailsUpdatedListener {
 
@@ -49,6 +50,13 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            if (getIntent().getStringExtra("notifySection") != null) {
+                new UpdateSchedule(this, getIntent().getStringExtra("notifySection")).execute();
+                getIntent().removeExtra("notifySection");
+            }
+        } catch (Exception e) {
+        }
         linkViews();
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         if (!sharedPreferences.getString("prefDiv1", "prefDiv1").equals("prefDiv1"))
