@@ -10,50 +10,58 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_label_ol_ongoing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Online Challenge"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/tv_label_ongoing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_label_ol_ongoing"
-            android:layout_centerHorizontal="true"
-            android:padding="20dp"
-            android:text="Ongoing"
-            android:textColor="#00ff00" />
-
-        <TextView
-            android:id="@+id/tv_label_days_countdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_label_ongoing"
-            android:layout_centerHorizontal="true"
-            android:padding="20dp"
-            android:text="Days Countdown"
-            android:textColor="#ff0000" />
-
-        <TextView
-            android:id="@+id/tv_ol_days_remaining"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_label_days_countdown"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
-            android:textSize="30sp" />
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/container_days_countdown"
+                android:layout_width="256dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:contentDescription="calendar wrapper"
+                    android:src="@drawable/countdown_cal"
+                    android:tint="@color/cardview_dark_background" />
+
+                <TextView
+                    android:id="@+id/tv_ol_days_remaining"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="30sp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_label_days_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/container_days_countdown"
+                android:layout_centerHorizontal="true"
+                android:padding="16dp"
+                android:text="DAYS TO GO"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_reg_hacker_rank"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Link to Online Challenge" />
+            android:height="64dp"
+            android:text="Online Challenge" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
