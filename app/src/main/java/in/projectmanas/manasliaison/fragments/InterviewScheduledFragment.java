@@ -104,7 +104,7 @@ public class InterviewScheduledFragment extends Fragment {
         if (userTable.getGithubID() != null && userTable.getGithubID().length() > 1) {
             tickGID.setVisibility(View.VISIBLE);
         }
-        if ((!userTable.getPref1Confirm().equals("TRUE") && index == 1) || (!userTable.getPref2Confirm().equals("TRUE") && index == 2)) {
+        if ((!userTable.getPref1Confirm().equals("CONFIRMED") && index == 1) || (!userTable.getPref2Confirm().equals("CONFIRMED") && index == 2)) {
             confirmSchedule.setVisibility(View.VISIBLE);
         } else {
             confirmSchedule.setVisibility(View.GONE);
@@ -126,8 +126,8 @@ public class InterviewScheduledFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (index == 1)
-                    userTable.setPref1Confirm("TRUE");
-                else userTable.setPref2Confirm("TRUE");
+                    userTable.setPref1Confirm("CONFIRMED");
+                else userTable.setPref2Confirm("CONFIRMED");
                 userTable.saveAsync(new AsyncCallback<UserTable>() {
                     @Override
                     public void handleResponse(UserTable response) {
