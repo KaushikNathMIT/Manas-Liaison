@@ -346,7 +346,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:src="@drawable/interview"
+                            android:src="@drawable/task_phase"
                             android:tint="@android:color/primary_text_dark" />
 
                         <LinearLayout

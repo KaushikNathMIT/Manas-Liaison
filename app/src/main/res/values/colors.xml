@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF9933</color>
+    <color name="colorPrimaryLight">#FFAA44</color>
     <color name="colorPrimaryDark">#d38d23</color>
     <color name="colorAccent">#3377dd</color>
+    <color name="interview_status_accepted">#66FF88</color>
+    <color name="interview_status_rejected">#FF6655</color>
+    <color name="interview_status_pending">#CCC</color>
+    <color name="interview_status_scheduled">#ffffbb</color>
+    <color name="interview_status_confirmed">#88ffff</color>
+    <color name="interview_status_result_pending">#e9e8ff</color>
+    <color name="interview_status_default">#EEE</color>
 </resources>

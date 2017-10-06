@@ -31,18 +31,26 @@
 
                     <TextView
                         android:id="@+id/tv_label_nav_workshop"
-                        android:layout_width="wrap_content"
+                        style="@style/Base.TextAppearance.AppCompat.Large"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Project MANAS workshop"
+                        android:layout_toStartOf="@+id/ib_direction"
+                        android:gravity="center"
+                        android:text="Project MANAS Workshop"
                         android:textSize="15sp" />
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/ib_direction"
-                        android:layout_width="33dp"
-                        android:layout_height="33dp"
+                        style="@style/Base.TextAppearance.AppCompat.Widget.Button.Inverse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:background="@drawable/direction" />
+                        android:backgroundTint="@color/colorAccent"
+                        android:drawablePadding="8dp"
+                        android:paddingLeft="24dp"
+                        android:paddingRight="24dp"
+                        android:text="DIRECTIONS" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -68,9 +76,18 @@
                         android:padding="10dp">
 
                         <TextView
+                            android:id="@+id/scheduled_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Schedule"
+                            android:textSize="30sp" />
+
+                        <TextView
                             android:id="@+id/tv_schedule"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/scheduled_title"
                             android:gravity="center"
                             android:textSize="30sp" />
 
@@ -131,7 +148,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_label_pic"

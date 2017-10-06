@@ -3,8 +3,10 @@ package in.projectmanas.manasliaison.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -16,8 +18,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.backendless.async.callback.AsyncCallback;
@@ -103,43 +108,72 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
     }
 
 
-    private void setStatusTextAndColor() {
-        if (interviewStatus1.equals("")) interviewStatus1 = "PENDING";
-        tvInterviewStatus1.setText(interviewStatus1);
-        if (interviewStatus2.equals("")) interviewStatus2 = "PENDING";
-        tvInterviewStatus2.setText(interviewStatus2);
-        tvInterviewStatus1.setBackgroundColor(Color.parseColor(getColor(interviewStatus1)));
-        tvInterviewStatus2.setBackgroundColor(Color.parseColor(getColor(interviewStatus2)));
-    }
-
     private void getCachedData() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         interviewStatus1 = sharedPreferences.getString("interviewStatus1", "interviewStatus1");
         interviewStatus2 = sharedPreferences.getString("interviewStatus2", "interviewStatus2");
+        if (interviewStatus1.equals("")) interviewStatus1 = "PENDING";
+        if (interviewStatus2.equals("")) interviewStatus2 = "PENDING";
         //tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
-        prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1");
-        prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
+        prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1").toUpperCase();
+        prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2").toUpperCase();
+        tvInterviewStatus1.setText(prefDiv1);
+        tvInterviewStatus2.setText(prefDiv2);
+
         addFragmentsToTabs();
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
         //Log.d("Received Details ", interviewStatus1 + "\t" + interviewStatus2 + "\t" + tpStatus);
-        setStatusTextAndColor();
     }
 
-    private String getColor(String interviewStatus) {
+    private ColorStateList getColor(String interviewStatus) {
+        int color = Color.parseColor("#EEEEEF");
         switch (interviewStatus) {
             case "ACCEPTED":
-                return "#d6ffee";
+                color = Color.parseColor("#55FF88");
+                break;
             case "REJECTED":
-                return "#ffe1f3";
+                color = Color.parseColor("#FF6655");
+                break;
             case "PENDING":
-                return "#fffbbe";
+                color = Color.parseColor("#EEEEEE");
+                break;
             case "SCHEDULED":
-                return "#d4eeff";
+                color = Color.parseColor("#ffffbb");
+                break;
+            case "CONFIRMED":
+                color = Color.parseColor("#88ffff");
+                break;
             case "RESULT PENDING":
-                return "#e9e8ff";
+                color = Color.parseColor("#4BDCA6");
+                break;
         }
-        return "#000000";
+        return ColorStateList.valueOf(color);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        try {
+            String[] interviewStatuses = {interviewStatus1, interviewStatus2};
+            for (int i = 0; i < 2; i++) {
+                LinearLayout.LayoutParams params =
+                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT);
+                TextView tv = new TextView(getBaseContext());
+                tv.setGravity(Gravity.CENTER);
+                tv.setLayoutParams(params);
+
+                tv.setTextColor(getColor(interviewStatuses[i]));
+                tv.setText(interviewStatuses[i]);
+                tv.setTypeface(null, Typeface.BOLD);
+
+                tabLayout.getTabAt(i).setCustomView(tv);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void linkViews() {
@@ -156,6 +190,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (ViewPager) findViewById(R.id.interview_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
+
         tvInterviewStatus1 = (TextView) findViewById(R.id.tv_interview_stat1);
         tvInterviewStatus2 = (TextView) findViewById(R.id.tv_interview_stat2);
     }
@@ -246,7 +281,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         } else {
             tvInterviewStatus2.setVisibility(View.GONE);
         }
-        final String[] titles = {prefDiv1, prefDiv2};
+        final String[] titles = {interviewStatus1, interviewStatus2};
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

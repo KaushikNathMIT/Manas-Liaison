@@ -15,18 +15,12 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
 
-            <TextView
-                android:id="@+id/tv_iv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="Rejected" />
 
             <TextView
                 android:id="@+id/tv_iv_status_desc"
+                style="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_iv_status"
                 android:gravity="center"
                 android:text="We regret to inform you that you have not been selected for the task phase round." />
         </RelativeLayout>
