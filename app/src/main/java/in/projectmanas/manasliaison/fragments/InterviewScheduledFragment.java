@@ -36,7 +36,7 @@ import in.projectmanas.manasliaison.backendless_classes.UserTable;
  */
 public class InterviewScheduledFragment extends Fragment {
 
-    private ImageButton directionButton;
+    private Button directionButton;
     private Button confirmSchedule, reSchedule;
     private TextView uploadCV;
     private TextView compCodeProfileLink;

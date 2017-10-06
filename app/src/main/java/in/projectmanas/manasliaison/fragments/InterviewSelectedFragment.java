@@ -35,54 +35,31 @@ public class InterviewSelectedFragment extends Fragment {
     private int divIndex;
     private SharedPreferences sharedPreferences;
     private TextView tvLabelInterviewSelected;
+    private List<UserTable> response;
+    private View ivConfetti;
 
     public InterviewSelectedFragment() {
         // Required empty public constructor
     }
 
     public void setDetails(Context context, String status1, String status2, int divIndex) {
-
         this.context = context;
         this.status1 = status1;
         this.status2 = status2;
         this.divIndex = divIndex;
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         sharedPreferences = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
         queryBuilder.setWhereClause(whereClause);
 
-
-        View view = inflater.inflate(R.layout.fragment_interview_selected, container, false);
-        accept = view.findViewById(R.id.button_selected_accept);
-        reject = view.findViewById(R.id.button_selected_reject);
-        tvLabelInterviewSelected = view.findViewById(R.id.tv_label_interview_selected);
-        tvLabelInterviewSelected.setVisibility(View.INVISIBLE);
-        accept.setVisibility(View.INVISIBLE);
-        reject.setVisibility(View.INVISIBLE);
-        setListeners();
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
             public void handleResponse(List<UserTable> response) {
-                if (response.get(0).getDiv1().equals("UNSET") && divIndex == 1) {
-                    accept.setVisibility(View.VISIBLE);
-                    reject.setVisibility(View.VISIBLE);
-                    tvLabelInterviewSelected.setVisibility(View.VISIBLE);
-                } else if (response.get(0).getDiv2().equals("UNSET") && divIndex == 2) {
-                    accept.setVisibility(View.VISIBLE);
-                    reject.setVisibility(View.VISIBLE);
-                    tvLabelInterviewSelected.setVisibility(View.VISIBLE);
-                } else {
-                    tvLabelInterviewSelected.setText("We have already recorded your response");
-                    tvLabelInterviewSelected.setVisibility(View.VISIBLE);
-                    accept.setVisibility(View.GONE);
-                    reject.setVisibility(View.GONE);
-                }
+                InterviewSelectedFragment.this.response = response;
+
+                if (isVisible())
+                    updateViews();
             }
 
             @Override
@@ -90,6 +67,45 @@ public class InterviewSelectedFragment extends Fragment {
 
             }
         });
+    }
+
+    public void updateViews() {
+        ivConfetti.setVisibility(View.VISIBLE);
+
+        if (response.get(0).getDiv1().equals("UNSET") && InterviewSelectedFragment.this.divIndex == 1) {
+            accept.setVisibility(View.VISIBLE);
+            reject.setVisibility(View.VISIBLE);
+            tvLabelInterviewSelected.setVisibility(View.VISIBLE);
+        } else if (response.get(0).getDiv2().equals("UNSET") && InterviewSelectedFragment.this.divIndex == 2) {
+            accept.setVisibility(View.VISIBLE);
+            reject.setVisibility(View.VISIBLE);
+            tvLabelInterviewSelected.setVisibility(View.VISIBLE);
+        } else {
+            tvLabelInterviewSelected.setText("We have already recorded your response");
+            tvLabelInterviewSelected.setVisibility(View.VISIBLE);
+            accept.setVisibility(View.GONE);
+            reject.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+
+        View view = inflater.inflate(R.layout.fragment_interview_selected, container, false);
+        accept = view.findViewById(R.id.button_selected_accept);
+        reject = view.findViewById(R.id.button_selected_reject);
+        ivConfetti = view.findViewById(R.id.iv_confetti);
+        tvLabelInterviewSelected = view.findViewById(R.id.tv_label_interview_selected);
+        tvLabelInterviewSelected.setVisibility(View.INVISIBLE);
+        accept.setVisibility(View.INVISIBLE);
+        reject.setVisibility(View.INVISIBLE);
+        setListeners();
+
+        if (response != null)
+            updateViews();
 
         return view;
     }
