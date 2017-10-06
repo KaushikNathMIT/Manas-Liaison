@@ -2,12 +2,14 @@ package in.projectmanas.manasliaison.activities;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -399,7 +401,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
             case R.id.ib_logout:
-                logout();
+                openLogoutAlert();
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
@@ -408,6 +410,29 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, SupportActivity.class));
                 break;
         }
+    }
+
+    private void openLogoutAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog = builder.setTitle("Logout")
+                .setIcon(R.drawable.logout)
+                .setMessage("Goodbye " + userName + ". Are you sure you want to logout?")
+                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        logout();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create();
+        dialog.show();
+
     }
 
     @Override
