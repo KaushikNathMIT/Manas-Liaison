@@ -27,12 +27,15 @@ import android.widget.TextView;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.fragments.InterviewPendingFragment;
 import in.projectmanas.manasliaison.fragments.InterviewRejectedFragment;
 import in.projectmanas.manasliaison.fragments.InterviewResultPendingFragment;
@@ -281,21 +284,42 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         } else {
             tvInterviewDiv2.setVisibility(View.GONE);
         }
-        final String[] titles = {interviewStatus1, interviewStatus2};
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
+        queryBuilder.setWhereClause(whereClause);
+        UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
+            public void handleResponse(List<UserTable> response) {
+                UserTable userTable = response.get(0);
+                if (userTable.getPref1Confirm().equals("CONFIRMED")) {
+                    interviewStatus1 = "CONFIRMED";
+                }
+                if (userTable.getPref2Confirm().equals("CONFIRMED")) {
+                    interviewStatus2 = "CONFIRMED";
+                }
+                final String[] titles = {interviewStatus1, interviewStatus2};
+                viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+                    @Override
+                    public Fragment getItem(int position) {
+                        return fragments.get(position);
+                    }
+
+                    @Override
+                    public int getCount() {
+                        return fragments.size();
+                    }
+
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        return titles[position];
+                    }
+                });
             }
 
             @Override
-            public int getCount() {
-                return fragments.size();
-            }
+            public void handleFault(BackendlessFault fault) {
 
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return titles[position];
             }
         });
     }
