@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        linkViews();
         try {
             if (getIntent().getStringExtra("notifySection") != null) {
                 new UpdateSchedule(this, getIntent().getStringExtra("notifySection")).execute();
@@ -59,7 +60,13 @@ public class HomeActivity extends AppCompatActivity
             }
         } catch (Exception e) {
         }
-        linkViews();
+        try {
+            if (getIntent().getBooleanExtra("fromLogin", false)) {
+                swipeRefreshLayout.setRefreshing(true);
+                getIntent().removeExtra("fromLogin");
+            }
+        } catch (Exception e) {
+        }
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
@@ -75,7 +82,6 @@ public class HomeActivity extends AppCompatActivity
                 getData();
             }
         });
-        swipeRefreshLayout.setRefreshing(true);
         if (getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("regNumber", null) == null) {
             linearLayout.setVisibility(View.INVISIBLE);
         } else onNewDetailsFetched();
