@@ -43,10 +43,10 @@ public class HomeActivity extends AppCompatActivity
 
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
-    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
+    private TextView tvNumberApplicants, tvOnlineChallengeParticipants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
     private String regNumber, userName, emailID;
-    private int nInterviewConducted, nTPShortlisted, nApplicants, nSelected;
-    private int prevInterviewConducted, prevTPShortlisted, prevApplicants, prevSelected;
+    private int nApplicants, nOnlineChallengeParticipants, nInterviewConducted, nTPShortlisted, nSelected;
+    private int prevApplicants, prevOnlineChallengeParticipants, prevInterviewConducted, prevTPShortlisted, prevSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -227,9 +227,10 @@ public class HomeActivity extends AppCompatActivity
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl_home);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_home);
         tvNumberApplicants = (TextView) findViewById(R.id.tv_stat_appl);
+        tvOnlineChallengeParticipants = (TextView) findViewById(R.id.tv_stat_participants);
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
-//        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
+        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         imageButtonEditNavHeader = (ImageView) findViewById(R.id.nav_edit_profile);
         tvNavHeaderName = (TextView) findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = (TextView) findViewById(R.id.tv_nav_header_email_id);
@@ -320,9 +321,10 @@ public class HomeActivity extends AppCompatActivity
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float fraction = valueAnimator.getAnimatedFraction();
                 tvNumberApplicants.setText(String.valueOf((int) ((1 - fraction) * prevApplicants + fraction * nApplicants)));
+                tvOnlineChallengeParticipants.setText(String.valueOf((int) ((1 - fraction) * prevOnlineChallengeParticipants + fraction * nOnlineChallengeParticipants)));
                 tvNumberInterviewConducted.setText(String.valueOf((int) ((1 - fraction) * prevInterviewConducted + fraction * nInterviewConducted)));
                 tvNumTPShortlisted.setText(String.valueOf((int) ((1 - fraction) * prevTPShortlisted + fraction * nTPShortlisted)));
-//                tvNumSelected.setText((int) (fraction * nSelected));
+                tvNumSelected.setText(String.valueOf((int) ((1 - fraction) * prevSelected + fraction * nSelected)));
             }
         });
         animator.setStartDelay(500);
@@ -347,25 +349,6 @@ public class HomeActivity extends AppCompatActivity
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
         regNumber = sharedPreferences.getString("regNumber", "regNumber");
-        /*
-        interviewStatus1 = sharedPreferences.getString("interviewStatus1", "interviewStatus1");
-        interviewStatus2 = sharedPreferences.getString("interviewStatus2", "interviewStatus2");
-        tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
-        mobileNumber = sharedPreferences.getString("mobileNumber", "mobileNumber");
-        prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1");
-        prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
-        pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
-        pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
-
-        prevApplicants = nApplicants;
-        nApplicants = getStat(sharedPreferences.getString("numApplicants", "numApplicants"));
-        prevInterviewConducted = nInterviewConducted;
-        nInterviewConducted = getStat(sharedPreferences.getString("numInterviewConducted", "numInterviewConducted"));
-        prevTPShortlisted = nTPShortlisted;
-        nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
-        prevSelected = nSelected;
-        nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
-        */
     }
 
     public void onHomeItemSelected(View view) {
@@ -412,7 +395,13 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+        prevApplicants = nApplicants;
+        prevOnlineChallengeParticipants = nOnlineChallengeParticipants;
+        prevInterviewConducted = nInterviewConducted;
+        prevTPShortlisted = nTPShortlisted;
+        prevSelected = nSelected;
         nApplicants = getStat(outputList.get(0).get(0).get(0));
+        nOnlineChallengeParticipants = getStat(outputList.get(0).get(1).get(0));
         nInterviewConducted = getStat(outputList.get(0).get(2).get(0));
         nTPShortlisted = getStat(outputList.get(0).get(3).get(0));
         nSelected = getStat(outputList.get(0).get(4).get(0));
