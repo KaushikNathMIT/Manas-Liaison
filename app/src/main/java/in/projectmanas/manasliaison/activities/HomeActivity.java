@@ -22,6 +22,9 @@ import com.backendless.Backendless;
 import com.backendless.DeviceRegistration;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
+
+import java.util.List;
 
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
@@ -38,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
 
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
-    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted/*, tvNumSelected*/;
+    private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
     private String regNumber, userName, emailID;
     private int nInterviewConducted, nTPShortlisted, nApplicants, nSelected;
     private String deviceToken;
@@ -90,20 +93,69 @@ public class HomeActivity extends AppCompatActivity
         getData();
     }
 
+    private void logout() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        finish();
+    }
+
     private void fillUserTable() {
-        UserTable userTable = new UserTable();
-        userTable.setRegistrationNumber(regNumber);
-        userTable.setDeviceToken(deviceToken);
-        userTable.saveAsync(new AsyncCallback<UserTable>() {
+        String whereClause = "registrationNumber = " + regNumber;
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setWhereClause(whereClause);
+        UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
-            public void handleResponse(UserTable response) {
-                Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
+            public void handleResponse(List<UserTable> response) {
+                if (response.size() > 0) {
+                    UserTable userTable = response.get(0);
+                    userTable.setDeviceToken(deviceToken);
+                    userTable.saveAsync(new AsyncCallback<UserTable>() {
+                        @Override
+                        public void handleResponse(UserTable response) {
+
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+
+                        }
+                    });
+                } else {
+                    UserTable userTable = new UserTable();
+                    userTable.setRegistrationNumber(regNumber);
+                    userTable.setDeviceToken(deviceToken);
+                    userTable.saveAsync(new AsyncCallback<UserTable>() {
+                        @Override
+                        public void handleResponse(UserTable response) {
+                            Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                        }
+                    });
+                }
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
+                UserTable userTable = new UserTable();
+                userTable.setRegistrationNumber(regNumber);
+                userTable.setDeviceToken(deviceToken);
+                userTable.saveAsync(new AsyncCallback<UserTable>() {
+                    @Override
+                    public void handleResponse(UserTable response) {
+                        Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                    }
+                });
             }
         });
+
     }
 
     private void getAndCacheRecruitmentDetails() {
@@ -256,7 +308,7 @@ public class HomeActivity extends AppCompatActivity
                 tvNumberApplicants.setText(String.valueOf((int) (fraction * nApplicants)));
                 tvNumberInterviewConducted.setText(String.valueOf((int) (fraction * nInterviewConducted)));
                 tvNumTPShortlisted.setText(String.valueOf((int) (fraction * nTPShortlisted)));
-//                tvNumSelected.setText((int) (fraction * nSelected));
+                //tvNumSelected.setText((int) (fraction * nSelected));
             }
         });
         animator.start();
