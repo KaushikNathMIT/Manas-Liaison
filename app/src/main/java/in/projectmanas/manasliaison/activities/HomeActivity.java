@@ -413,8 +413,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
         nApplicants = getStat(outputList.get(0).get(0).get(0));
-        nInterviewConducted = getStat(outputList.get(0).get(0).get(2));
-        nTPShortlisted = getStat(outputList.get(0).get(0).get(3));
-        nSelected = getStat(outputList.get(0).get(0).get(4));
+        nInterviewConducted = getStat(outputList.get(0).get(2).get(0));
+        nTPShortlisted = getStat(outputList.get(0).get(3).get(0));
+        nSelected = getStat(outputList.get(0).get(4).get(0));
     }
 }
