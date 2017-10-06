@@ -29,10 +29,32 @@
 
                     <include layout="@layout/nav_header_main" />
 
-                    <FrameLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/white" />
+                        android:layout_height="32dp"
+                        android:background="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tv_stat_appl"
+                                style="@style/TextAppearance.AppCompat.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="432" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Applicants" />
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <FrameLayout
                         android:id="@+id/nav_online_challenge"
@@ -75,18 +97,20 @@
                                     android:textColor="@android:color/white" />
 
                                 <TextView
-                                    android:id="@+id/tv_stat_appl"
+                                    android:id="@+id/tv_stat_participants"
                                     style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="32"
-                                    android:textColor="@android:color/white" />
+                                    android:text="294"
+                                    android:textColor="@android:color/white"
+                                    android:visibility="gone" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Applicants"
-                                    android:textColor="@android:color/white" />
+                                    android:text="Participants"
+                                    android:textColor="@android:color/white"
+                                    android:visibility="gone" />
                             </LinearLayout>
 
                             <RelativeLayout
@@ -183,7 +207,7 @@
                                     style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="32"
+                                    android:text="56"
                                     android:textColor="@android:color/white"
                                     android:visibility="gone" />
 
@@ -271,7 +295,7 @@
                                     style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="32"
+                                    android:text="519"
                                     android:textColor="@android:color/white" />
 
                                 <TextView
@@ -375,7 +399,7 @@
                                     style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="32"
+                                    android:text="112"
                                     android:textColor="@android:color/white" />
 
                                 <TextView
@@ -519,9 +543,9 @@
 
         <FrameLayout
             android:layout_width="match_parent"
+            android:layout_height="32dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/login_shader"
-            android:layout_height="32dp" />
+            android:background="@drawable/login_shader" />
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
 

@@ -81,7 +81,7 @@ public class InterviewSelectedFragment extends Fragment {
             reject.setVisibility(View.VISIBLE);
             tvLabelInterviewSelected.setVisibility(View.VISIBLE);
         } else {
-            tvLabelInterviewSelected.setText("We have already recorded your response");
+            tvLabelInterviewSelected.setText("We have already recorded your response.\nWe'll see you there!");
             tvLabelInterviewSelected.setVisibility(View.VISIBLE);
             accept.setVisibility(View.GONE);
             reject.setVisibility(View.GONE);
