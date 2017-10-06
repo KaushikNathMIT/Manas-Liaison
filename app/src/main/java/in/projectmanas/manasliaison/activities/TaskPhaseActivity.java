@@ -53,6 +53,15 @@ public class TaskPhaseActivity extends AppCompatActivity implements SheetDataFet
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                /*aiListView.setAdapter(null);
+                snaListView.setAdapter(null);
+                mechListView.setAdapter(null);
+                mgmtListView.setAdapter(null);
+                */
+                aiList.clear();
+                snaList.clear();
+                mechList.clear();
+                mgmtList.clear();
                 aiListView.setVisibility(View.GONE);
                 mechListView.setVisibility(View.GONE);
                 snaListView.setVisibility(View.GONE);
