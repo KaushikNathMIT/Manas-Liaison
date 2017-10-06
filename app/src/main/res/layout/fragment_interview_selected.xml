@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Congratulations, you’ve made it to the task phase of this division! So are you in?"
+                android:text="Congratulations, looks like you've done well in your interview.\nYou've made it to the task phase of this division!\nSo... you in?"
                 android:textSize="20sp" />
 
             <ImageView
