@@ -26,6 +26,7 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
     private TextView tvOLDaysRemaining;
     private TextView tvLabelOLDaysRemaining;
     private CoordinatorLayout coordinatorLayout;
+    private View pbOLDaysRemaining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
+                pbOLDaysRemaining.setVisibility(View.INVISIBLE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tvOLDaysRemaining.setText((response.getOnlineChallengeDate().getTime() - Calendar.getInstance().getTime().getTime()) / ((24 * 60 * 60 * 1000)) + "");
                 } else {
@@ -72,6 +74,7 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_ongoing_ol);
         onlineChallengeRedirectButton = (Button) findViewById(R.id.button_reg_hacker_rank);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        pbOLDaysRemaining = findViewById(R.id.pb_online_challenge);
         tvOLDaysRemaining = (TextView) findViewById(R.id.tv_ol_days_remaining);
         tvLabelOLDaysRemaining = (TextView) findViewById(R.id.tv_label_days_countdown);
     }
