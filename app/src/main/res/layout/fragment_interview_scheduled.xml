@@ -69,64 +69,61 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:id="@+id/rl_interview_scheduled"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:orientation="vertical"
                         android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_label_schedule_conf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="16dp"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="Hey! The bots found a slot for you.\nCan you make it?"
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/scheduled_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Schedule"
-                            android:textSize="30sp" />
+                            android:text="Interview Schedule"
+                            android:textSize="25sp" />
 
                         <TextView
                             android:id="@+id/tv_schedule"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/scheduled_title"
                             android:gravity="center"
                             android:textSize="30sp" />
-
-                        <TextView
-                            android:id="@+id/tv_label_schedule_conf"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_schedule"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="Please confirm that you will be able to attend the interview at the above timings"
-                            android:textSize="20sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_label_schedule_conf"
                             android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/button_request_reschedule"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:backgroundTint="#000000"
                                 android:text="Request Reschedule"
-                                android:textColor="#ff5555" />
+                                android:backgroundTint="#ff9999" />
 
                             <Button
                                 android:id="@+id/button_confirm_schedule"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:backgroundTint="#000000"
                                 android:text="Confirm schedule"
-                                android:textColor="#00ff00" />
+                                android:backgroundTint="#77ffBB" />
                         </LinearLayout>
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <ProgressBar
                         android:id="@+id/pb_interview_scheduled"

@@ -21,7 +21,7 @@
         android:layout_alignParentTop="true"
         android:backgroundTint="@color/cardview_dark_background"
         android:onClick="onHomeItemSelected"
-        android:src="@drawable/power" />
+        android:src="@drawable/logout" />
 
     <ImageView
         android:id="@+id/iv_logo_nav_head"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_nav_header_name"
         android:padding="5dp"
-        android:text="EmailID" />
+        android:text="Email ID" />
 
     <TextView
         android:id="@+id/tv_nav_header_reg_number"

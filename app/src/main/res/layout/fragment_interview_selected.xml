@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Congratulations, you’ve been selected for the task phase of this division. We are awaiting your response to our offer."
+                android:text="Congratulations, you’ve made it to the task phase of this division! So are you in?"
                 android:textSize="20sp" />
 
             <ImageView
@@ -40,17 +40,19 @@
 
                 <Button
                     android:id="@+id/button_selected_reject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="REJECT" />
+                    android:text="REJECT"
+                    android:backgroundTint="#ff9999" />
 
                 <Button
                     android:id="@+id/button_selected_accept"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="ACCEPT" />
+                    android:text="ACCEPT"
+                    android:backgroundTint="#77ffBB" />
 
             </LinearLayout>
         </LinearLayout>
