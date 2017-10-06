@@ -30,7 +30,6 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_online_challenge_ongoing);
         linkViews();
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
@@ -69,6 +68,7 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
     }
 
     private void linkViews() {
+        setContentView(R.layout.activity_online_challenge_ongoing);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.cl_ongoing_ol);
         onlineChallengeRedirectButton = (Button) findViewById(R.id.button_reg_hacker_rank);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
