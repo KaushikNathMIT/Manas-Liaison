@@ -66,11 +66,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         } catch (Exception e) {
         }
         linkViews();
+        swipeRefreshLayout.setRefreshing(true);
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         if (!sharedPreferences.getString("prefDiv1", "prefDiv1").equals("prefDiv1"))
             getCachedData();
         else {
-            swipeRefreshLayout.setRefreshing(true);
             ((App) getApplication()).getSheetMetadata(new AsyncCallback<Sheet>() {
                 @Override
                 public void handleResponse(Sheet response) {
@@ -325,11 +325,13 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                         return titles[position];
                     }
                 });
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                swipeRefreshLayout.setRefreshing(false);
+                Snackbar.make(coordinatorLayout, "Please connect to Internet", Snackbar.LENGTH_INDEFINITE);
             }
         });
     }

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -68,13 +67,13 @@ public class InterviewScheduledFragment extends Fragment {
         linkViews(view);
         progressBar.setVisibility(View.VISIBLE);
         rlInterviewSchedule.setVisibility(View.INVISIBLE);
-        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         if (index == 1) {
             schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         } else if (index == 2)
             schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         queryBuilder.setWhereClause(whereClause);
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
@@ -126,6 +125,7 @@ public class InterviewScheduledFragment extends Fragment {
         confirmSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 if (index == 1)
                     userTable.setPref1Confirm("CONFIRMED");
                 else userTable.setPref2Confirm("CONFIRMED");
@@ -134,6 +134,7 @@ public class InterviewScheduledFragment extends Fragment {
                     public void handleResponse(UserTable response) {
                         confirmSchedule.setVisibility(View.GONE);
                         tvLabelSchedule.setText("Your interview is successfully scheduled");
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
