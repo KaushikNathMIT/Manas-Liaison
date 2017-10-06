@@ -326,7 +326,7 @@ public class HomeActivity extends AppCompatActivity
                 tvOnlineChallengeParticipants.setText(String.valueOf((int) ((1 - fraction) * prevOnlineChallengeParticipants + fraction * nOnlineChallengeParticipants)));
                 tvNumberInterviewConducted.setText(String.valueOf((int) ((1 - fraction) * prevInterviewConducted + fraction * nInterviewConducted)));
                 tvNumTPShortlisted.setText(String.valueOf((int) ((1 - fraction) * prevTPShortlisted + fraction * nTPShortlisted)));
-                tvNumSelected.setText(String.valueOf((int) ((1 - fraction) * prevSelected + fraction * nSelected)));
+                tvNumSelected.setText(String.valueOf((int) ((1 - fraction) * nApplicants + fraction * nSelected)));
             }
         });
         animator.setStartDelay(500);

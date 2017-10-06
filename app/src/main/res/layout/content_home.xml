@@ -116,7 +116,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="0dp"
-                                android:layout_weight="1.5"
+                                android:layout_weight=".8"
                                 android:orientation="vertical">
 
                                 <FrameLayout
@@ -223,7 +223,7 @@
                             <FrameLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1.5"
+                                android:layout_weight=".8"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
@@ -311,7 +311,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="0dp"
-                                android:layout_weight="1.5"
+                                android:layout_weight=".8"
                                 android:orientation="vertical">
 
                                 <FrameLayout
@@ -417,7 +417,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="0dp"
-                                android:layout_weight="1.5"
+                                android:layout_weight=".8"
                                 android:background="#97E"
                                 android:orientation="vertical">
 
