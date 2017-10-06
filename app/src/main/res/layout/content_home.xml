@@ -102,15 +102,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="294"
-                                    android:textColor="@android:color/white"
-                                    android:visibility="gone" />
+                                    android:textColor="@android:color/white" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Participants"
-                                    android:textColor="@android:color/white"
-                                    android:visibility="gone" />
+                                    android:textColor="@android:color/white" />
                             </LinearLayout>
 
                             <RelativeLayout
@@ -461,6 +459,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@android:color/white" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tv_stat_selected"
+                                style="@style/TextAppearance.AppCompat.Large"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                android:text="Selected" />
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <FrameLayout
                         android:id="@+id/nav_about"
