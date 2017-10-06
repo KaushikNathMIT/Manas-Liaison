@@ -7,8 +7,8 @@ android {
         applicationId "in.projectmanas.manasliaison"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 20
-        versionName "1.0.19"
+        versionCode 24
+        versionName "1.0.23"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

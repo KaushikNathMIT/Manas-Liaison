@@ -241,6 +241,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                     interviewScheduledFragment.setIndex(1);
                     fragments.add(interviewScheduledFragment);
                     break;
+                case "CONFIRMED":
+                    InterviewScheduledFragment interviewScheduledFragment2 = new InterviewScheduledFragment();
+                    interviewScheduledFragment2.setIndex(1);
+                    fragments.add(interviewScheduledFragment2);
+                    break;
                 default:
                     InterviewPendingFragment interviewPendingFragment2 = new InterviewPendingFragment();
                     fragments.add(interviewPendingFragment2);
@@ -275,6 +280,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
                     InterviewScheduledFragment interviewScheduledFragment = new InterviewScheduledFragment();
                     interviewScheduledFragment.setIndex(2);
                     fragments.add(interviewScheduledFragment);
+                    break;
+                case "CONFIRMED":
+                    InterviewScheduledFragment interviewScheduledFragment2 = new InterviewScheduledFragment();
+                    interviewScheduledFragment2.setIndex(1);
+                    fragments.add(interviewScheduledFragment2);
                     break;
                 default:
                     InterviewPendingFragment interviewPendingFragment2 = new InterviewPendingFragment();
@@ -329,5 +339,11 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         swipeRefreshLayout.setRefreshing(false);
         finish();
         startActivity(getIntent());
+    }
+
+    @Override
+    public void onUpdationFailed() {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(coordinatorLayout, "Please connect to Internet", Snackbar.LENGTH_INDEFINITE).show();
     }
 }

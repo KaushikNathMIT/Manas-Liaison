@@ -67,16 +67,17 @@ public class HomeActivity extends AppCompatActivity
             if (getIntent().getBooleanExtra("fromLogin", false)) {
                 swipeRefreshLayout.setRefreshing(true);
                 getIntent().removeExtra("fromLogin");
+            } else {
+                if (emailID.equals("emailID")) {
+                    logout();
+                }
             }
         } catch (Exception e) {
         }
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         userName = sharedPreferences.getString("name", "name");
         emailID = sharedPreferences.getString("emailID", "emailID");
-        if (emailID.equals("emailID")) {
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-            finish();
-        }
+
         //Snackbar.make(coordinatorLayout, "Loading data please wait", Snackbar.LENGTH_INDEFINITE).show();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -118,7 +119,7 @@ public class HomeActivity extends AppCompatActivity
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
-
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     });
                 } else {
@@ -133,6 +134,7 @@ public class HomeActivity extends AppCompatActivity
 
                         @Override
                         public void handleFault(BackendlessFault fault) {
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     });
                 }
@@ -151,6 +153,7 @@ public class HomeActivity extends AppCompatActivity
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }
@@ -175,7 +178,8 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void handleFault(BackendlessFault fault) {
-                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_INDEFINITE).show();
+                Snackbar.make(coordinatorLayout, "Please connect to internet", Snackbar.LENGTH_INDEFINITE).show();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -192,7 +196,7 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void handleFault(BackendlessFault fault) {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -241,7 +245,8 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void handleFault(BackendlessFault fault) {
-                Snackbar.make(coordinatorLayout, fault.getMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(coordinatorLayout, "Please connect to internet", Snackbar.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -272,6 +277,12 @@ public class HomeActivity extends AppCompatActivity
     public void onDetailsUpdated() {
         onNewDetailsFetched();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onUpdationFailed() {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(coordinatorLayout, "Please connect to Internet", Snackbar.LENGTH_INDEFINITE).show();
     }
 
     private void onNewDetailsFetched() {

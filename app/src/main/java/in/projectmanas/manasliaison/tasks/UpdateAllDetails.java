@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -249,7 +248,7 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
 
     @Override
     protected void onCancelled() {
-
+        delegate.onUpdationFailed();
         if (mLastError != null) {
             if (mLastError instanceof GooglePlayServicesAvailabilityIOException) {
                 showGooglePlayServicesAvailabilityErrorDialog(
@@ -262,9 +261,9 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
             } else {
                 Log.e("Error", "The following error occurred:\n"
                         + mLastError.getMessage());
-                Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
-                context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
-                context.startActivity(new Intent(context, LoginActivity.class));
+                //Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
+                //context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
+                //context.startActivity(new Intent(context, LoginActivity.class));
 
             }
         } else {

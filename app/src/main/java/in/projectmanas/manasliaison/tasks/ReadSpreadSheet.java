@@ -131,7 +131,7 @@ public class ReadSpreadSheet extends AsyncTask<String, Void, ArrayList<ArrayList
                         ((UserRecoverableAuthIOException) mLastError).getIntent(),
                         LoginActivity.REQUEST_AUTHORIZATION);
             } else {
-                Toast.makeText(context, mLastError.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Please connect to internet", Toast.LENGTH_LONG).show();
                 //context.getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
                 //mCredential.setSelectedAccount(null);
                 //context.startActivity(new Intent(context, LoginActivity.class));

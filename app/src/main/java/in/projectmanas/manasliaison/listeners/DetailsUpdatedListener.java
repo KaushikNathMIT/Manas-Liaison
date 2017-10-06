@@ -6,4 +6,6 @@ package in.projectmanas.manasliaison.listeners;
 
 public interface DetailsUpdatedListener {
     void onDetailsUpdated();
+
+    void onUpdationFailed();
 }
