@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted, tvNumSelected;
     private String regNumber, userName, emailID;
     private int nInterviewConducted, nTPShortlisted, nApplicants, nSelected;
+    private int prevInterviewConducted, prevTPShortlisted, prevApplicants, prevSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -305,10 +306,10 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float fraction = valueAnimator.getAnimatedFraction();
-                tvNumberApplicants.setText(String.valueOf((int) (fraction * nApplicants)));
-                tvNumberInterviewConducted.setText(String.valueOf((int) (fraction * nInterviewConducted)));
-                tvNumTPShortlisted.setText(String.valueOf((int) (fraction * nTPShortlisted)));
-                //tvNumSelected.setText((int) (fraction * nSelected));
+                tvNumberApplicants.setText(String.valueOf((int) ((1 - fraction) * prevApplicants + fraction * nApplicants)));
+                tvNumberInterviewConducted.setText(String.valueOf((int) ((1 - fraction) * prevInterviewConducted + fraction * nInterviewConducted)));
+                tvNumTPShortlisted.setText(String.valueOf((int) ((1 - fraction) * prevTPShortlisted + fraction * nTPShortlisted)));
+//                tvNumSelected.setText((int) (fraction * nSelected));
             }
         });
         animator.start();
@@ -342,9 +343,13 @@ public class HomeActivity extends AppCompatActivity
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         */
+        prevApplicants = nApplicants;
         nApplicants = getStat(sharedPreferences.getString("numApplicants", "numApplicants"));
+        prevInterviewConducted = nInterviewConducted;
         nInterviewConducted = getStat(sharedPreferences.getString("numInterviewConducted", "numInterviewConducted"));
+        prevTPShortlisted = nTPShortlisted;
         nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
+        prevSelected = nSelected;
         nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
 
         getAndCacheRecruitmentDetails();
