@@ -5,9 +5,19 @@
     android:layout_height="match_parent"
     tools:context="in.projectmanas.manasliaison.activities.OrientationActivity">
 
-    <WebView
-        android:id="@+id/wv_orientation"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <WebView
+            android:id="@+id/wv_orientation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/pb_orientation"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

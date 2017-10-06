@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.backendless.async.callback.AsyncCallback;
@@ -18,6 +20,7 @@ import in.projectmanas.manasliaison.backendless_classes.Links;
 public class OrientationActivity extends AppCompatActivity {
 
     private boolean cancel;
+    private ProgressBar progressBar;
 
     @Override
     protected void onPause() {
@@ -30,9 +33,16 @@ public class OrientationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orientation);
         final WebView myWebView = (WebView) findViewById(R.id.wv_orientation);
+        progressBar = (ProgressBar) findViewById(R.id.pb_orientation);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Links.findFirstAsync(new AsyncCallback<Links>() {
             @Override

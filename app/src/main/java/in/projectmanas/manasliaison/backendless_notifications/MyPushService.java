@@ -63,7 +63,9 @@ public class MyPushService extends BackendlessPushService {
         Intent notificationIntent;
         String activityName = intent.getStringExtra("android-content-sound");
         String ticker = intent.getStringExtra("android-ticker-text");
-        if (AboutActivity.class.getName().contains(activityName))
+        if (activityName.equals(""))
+            notificationIntent = new Intent(context, HomeActivity.class);
+        else if (AboutActivity.class.getName().contains(activityName))
             notificationIntent = new Intent(context, AboutActivity.class);
         else if (HomeActivity.class.getName().contains(activityName))
             notificationIntent = new Intent(context, HomeActivity.class);

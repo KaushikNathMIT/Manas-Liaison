@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity
         try {
             if (!getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("emailID", "emailID").equals("emailID")) {
                 mCredential.setSelectedAccountName(getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("emailID", "emailID"));
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class).putExtra("fromLogin", true));
                 finish();
             } else {
                 mCredential.setSelectedAccountName(null);
@@ -288,6 +288,7 @@ public class LoginActivity extends AppCompatActivity
             sharedPreferences.edit().putString("emailID", mCredential.getSelectedAccountName()).apply();
             Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("fromLogin", true);
             startActivity(intent);
             finish();
         }

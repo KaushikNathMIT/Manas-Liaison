@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,8 @@ public class InterviewScheduledFragment extends Fragment {
     private String schedule;
     private int index;
     private TextView tvLabelSchedule;
+    private RelativeLayout rlInterviewSchedule;
+    private ProgressBar progressBar;
 
     public InterviewScheduledFragment() {
         // Required empty public constructor
@@ -60,6 +64,9 @@ public class InterviewScheduledFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_interview_scheduled, container, false);
+        linkViews(view);
+        progressBar.setVisibility(View.VISIBLE);
+        rlInterviewSchedule.setVisibility(View.INVISIBLE);
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
         if (index == 1) {
@@ -71,8 +78,9 @@ public class InterviewScheduledFragment extends Fragment {
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
             public void handleResponse(List<UserTable> response) {
+                progressBar.setVisibility(View.GONE);
+                rlInterviewSchedule.setVisibility(View.VISIBLE);
                 userTable = response.get(0);
-                linkViews(view);
                 tvSchedule.setText(schedule);
                 setListeners();
                 checkData();
@@ -220,6 +228,8 @@ public class InterviewScheduledFragment extends Fragment {
     }
 
     private void linkViews(View view) {
+        rlInterviewSchedule = view.findViewById(R.id.rl_interview_scheduled);
+        progressBar = view.findViewById(R.id.pb_interview_scheduled);
         tvLabelSchedule = view.findViewById(R.id.tv_label_schedule_conf);
         tvSchedule = view.findViewById(R.id.tv_schedule);
         directionButton = view.findViewById(R.id.ib_direction);
