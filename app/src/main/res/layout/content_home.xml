@@ -111,7 +111,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/textView2"
+                                        android:id="@+id/tv_ol_start"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -121,6 +121,7 @@
                                         android:textColor="@android:color/white" />
 
                                     <TextView
+                                        android:id="@+id/tv_ol_end"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -210,6 +211,7 @@
                                     android:background="@drawable/recruitment_phase_date_separator" />
 
                                 <TextView
+                                    android:id="@+id/tv_orientation_date"
                                     style="@style/TextAppearance.AppCompat.Small.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -304,6 +306,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/tv_interview_start"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -313,12 +316,13 @@
                                         android:textColor="@android:color/white" />
 
                                     <TextView
+                                        android:id="@+id/tv_interview_end"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="8dp"
                                         android:background="@android:color/holo_blue_light"
-                                        android:text="Oct 22"
+                                        android:text="Oct 25"
                                         android:textColor="@android:color/white" />
                                 </LinearLayout>
 
@@ -409,6 +413,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/tv_tp_start"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -418,12 +423,13 @@
                                         android:textColor="@android:color/white" />
 
                                     <TextView
+                                        android:id="@+id/tv_tp_end"
                                         style="@style/TextAppearance.AppCompat.Small.Inverse"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_margin="8dp"
                                         android:background="#97E"
-                                        android:text="February 1"
+                                        android:text="Nov 6"
                                         android:textColor="@android:color/white" />
                                 </LinearLayout>
 

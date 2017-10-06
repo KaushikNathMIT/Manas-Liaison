@@ -51,8 +51,10 @@ public class HomeActivity extends AppCompatActivity
     private LinearLayout linearLayout;
     private ImageView imageButtonEditNavHeader;
     private TextView tvNavHeaderName, tvNavHeaderEmailID, tvNavHeaderRegNumber;
+    private TextView tvInterviewStart, tvInterviewEnd, tvTpStart, tvTpEnd, tvOrientationDate;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         linkViews();
@@ -90,6 +92,7 @@ public class HomeActivity extends AppCompatActivity
             linearLayout.setVisibility(View.INVISIBLE);
         } else onNewDetailsFetched();
         getBackendlessDeviceToken();
+        getAndCacheRecruitmentDetails();
         //Log.d("crdential here ", getIntent().getStringExtra(ConstantsManas.ACCNAME));
         getData();
     }
@@ -165,6 +168,11 @@ public class HomeActivity extends AppCompatActivity
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
+                tvOrientationDate.setText(response.getOrientationDate());
+                tvInterviewStart.setText(response.getInterviewStartDate());
+                tvInterviewEnd.setText(response.getInterviewEndDate());
+                tvTpStart.setText(response.getTpStartDate());
+                tvTpEnd.setText(response.getTpEndDate());
                 phase = response.getPhase();
                 reScheduleCall = response.getReScheduleCall();
                 onlineChallengeDate = response.getOnlineChallengeDate().toString();
@@ -173,7 +181,7 @@ public class HomeActivity extends AppCompatActivity
                         .putString("reScheduleCall", reScheduleCall)
                         .putString("onlineChallengeDate", onlineChallengeDate)
                         .apply();
-                setCardStatus(phase);
+                //setCardStatus(phase);
             }
 
             @Override
@@ -220,6 +228,11 @@ public class HomeActivity extends AppCompatActivity
         tvNavHeaderName = (TextView) findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = (TextView) findViewById(R.id.tv_nav_header_email_id);
         tvNavHeaderRegNumber = (TextView) findViewById(R.id.tv_nav_header_reg_number);
+        tvInterviewStart = (TextView) findViewById(R.id.tv_interview_start);
+        tvInterviewEnd = (TextView) findViewById(R.id.tv_interview_end);
+        tvTpStart = (TextView) findViewById(R.id.tv_tp_start);
+        tvTpEnd = (TextView) findViewById(R.id.tv_tp_end);
+        tvOrientationDate = (TextView) findViewById(R.id.tv_orientation_date);
         imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,8 +359,6 @@ public class HomeActivity extends AppCompatActivity
         nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
         prevSelected = nSelected;
         nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
-
-        getAndCacheRecruitmentDetails();
     }
 
     public void onHomeItemSelected(View view) {
