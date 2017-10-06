@@ -37,13 +37,12 @@
                     android:padding="0dp">
 
                     <TextView
-                        android:id="@+id/tv_interview_stat1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_interview_div1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="@dimen/activity_horizontal_margin"
-                        android:text="PENDING"
                         android:textColor="@android:color/primary_text_dark" />
 
                     <FrameLayout
@@ -52,13 +51,12 @@
                         android:background="@color/colorPrimary" />
 
                     <TextView
-                        android:id="@+id/tv_interview_stat2"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_interview_div2"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="@dimen/activity_horizontal_margin"
-                        android:text="PENDING"
                         android:textColor="@android:color/primary_text_dark" />
                 </LinearLayout>
 

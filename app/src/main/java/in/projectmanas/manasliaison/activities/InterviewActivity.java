@@ -27,15 +27,12 @@ import android.widget.TextView;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
-import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.fragments.InterviewPendingFragment;
 import in.projectmanas.manasliaison.fragments.InterviewRejectedFragment;
 import in.projectmanas.manasliaison.fragments.InterviewResultPendingFragment;
@@ -51,7 +48,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private TextView tvInterviewStatus1, tvInterviewStatus2;
+    private TextView tvInterviewDiv1, tvInterviewDiv2;
     private SwipeRefreshLayout swipeRefreshLayout;
     private CoordinatorLayout coordinatorLayout;
 
@@ -120,28 +117,9 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         //tpStatus = sharedPreferences.getString("tpStatus", "tpStatus");
         prefDiv1 = sharedPreferences.getString("prefDiv1", "prefDiv1").toUpperCase();
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2").toUpperCase();
-        tvInterviewStatus1.setText(prefDiv1);
-        tvInterviewStatus2.setText(prefDiv2);
-        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
-        String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
-        queryBuilder.setWhereClause(whereClause);
-        UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
-            @Override
-            public void handleResponse(List<UserTable> response) {
-                UserTable userTable = response.get(0);
-                if (userTable.getPref1Confirm().equals("CONFIRMED")){
-                    tvInterviewStatus1.setText("CONFIRMED");
-                }
-                if(userTable.getPref2Confirm().equals("CONFIRMED")) {
-                    tvInterviewStatus2.setText("CONFIRMED");
-                }
-            }
+        tvInterviewDiv1.setText(prefDiv1);
+        tvInterviewDiv2.setText(prefDiv2);
 
-            @Override
-            public void handleFault(BackendlessFault fault) {
-
-            }
-        });
         addFragmentsToTabs();
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
@@ -213,8 +191,8 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         viewPager = (ViewPager) findViewById(R.id.interview_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.main_tab_layout);
 
-        tvInterviewStatus1 = (TextView) findViewById(R.id.tv_interview_stat1);
-        tvInterviewStatus2 = (TextView) findViewById(R.id.tv_interview_stat2);
+        tvInterviewDiv1 = (TextView) findViewById(R.id.tv_interview_div1);
+        tvInterviewDiv2 = (TextView) findViewById(R.id.tv_interview_div2);
     }
 
     @Override
@@ -266,7 +244,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
             }
         }
         if (!prefDiv1.equals(prefDiv2) && !prefDiv2.equals("")) {
-            tvInterviewStatus2.setVisibility(View.VISIBLE);
+            tvInterviewDiv2.setVisibility(View.VISIBLE);
 
             switch (interviewStatus2) {
                 case "ACCEPTED":
@@ -301,7 +279,7 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
 
             }
         } else {
-            tvInterviewStatus2.setVisibility(View.GONE);
+            tvInterviewDiv2.setVisibility(View.GONE);
         }
         final String[] titles = {interviewStatus1, interviewStatus2};
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

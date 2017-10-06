@@ -8,509 +8,520 @@
     tools:context="in.projectmanas.manasliaison.activities.HomeActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_home"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/ll_home"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <include layout="@layout/nav_header_main" />
-
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/ll_home"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/white" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/nav_online_challenge"
-                    android:layout_width="match_parent"
-                    android:layout_height="156dp"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/holo_red_light"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
+                    <include layout="@layout/nav_header_main" />
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="1dp"
+                        android:background="@android:color/white" />
 
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/online_challenge"
-                            android:tint="@android:color/primary_text_dark" />
+                    <FrameLayout
+                        android:id="@+id/nav_online_challenge"
+                        android:layout_width="match_parent"
+                        android:layout_height="156dp"
+                        android:layout_margin="0dp"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="center"
+                        android:onClick="onHomeItemSelected">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:text="Online Challenge"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_appl"
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="32"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Applicants"
-                                android:textColor="@android:color/white" />
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="0dp"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical">
-
-                            <FrameLayout
-                                android:layout_width="2dp"
+                            <ImageView
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
-                                android:layout_gravity="center"
-                                android:background="@drawable/recruitment_phase_date_separator" />
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/online_challenge"
+                                android:tint="@android:color/primary_text_dark" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
+                                android:layout_margin="8dp"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/textView2"
-                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="8dp"
-                                    android:background="@android:color/holo_red_light"
-                                    android:text="Sep 22"
+                                    android:gravity="center"
+                                    android:text="Online Challenge"
                                     android:textColor="@android:color/white" />
+
+                                <TextView
+                                    android:id="@+id/tv_stat_appl"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="32"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Applicants"
+                                    android:textColor="@android:color/white" />
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="0dp"
+                                android:layout_weight="1.5"
+                                android:orientation="vertical">
+
+                                <FrameLayout
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/recruitment_phase_date_separator" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/textView2"
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="@android:color/holo_red_light"
+                                        android:text="Sep 22"
+                                        android:textColor="@android:color/white" />
+
+                                    <TextView
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="@android:color/holo_red_light"
+                                        android:text="Oct 19"
+                                        android:textColor="@android:color/white" />
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/nav_orientation"
+                        android:layout_width="match_parent"
+                        android:layout_height="156dp"
+                        android:layout_margin="0dp"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="center"
+                        android:onClick="onHomeItemSelected">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="0dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/orientation"
+                                android:tint="@android:color/primary_text_dark" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:gravity="center"
+                                    android:text="Orientation"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    android:id="@+id/tv_stat_attendees"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="32"
+                                    android:textColor="@android:color/white"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Attendees"
+                                    android:textColor="@android:color/white"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.5"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <FrameLayout
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/recruitment_phase_date_separator" />
 
                                 <TextView
                                     style="@style/TextAppearance.AppCompat.Small.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:background="@android:color/holo_red_light"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/holo_green_light"
                                     android:text="Oct 19"
                                     android:textColor="@android:color/white" />
-                            </LinearLayout>
 
-                        </RelativeLayout>
+                            </FrameLayout>
 
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/nav_orientation"
-                    android:layout_width="match_parent"
-                    android:layout_height="156dp"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/holo_green_light"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/orientation"
-                            android:tint="@android:color/primary_text_dark" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:text="Orientation"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_attendees"
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="32"
-                                android:textColor="@android:color/white"
-                                android:visibility="gone" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Attendees"
-                                android:textColor="@android:color/white"
-                                android:visibility="gone" />
                         </LinearLayout>
 
-                        <FrameLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                    </FrameLayout>
 
-                            <FrameLayout
-                                android:layout_width="2dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:background="@drawable/recruitment_phase_date_separator" />
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Small.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@android:color/holo_green_light"
-                                android:text="Oct 19"
-                                android:textColor="@android:color/white" />
-
-                        </FrameLayout>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/nav_interview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/holo_blue_light"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
-
-                    <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/nav_interview"
                         android:layout_width="match_parent"
-                        android:layout_height="156dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="0dp"
+                        android:background="@android:color/holo_blue_light"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/interview"
-                            android:tint="@android:color/primary_text_dark" />
+                        android:onClick="onHomeItemSelected">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:text="Interviews"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_interview_conducted"
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="32"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Interviews Conducted"
-                                android:textColor="@android:color/white" />
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="156dp"
                             android:layout_margin="0dp"
-                            android:layout_weight="1.5"
-                            android:orientation="vertical">
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
 
-                            <FrameLayout
-                                android:layout_width="2dp"
+                            <ImageView
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
-                                android:layout_gravity="center"
-                                android:background="@drawable/recruitment_phase_date_separator" />
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/interview"
+                                android:tint="@android:color/primary_text_dark" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
+                                android:layout_margin="8dp"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="8dp"
-                                    android:background="@android:color/holo_blue_light"
-                                    android:text="Oct 20"
+                                    android:gravity="center"
+                                    android:text="Interviews"
                                     android:textColor="@android:color/white" />
 
                                 <TextView
-                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:id="@+id/tv_stat_interview_conducted"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:background="@android:color/holo_blue_light"
-                                    android:text="Oct 22"
+                                    android:text="32"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Interviews Conducted"
                                     android:textColor="@android:color/white" />
                             </LinearLayout>
 
-                        </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="0dp"
+                                android:layout_weight="1.5"
+                                android:orientation="vertical">
 
-                    </LinearLayout>
+                                <FrameLayout
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/recruitment_phase_date_separator" />
 
-                </FrameLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/nav_task_phase"
-                    android:layout_width="match_parent"
-                    android:layout_height="156dp"
-                    android:layout_margin="0dp"
-                    android:background="#97E"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
+                                    <TextView
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="@android:color/holo_blue_light"
+                                        android:text="Oct 20"
+                                        android:textColor="@android:color/white" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
+                                    <TextView
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="@android:color/holo_blue_light"
+                                        android:text="Oct 22"
+                                        android:textColor="@android:color/white" />
+                                </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/task_phase"
-                            android:tint="@android:color/primary_text_dark" />
+                            </RelativeLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="2"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:gravity="center"
-                                android:text="Task Phase"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:id="@+id/tv_stat_tp_sl"
-                                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="32"
-                                android:textColor="@android:color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Shortlisted"
-                                android:textColor="@android:color/white" />
                         </LinearLayout>
 
-                        <RelativeLayout
-                            android:layout_width="0dp"
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/nav_task_phase"
+                        android:layout_width="match_parent"
+                        android:layout_height="156dp"
+                        android:layout_margin="0dp"
+                        android:background="#97E"
+                        android:gravity="center"
+                        android:onClick="onHomeItemSelected">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="0dp"
-                            android:layout_weight="1.5"
-                            android:background="#97E"
-                            android:orientation="vertical">
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
 
-                            <FrameLayout
-                                android:layout_width="2dp"
+                            <ImageView
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
-                                android:layout_gravity="center"
-                                android:background="@drawable/recruitment_phase_date_separator" />
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/task_phase"
+                                android:tint="@android:color/primary_text_dark" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_centerHorizontal="true"
+                                android:layout_margin="8dp"
+                                android:layout_weight="2"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <TextView
-                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="8dp"
-                                    android:background="#97E"
-                                    android:text="Oct 25"
+                                    android:gravity="center"
+                                    android:text="Task Phase"
                                     android:textColor="@android:color/white" />
 
                                 <TextView
-                                    style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                    android:id="@+id/tv_stat_tp_sl"
+                                    style="@style/TextAppearance.AppCompat.Large.Inverse"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:background="#97E"
-                                    android:text="February 1"
+                                    android:text="32"
+                                    android:textColor="@android:color/white" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Shortlisted"
                                     android:textColor="@android:color/white" />
                             </LinearLayout>
 
-                        </RelativeLayout>
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="0dp"
+                                android:layout_weight="1.5"
+                                android:background="#97E"
+                                android:orientation="vertical">
 
-                    </LinearLayout>
+                                <FrameLayout
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/recruitment_phase_date_separator" />
 
-                </FrameLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/white" />
+                                    <TextView
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="#97E"
+                                        android:text="Oct 25"
+                                        android:textColor="@android:color/white" />
 
-                <FrameLayout
-                    android:id="@+id/nav_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="156dp"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/holo_orange_light"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
+                                    <TextView
+                                        style="@style/TextAppearance.AppCompat.Small.Inverse"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:background="#97E"
+                                        android:text="February 1"
+                                        android:textColor="@android:color/white" />
+                                </LinearLayout>
 
-                    <LinearLayout
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
+                        android:layout_height="1dp"
+                        android:background="@android:color/white" />
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/about" />
-
-                        <TextView
-                            style="@style/TextAppearance.AppCompat.Large.Inverse"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="3.5"
-                            android:gravity="center"
-                            android:text="About"
-                            android:textColor="@android:color/primary_text_light" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/nav_support"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/black"
-                    android:gravity="center"
-                    android:onClick="onHomeItemSelected">
-
-                    <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/nav_about"
                         android:layout_width="match_parent"
                         android:layout_height="156dp"
                         android:layout_margin="0dp"
+                        android:background="@android:color/holo_orange_light"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="0dp">
+                        android:onClick="onHomeItemSelected">
 
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/support"
-                            android:tint="@android:color/white" />
-
-                        <TextView
-                            style="@style/TextAppearance.AppCompat.Large.Inverse"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_margin="8dp"
-                            android:layout_weight="3.5"
+                            android:layout_margin="0dp"
                             android:gravity="center"
-                            android:text="Support" />
+                            android:orientation="horizontal"
+                            android:padding="0dp">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/about" />
 
-                </FrameLayout>
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Large.Inverse"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:layout_weight="3.5"
+                                android:gravity="center"
+                                android:text="About"
+                                android:textColor="@android:color/primary_text_light" />
 
-            </LinearLayout>
+                        </LinearLayout>
 
-        </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/nav_support"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:background="@android:color/black"
+                        android:gravity="center"
+                        android:onClick="onHomeItemSelected">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="156dp"
+                            android:layout_margin="0dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="0dp">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/support"
+                                android:tint="@android:color/white" />
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.Large.Inverse"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="8dp"
+                                android:layout_weight="3.5"
+                                android:gravity="center"
+                                android:text="Support" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/login_shader"
+            android:layout_height="32dp" />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
 

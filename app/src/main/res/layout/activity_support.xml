@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoLink="email"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="team_leader@projectmanas.in " />
@@ -34,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoLink="email"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="tech_head@projectmanas.in" />
@@ -44,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
+                android:autoLink="email"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="team_manager@projectmanas.in" />
@@ -60,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoLink="phone"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="+919920696953 (Sarthake Choudhary)" />
@@ -68,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoLink="phone"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="+919049328048 (Raj Nunes)" />
@@ -76,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:autoLink="phone"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="+919677222431 (Dhruva Pernaje)" />

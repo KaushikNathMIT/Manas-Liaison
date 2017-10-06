@@ -7,13 +7,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -213,13 +212,7 @@ public class HomeActivity extends AppCompatActivity
         tvNumberInterviewConducted = (TextView) findViewById(R.id.tv_stat_interview_conducted);
 //        tvNumSelected = (TextView) findViewById(R.id.tv_stat_selected);
         tvNumTPShortlisted = (TextView) findViewById(R.id.tv_stat_tp_sl);
-        imageButtonEditNavHeader = (ImageView) findViewById(R.id.ib_edit_profile);
-        imageButtonEditNavHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
-            }
-        });
+        imageButtonEditNavHeader = (ImageView) findViewById(R.id.nav_edit_profile);
         tvNavHeaderName = (TextView) findViewById(R.id.tv_nav_header_name);
         tvNavHeaderEmailID = (TextView) findViewById(R.id.tv_nav_header_email_id);
         tvNavHeaderRegNumber = (TextView) findViewById(R.id.tv_nav_header_reg_number);
@@ -253,17 +246,6 @@ public class HomeActivity extends AppCompatActivity
         });
 
     }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -301,7 +283,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void setDataToViews() {
         ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f);
-        animator.setDuration(1000);
+        animator.setInterpolator(new DecelerateInterpolator(.999f));
+        animator.setDuration(2000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -312,6 +295,7 @@ public class HomeActivity extends AppCompatActivity
 //                tvNumSelected.setText((int) (fraction * nSelected));
             }
         });
+        animator.setStartDelay(500);
         animator.start();
         tvNavHeaderEmailID.setText(emailID);
         tvNavHeaderName.setText(userName);
@@ -382,8 +366,11 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_task_phase:
                 startActivity(new Intent(HomeActivity.this, TaskPhaseActivity.class));
                 break;
-            case R.id.nav_profile:
+            case R.id.nav_edit_profile:
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+                break;
+            case R.id.ib_logout:
+                logout();
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
