@@ -171,17 +171,24 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
             } catch (Exception e) {
                 prefDiv2 = "";
             }
-            if (interviewStatus1.equals("SCHEDULED")) {
-                pref1Schedule = outputList.get(9).get(foundIndex).get(0);
-            } else {
-                pref1Schedule = "NOT SCHEDULED";
+            try {
+                if (interviewStatus1.equals("SCHEDULED")) {
+                    pref1Schedule = outputList.get(9).get(foundIndex).get(0);
+                } else {
+                    pref1Schedule = "NOT SCHEDULED";
+                }
+            } catch (Exception ignored) {
             }
-            if (interviewStatus2.equals("SCHEDULED")) {
-                pref2Schedule = outputList.get(10).get(foundIndex).get(0);
-            } else {
-                pref2Schedule = "NOT SCHEDULED";
-            }
+            try {
+                if (interviewStatus2.equals("SCHEDULED")) {
+                    pref2Schedule = outputList.get(10).get(foundIndex).get(0);
+                } else {
+                    pref2Schedule = "NOT SCHEDULED";
+                }
+            } catch (Exception ignored) {
 
+            }
+            /*
             ArrayList<ArrayList<String>> interviewStatus = outputList.get(1);
 
             for (ArrayList<String> arrayList : interviewStatus) {
@@ -207,6 +214,7 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
             numInterviewConducted = (interviewAcceptedCounter + rejectedCounter + maybeCounter) + "";
             numTPShortlisted = "" + interviewAcceptedCounter;
             numSelected = "" + selectedCounter;
+            */
         } catch (Exception e) {
 
         }
@@ -229,10 +237,10 @@ public class UpdateAllDetails extends AsyncTask<String, Void, ArrayList<ArrayLis
                 .putString("prefDiv2", prefDiv2)
                 .putString("pref1Schedule", pref1Schedule)
                 .putString("pref2Schedule", pref2Schedule)
-                .putString("numApplicants", numApplicants)
+                /*.putString("numApplicants", numApplicants)
                 .putString("numInterviewConducted", numInterviewConducted)
                 .putString("numTPShortlisted", numTPShortlisted)
-                .putString("numSelected", numSelected)
+                .putString("numSelected", numSelected)*/
                 .apply();
     }
 

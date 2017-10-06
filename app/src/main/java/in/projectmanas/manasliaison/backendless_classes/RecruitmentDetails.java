@@ -15,6 +15,12 @@ public class RecruitmentDetails {
     private Integer phase;
     private Date onlineChallengeDate;
     private String reScheduleCall;
+    private String interviewStartDate;
+    private String interviewEndDate;
+    private String orientationDate;
+    private String tpStartDate;
+    private String tpEndDate;
+    private String stats;
     private java.util.Date updated;
     private String objectId;
     private String ownerId;
@@ -106,5 +112,53 @@ public class RecruitmentDetails {
 
     public void setReScheduleCall(String reScheduleCall) {
         this.reScheduleCall = reScheduleCall;
+    }
+
+    public String getInterviewStartDate() {
+        return interviewStartDate;
+    }
+
+    public void setInterviewStartDate(String interviewStartDate) {
+        this.interviewStartDate = interviewStartDate;
+    }
+
+    public String getInterviewEndDate() {
+        return interviewEndDate;
+    }
+
+    public void setInterviewEndDate(String interviewEndDate) {
+        this.interviewEndDate = interviewEndDate;
+    }
+
+    public String getOrientationDate() {
+        return orientationDate;
+    }
+
+    public void setOrientationDate(String orientationDate) {
+        this.orientationDate = orientationDate;
+    }
+
+    public String getTpStartDate() {
+        return tpStartDate;
+    }
+
+    public void setTpStartDate(String tpStartDate) {
+        this.tpStartDate = tpStartDate;
+    }
+
+    public String getTpEndDate() {
+        return tpEndDate;
+    }
+
+    public void setTpEndDate(String tpEndDate) {
+        this.tpEndDate = tpEndDate;
+    }
+
+    public String getStats() {
+        return stats;
+    }
+
+    public void setStats(String stats) {
+        this.stats = stats;
     }
 }
