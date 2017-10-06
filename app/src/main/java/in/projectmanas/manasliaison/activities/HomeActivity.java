@@ -90,6 +90,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
+                getAndCacheRecruitmentDetails();
                 getData();
             }
         });
