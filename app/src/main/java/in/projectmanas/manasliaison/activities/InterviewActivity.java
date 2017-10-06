@@ -27,12 +27,15 @@ import android.widget.TextView;
 
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.projectmanas.manasliaison.App;
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.Sheet;
+import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.fragments.InterviewPendingFragment;
 import in.projectmanas.manasliaison.fragments.InterviewRejectedFragment;
 import in.projectmanas.manasliaison.fragments.InterviewResultPendingFragment;
@@ -119,7 +122,26 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2").toUpperCase();
         tvInterviewStatus1.setText(prefDiv1);
         tvInterviewStatus2.setText(prefDiv2);
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        String whereClause = "registrationNumber = " + sharedPreferences.getString("regNumber", "regNumber");
+        queryBuilder.setWhereClause(whereClause);
+        UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
+            @Override
+            public void handleResponse(List<UserTable> response) {
+                UserTable userTable = response.get(0);
+                if (userTable.getPref1Confirm().equals("CONFIRMED")){
+                    tvInterviewStatus1.setText("CONFIRMED");
+                }
+                if(userTable.getPref2Confirm().equals("CONFIRMED")) {
+                    tvInterviewStatus2.setText("CONFIRMED");
+                }
+            }
 
+            @Override
+            public void handleFault(BackendlessFault fault) {
+
+            }
+        });
         addFragmentsToTabs();
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
