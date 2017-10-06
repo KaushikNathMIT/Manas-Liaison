@@ -20,6 +20,7 @@ public class RecruitmentDetails {
     private String orientationDate;
     private String tpStartDate;
     private String tpEndDate;
+    private String stats;
     private java.util.Date updated;
     private String objectId;
     private String ownerId;
@@ -151,5 +152,13 @@ public class RecruitmentDetails {
 
     public void setTpEndDate(String tpEndDate) {
         this.tpEndDate = tpEndDate;
+    }
+
+    public String getStats() {
+        return stats;
+    }
+
+    public void setStats(String stats) {
+        this.stats = stats;
     }
 }

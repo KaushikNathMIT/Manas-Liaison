@@ -2,14 +2,12 @@ package in.projectmanas.manasliaison.activities;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,6 +23,7 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.projectmanas.manasliaison.App;
@@ -34,11 +33,13 @@ import in.projectmanas.manasliaison.backendless_classes.Sheet;
 import in.projectmanas.manasliaison.backendless_classes.UserTable;
 import in.projectmanas.manasliaison.constants.ConstantsManas;
 import in.projectmanas.manasliaison.listeners.DetailsUpdatedListener;
+import in.projectmanas.manasliaison.listeners.SheetDataFetchedListener;
+import in.projectmanas.manasliaison.tasks.ReadSpreadSheet;
 import in.projectmanas.manasliaison.tasks.UpdateAllDetails;
 import in.projectmanas.manasliaison.tasks.UpdateSchedule;
 
 public class HomeActivity extends AppCompatActivity
-        implements DetailsUpdatedListener {
+        implements DetailsUpdatedListener, SheetDataFetchedListener {
 
     private int phase, size;
     private CoordinatorLayout coordinatorLayout;
@@ -170,6 +171,9 @@ public class HomeActivity extends AppCompatActivity
         RecruitmentDetails.findFirstAsync(new AsyncCallback<RecruitmentDetails>() {
             @Override
             public void handleResponse(RecruitmentDetails response) {
+                ReadSpreadSheet readSpreadSheet = new ReadSpreadSheet(null, HomeActivity.this);
+                readSpreadSheet.delegate = HomeActivity.this;
+                readSpreadSheet.execute(response.getStats());
                 tvOrientationDate.setText(response.getOrientationDate());
                 tvInterviewStart.setText(response.getInterviewStartDate());
                 tvInterviewEnd.setText(response.getInterviewEndDate());
@@ -352,7 +356,7 @@ public class HomeActivity extends AppCompatActivity
         prefDiv2 = sharedPreferences.getString("prefDiv2", "prefDiv2");
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
-        */
+
         prevApplicants = nApplicants;
         nApplicants = getStat(sharedPreferences.getString("numApplicants", "numApplicants"));
         prevInterviewConducted = nInterviewConducted;
@@ -361,6 +365,7 @@ public class HomeActivity extends AppCompatActivity
         nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
         prevSelected = nSelected;
         nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
+        */
     }
 
     public void onHomeItemSelected(View view) {
@@ -394,7 +399,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 break;
             case R.id.ib_logout:
-                openLogoutAlert();
+                logout();
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(HomeActivity.this, AboutActivity.class));
@@ -405,25 +410,11 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    private void openLogoutAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        AlertDialog dialog = builder.setTitle("Logout")
-                .setIcon(R.drawable.logout)
-                .setMessage("Goodbye " + userName + ". Are you sure you want to logout?")
-                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        logout();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .create();
-        dialog.show();
-
+    @Override
+    public void onProcessFinish(ArrayList<ArrayList<ArrayList<String>>> outputList) {
+        nApplicants = getStat(outputList.get(0).get(0).get(0));
+        nInterviewConducted = getStat(outputList.get(0).get(0).get(2));
+        nTPShortlisted = getStat(outputList.get(0).get(0).get(3));
+        nSelected = getStat(outputList.get(0).get(0).get(4));
     }
 }
