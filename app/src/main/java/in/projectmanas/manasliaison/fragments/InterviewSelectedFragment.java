@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class InterviewSelectedFragment extends Fragment {
     private TextView tvLabelInterviewSelected;
     private List<UserTable> response;
     private View ivConfetti;
+    private ProgressBar progressBar;
 
     public InterviewSelectedFragment() {
         // Required empty public constructor
@@ -99,6 +101,8 @@ public class InterviewSelectedFragment extends Fragment {
         reject = view.findViewById(R.id.button_selected_reject);
         ivConfetti = view.findViewById(R.id.iv_confetti);
         tvLabelInterviewSelected = view.findViewById(R.id.tv_label_interview_selected);
+        progressBar = view.findViewById(R.id.pb_interview_selected);
+        progressBar.setVisibility(View.INVISIBLE);
         tvLabelInterviewSelected.setVisibility(View.INVISIBLE);
         accept.setVisibility(View.INVISIBLE);
         reject.setVisibility(View.INVISIBLE);
@@ -114,6 +118,7 @@ public class InterviewSelectedFragment extends Fragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 accept.setClickable(false);
                 reject.setClickable(false);
                 if (status1.equals("ACCEPTED") && status2.equals("ACCEPTED")) {
@@ -142,6 +147,7 @@ public class InterviewSelectedFragment extends Fragment {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 accept.setClickable(false);
                 reject.setClickable(false);
                 saveAcceptance(false);
@@ -166,13 +172,14 @@ public class InterviewSelectedFragment extends Fragment {
                         tvLabelInterviewSelected.setText("We have already recorded your response");
                         accept.setVisibility(View.INVISIBLE);
                         reject.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
                         accept.setClickable(true);
                         reject.setClickable(true);
-                        Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG);
+                        Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -181,7 +188,7 @@ public class InterviewSelectedFragment extends Fragment {
             public void handleFault(BackendlessFault fault) {
                 accept.setClickable(true);
                 reject.setClickable(true);
-                Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
