@@ -12,7 +12,7 @@ import android.widget.TextView;
 import in.projectmanas.manasliaison.R;
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView tvMission, tvVision;
+    private TextView tvVision;
     private ImageButton fb, gplus, youtube, twitter;
 
     @Override
@@ -33,7 +33,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private void linkViews() {
         setContentView(R.layout.activity_about);
         tvVision = (TextView) findViewById(R.id.tv_vision);
-        tvMission = (TextView) findViewById(R.id.tv_mission);
         fb = (ImageButton) findViewById(R.id.ib_fb);
         gplus = (ImageButton) findViewById(R.id.ib_gplus);
         youtube = (ImageButton) findViewById(R.id.ib_yt);

@@ -51,8 +51,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_vision"
+                    android:layout_margin="4dp"
                     android:gravity="center"
-                    android:text="We envision India employing and making the best of automated systems in the near future with a drastic reduction in road accidents, relief from traffic problems, speedy emergency services, lesser military casualties and an overall improvement in the quality of lives."
+                    android:text="To inspire advanced research in Artificial Intelligence and oversee its implementation enabling automated systems to be made available to the general populous."
                     android:textSize="15sp" />
 
                 <TextView
@@ -75,14 +76,105 @@
                     android:layout_marginBottom="10dp"
                     android:background="@color/colorAccent" />
 
-                <TextView
-                    android:id="@+id/tv_mission"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_mission"
-                    android:gravity="center"
-                    android:text="Our greatest aspiration is to not only transform the face of Indian Automobile Industry by developing an autonomous drive system for vehicles optimized for Indian road and traffic conditions but inspire advanced research in Artificial Intelligence and lead the way in its implementation enabling automated systems to be made available to the general population."
-                    android:textSize="15sp" />
+                    android:gravity="left"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text=" • "
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Excellence in the field of AI Robotics"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text=" • "
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Establishment of a state-of-the-art AI Robotics research centre in India."
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text=" • "
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Upliftment of the student community by creating fully capable all-round individuals with a diverse set of skills in the fields of technology, research and management."
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text=" • "
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Contribution to the Open Source community by helping with testing of different components of the libraries and also updating their code base to fix bugs."
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="\n"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
 

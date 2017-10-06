@@ -38,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_iv_status_pending"
                 android:gravity="center"
-                android:text="Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human\n
-Don't worry, we will send you a notification in advance" />
+                android:text="Our bots are busy at work scheduling your interview, take it easy on them, they aren’t human.\n
+Don't worry, we will send you a notification in advance." />
         </RelativeLayout>
     </LinearLayout>
 

@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,6 +39,7 @@ public class HomeActivity extends AppCompatActivity
     private TextView tvNumberApplicants, tvNumberInterviewConducted, tvNumTPShortlisted/*, tvNumSelected*/;
     private String regNumber, userName, emailID;
     private int nInterviewConducted, nTPShortlisted, nApplicants, nSelected;
+    private int prevInterviewConducted, prevTPShortlisted, prevApplicants, prevSelected;
     private String deviceToken;
     private String reScheduleCall;
     private String onlineChallengeDate;
@@ -196,17 +195,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -247,9 +235,9 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float fraction = valueAnimator.getAnimatedFraction();
-                tvNumberApplicants.setText(String.valueOf((int) (fraction * nApplicants)));
-                tvNumberInterviewConducted.setText(String.valueOf((int) (fraction * nInterviewConducted)));
-                tvNumTPShortlisted.setText(String.valueOf((int) (fraction * nTPShortlisted)));
+                tvNumberApplicants.setText(String.valueOf((int) ((1 - fraction) * prevApplicants + fraction * nApplicants)));
+                tvNumberInterviewConducted.setText(String.valueOf((int) ((1 - fraction) * prevInterviewConducted + fraction * nInterviewConducted)));
+                tvNumTPShortlisted.setText(String.valueOf((int) ((1 - fraction) * prevTPShortlisted + fraction * nTPShortlisted)));
 //                tvNumSelected.setText((int) (fraction * nSelected));
             }
         });
@@ -284,9 +272,13 @@ public class HomeActivity extends AppCompatActivity
         pref1Schedule = sharedPreferences.getString("pref1Schedule", "pref1Schedule");
         pref2Schedule = sharedPreferences.getString("pref2Schedule", "pref2Schedule");
         */
+        prevApplicants = nApplicants;
         nApplicants = getStat(sharedPreferences.getString("numApplicants", "numApplicants"));
+        prevInterviewConducted = nInterviewConducted;
         nInterviewConducted = getStat(sharedPreferences.getString("numInterviewConducted", "numInterviewConducted"));
+        prevTPShortlisted = nTPShortlisted;
         nTPShortlisted = getStat(sharedPreferences.getString("numTPShortlisted", "numTPShortlisted"));
+        prevSelected = nSelected;
         nSelected = getStat(sharedPreferences.getString("numSelected", "numSelected"));
 
         getAndCacheRecruitmentDetails();
