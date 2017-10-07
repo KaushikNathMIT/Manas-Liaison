@@ -1,9 +1,7 @@
 package in.projectmanas.manasliaison.activities;
 
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -60,7 +58,7 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-                        Toast.makeText(getApplicationContext(), fault.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Please connect to internet", Toast.LENGTH_LONG).show();
                     }
                 });
             }

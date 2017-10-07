@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity
                     userTable.saveAsync(new AsyncCallback<UserTable>() {
                         @Override
                         public void handleResponse(UserTable response) {
-                            Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG);
+                            Snackbar.make(coordinatorLayout, "User added", Snackbar.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -431,5 +431,6 @@ public class HomeActivity extends AppCompatActivity
         nInterviewConducted = getStat(outputList.get(0).get(2).get(0));
         nTPShortlisted = getStat(outputList.get(0).get(3).get(0));
         nSelected = getStat(outputList.get(0).get(4).get(0));
+        setDataToViews();
     }
 }
