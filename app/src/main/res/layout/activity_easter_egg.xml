@@ -16,12 +16,21 @@
         android:textSize="48sp"
         android:visibility="invisible" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-130dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/pm_logo_250x250" />
+
     <TextView
         android:id="@+id/easter_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:gravity="center"
+        android:rotation="180"
         android:text="@string/easter_teaser"
         android:textColor="@android:color/white" />
 </RelativeLayout>

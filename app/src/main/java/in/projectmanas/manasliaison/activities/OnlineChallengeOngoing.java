@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
+import java.util.Date;
+
 import in.projectmanas.manasliaison.R;
 import in.projectmanas.manasliaison.backendless_classes.Links;
 import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
@@ -24,7 +26,6 @@ import in.projectmanas.manasliaison.backendless_classes.RecruitmentDetails;
 public class OnlineChallengeOngoing extends AppCompatActivity {
     private Button onlineChallengeRedirectButton;
     private TextView tvOLDaysRemaining;
-    private TextView tvLabelOLDaysRemaining;
     private CoordinatorLayout coordinatorLayout;
     private View pbOLDaysRemaining;
 
@@ -36,12 +37,9 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
             @Override
             public void handleResponse(RecruitmentDetails response) {
                 pbOLDaysRemaining.setVisibility(View.INVISIBLE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    tvOLDaysRemaining.setText((response.getOnlineChallengeDate().getTime() - Calendar.getInstance().getTime().getTime()) / ((24 * 60 * 60 * 1000)) + "");
-                } else {
-                    tvOLDaysRemaining.setText(response.getOnlineChallengeDate().toString());
-                    tvLabelOLDaysRemaining.setText("Deadline Till");
-                }
+                tvOLDaysRemaining.setText(String.valueOf(
+                        (response.getOnlineChallengeDate().getTime() - new Date().getTime()) / ((24 * 60 * 60 * 1000))
+                ));
             }
 
             @Override
@@ -76,7 +74,6 @@ public class OnlineChallengeOngoing extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         pbOLDaysRemaining = findViewById(R.id.pb_online_challenge);
         tvOLDaysRemaining = (TextView) findViewById(R.id.tv_ol_days_remaining);
-        tvLabelOLDaysRemaining = (TextView) findViewById(R.id.tv_label_days_countdown);
     }
 
     @Override
