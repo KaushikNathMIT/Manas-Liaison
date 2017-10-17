@@ -301,30 +301,34 @@ public class InterviewActivity extends AppCompatActivity implements DetailsUpdat
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
             public void handleResponse(List<UserTable> response) {
-                UserTable userTable = response.get(0);
-                if (userTable.getPref1Confirm().equals("CONFIRMED")) {
-                    interviewStatus1 = "CONFIRMED";
-                }
-                if (userTable.getPref2Confirm().equals("CONFIRMED")) {
-                    interviewStatus2 = "CONFIRMED";
-                }
-                final String[] titles = {interviewStatus1, interviewStatus2};
-                viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-                    @Override
-                    public Fragment getItem(int position) {
-                        return fragments.get(position);
+                if (response.size() > 0) {
+                    UserTable userTable = response.get(0);
+                    if (userTable.getPref1Confirm().equals("CONFIRMED")) {
+                        interviewStatus1 = "CONFIRMED";
                     }
+                    if (userTable.getPref2Confirm().equals("CONFIRMED")) {
+                        interviewStatus2 = "CONFIRMED";
+                    }
+                    final String[] titles = {interviewStatus1, interviewStatus2};
+                    viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+                        @Override
+                        public Fragment getItem(int position) {
+                            return fragments.get(position);
+                        }
 
-                    @Override
-                    public int getCount() {
-                        return fragments.size();
-                    }
+                        @Override
+                        public int getCount() {
+                            return fragments.size();
+                        }
 
-                    @Override
-                    public CharSequence getPageTitle(int position) {
-                        return titles[position];
-                    }
-                });
+                        @Override
+                        public CharSequence getPageTitle(int position) {
+                            return titles[position];
+                        }
+                    });
+                } else {
+                    Snackbar.make(coordinatorLayout, "Please fill your registration number in the form. If filled, logout and login again", Snackbar.LENGTH_INDEFINITE).show();
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
 

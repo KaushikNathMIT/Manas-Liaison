@@ -36,31 +36,33 @@ public class UpdateSchedule extends AsyncTask<Void, Void, Void> {
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
             public void handleResponse(List<UserTable> response) {
-                switch (notifySection) {
-                    case "pref1Confirm":
-                        response.get(0).setPref1Confirm("NOTIFIED");
-                        break;
-                    case "pref2Confirm":
-                        response.get(0).setPref2Confirm("NOTIFIED");
-                        break;
-                    case "div1":
-                        response.get(0).setDiv1("NOTIFIED");
-                        break;
-                    case "div2":
-                        response.get(0).setDiv2("NOTIFIED");
-                        break;
-                }
-                response.get(0).saveAsync(new AsyncCallback<UserTable>() {
-                    @Override
-                    public void handleResponse(UserTable response) {
-                        Log.d("status", "Schedule updated to notified");
+                if (response.size() > 0) {
+                    switch (notifySection) {
+                        case "pref1Confirm":
+                            response.get(0).setPref1Confirm("NOTIFIED");
+                            break;
+                        case "pref2Confirm":
+                            response.get(0).setPref2Confirm("NOTIFIED");
+                            break;
+                        case "div1":
+                            response.get(0).setDiv1("NOTIFIED");
+                            break;
+                        case "div2":
+                            response.get(0).setDiv2("NOTIFIED");
+                            break;
                     }
+                    response.get(0).saveAsync(new AsyncCallback<UserTable>() {
+                        @Override
+                        public void handleResponse(UserTable response) {
+                            Log.d("status", "Schedule updated to notified");
+                        }
 
-                    @Override
-                    public void handleFault(BackendlessFault fault) {
-                        Log.e("status", fault.getMessage());
-                    }
-                });
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            Log.e("status", fault.getMessage());
+                        }
+                    });
+                }
             }
 
             @Override

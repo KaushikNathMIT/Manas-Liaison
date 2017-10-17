@@ -162,27 +162,29 @@ public class InterviewSelectedFragment extends Fragment {
         UserTable.findAsync(queryBuilder, new AsyncCallback<List<UserTable>>() {
             @Override
             public void handleResponse(List<UserTable> response) {
-                Log.d("received", response.get(0).getRegistrationNumber());
-                if (divIndex == 1) response.get(0).setDiv1(option ? "TRUE" : "FALSE");
-                else response.get(0).setDiv2(option ? "TRUE" : "FALSE");
-                response.get(0).saveAsync(new AsyncCallback<UserTable>() {
-                    @Override
-                    public void handleResponse(UserTable response) {
-                        Toast.makeText(context.getApplicationContext(), "Your response has been saved", Toast.LENGTH_LONG).show();
-                        tvLabelInterviewSelected.setText("We have already recorded your response");
-                        accept.setVisibility(View.INVISIBLE);
-                        reject.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
+                if (response.size() > 0) {
+                    Log.d("received", response.get(0).getRegistrationNumber());
+                    if (divIndex == 1) response.get(0).setDiv1(option ? "TRUE" : "FALSE");
+                    else response.get(0).setDiv2(option ? "TRUE" : "FALSE");
+                    response.get(0).saveAsync(new AsyncCallback<UserTable>() {
+                        @Override
+                        public void handleResponse(UserTable response) {
+                            Toast.makeText(context.getApplicationContext(), "Your response has been saved", Toast.LENGTH_LONG).show();
+                            tvLabelInterviewSelected.setText("We have already recorded your response");
+                            accept.setVisibility(View.INVISIBLE);
+                            reject.setVisibility(View.INVISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
 
-                    @Override
-                    public void handleFault(BackendlessFault fault) {
-                        accept.setClickable(true);
-                        reject.setClickable(true);
-                        Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                });
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+                            accept.setClickable(true);
+                            reject.setClickable(true);
+                            Toast.makeText(getContext(), fault.getMessage(), Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                }
             }
 
             @Override

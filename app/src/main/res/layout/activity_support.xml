@@ -69,6 +69,7 @@
                 android:text="+919920696953 (Sarthake Choudhary)" />
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,7 +85,7 @@
                 android:autoLink="phone"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="+919677222431 (Dhruva Pernaje)" />
+                android:text="+919963042902 (Vignesh Iyer)" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -26,6 +26,9 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import in.projectmanas.manasliaison.App;
@@ -202,7 +205,11 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void getBackendlessDeviceToken() {
-        Backendless.Messaging.registerDevice(ConstantsManas.gcmId);
+        List<String> channels = Arrays.asList("default");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 3);
+        Date result = cal.getTime();
+        Backendless.Messaging.registerDevice(ConstantsManas.gcmId, channels, result);
         Backendless.Messaging.getDeviceRegistration(new AsyncCallback<DeviceRegistration>() {
             @Override
             public void handleResponse(DeviceRegistration response) {
@@ -372,7 +379,7 @@ public class HomeActivity extends AppCompatActivity
                 else if (phase == 1)
                     startActivity(new Intent(HomeActivity.this, OnlineChallengeOngoing.class));
                 else {
-                    Snackbar.make(coordinatorLayout, "Online Challenge is over", Snackbar.LENGTH_LONG);
+                    Snackbar.make(coordinatorLayout, "Online Challenge is over", Snackbar.LENGTH_LONG).show();
                 }
                 break;
             case R.id.nav_orientation:
